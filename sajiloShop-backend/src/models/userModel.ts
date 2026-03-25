@@ -1,9 +1,8 @@
 import sequelize from "../config/db";  
-import { DataTypes , Model ,InferAttributes , InferCreationAttributes } from 'sequelize';
-
-
+import { DataTypes , Model ,InferAttributes , InferCreationAttributes, CreateOptions } from 'sequelize';
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+  declare id: CreateOptions<number>;
     declare userName : string;
     declare email: string;
     declare password: string;
@@ -12,11 +11,16 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
 User.init(
   {
     // Model attributes are defined here
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+         primaryKey: true
+    },
     userName: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
-      primaryKey: true
+     
         },
     email: {
       type: DataTypes.STRING,
@@ -26,7 +30,6 @@ User.init(
          isEmail: true,    
       }
     },
-    
     password: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -34,7 +37,9 @@ User.init(
   },
   {
    
-    sequelize, // We need to pass the connection instance
-    modelName: 'User', // We need to choose the model name
+    sequelize, 
+    modelName: 'User', 
+    timestamps: true,
+    tableName: 'users'
   },
 );

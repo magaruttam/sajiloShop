@@ -6,7 +6,7 @@ const sequelize: Sequelize = new Sequelize(
   process.env.DB_PASSWORD!,
   {
     host: process.env.DB_HOST,
-    dialect: process.env.DB_DIALECT as Dialect,
+    dialect: "mysql",
   },
 );
 
@@ -19,4 +19,4 @@ async function connectDB() {
   }
 }
 export default sequelize;
-export {connectDB };
+export { connectDB };
