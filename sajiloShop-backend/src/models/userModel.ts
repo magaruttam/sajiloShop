@@ -3,7 +3,7 @@ import sequelize from "../config/db";
 import { DataTypes, Model, InferAttributes, InferCreationAttributes, CreateOptions } from 'sequelize';
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
-  declare id: CreateOptions<number>;
+  declare id?: CreateOptions<number>;
   declare userName: string;
   declare email: string;
   declare password: string;
