@@ -1,6 +1,12 @@
 import { defaultMaxListeners } from "node:events";
 import sequelize from "../config/db";
-import { DataTypes, Model, InferAttributes, InferCreationAttributes, CreateOptions } from 'sequelize';
+import {
+  DataTypes,
+  Model,
+  InferAttributes,
+  InferCreationAttributes,
+  CreateOptions,
+} from "sequelize";
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare id?: CreateOptions<number>;
@@ -15,21 +21,18 @@ User.init(
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
-      primaryKey: true
+      primaryKey: true,
     },
     userName: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
-
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
       validate: {
         isEmail: true,
-      }
+      },
     },
     password: {
       type: DataTypes.STRING,
@@ -37,13 +40,15 @@ User.init(
     },
   },
   {
-
     sequelize,
-    modelName: 'User',
+    modelName: "User",
     timestamps: true,
-    tableName: 'users'
+    tableName: "users",
+    indexes: [
+      { unique: true, fields: ["userName"] }, // add unique here instead
+      { unique: true, fields: ["email"] }, // add unique here instead
+    ],
   },
 );
-
 
 export default User;
