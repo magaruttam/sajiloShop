@@ -8,7 +8,7 @@ const app: Application = express();
 app.use(express.json());
 app.use(cookieParser());
 
-User.sync({ alter: true });
+User.sync();
 
 
 app.use('/api/auth', registerRouter);
