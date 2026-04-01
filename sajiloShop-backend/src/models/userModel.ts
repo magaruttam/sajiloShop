@@ -1,15 +1,14 @@
-import { defaultMaxListeners } from "node:events";
 import sequelize from "../config/db";
 import {
   DataTypes,
   Model,
   InferAttributes,
   InferCreationAttributes,
-  CreateOptions,
+  CreationOptional
 } from "sequelize";
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
-  declare id?: CreateOptions<number>;
+  declare id: CreationOptional<number>;
   declare userName: string;
   declare email: string;
   declare password: string;
