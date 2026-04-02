@@ -7,11 +7,13 @@ import {
   CreationOptional
 } from "sequelize";
 
+export type UserRole = "admin" | "user" | "vendor";
+
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare id: CreationOptional<number>;
-  declare userName: string;
   declare email: string;
   declare password: string;
+  declare role: UserRole;
 }
 
 User.init(
@@ -21,10 +23,6 @@ User.init(
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
-    },
-    userName: {
-      type: DataTypes.STRING,
-      allowNull: false,
     },
     email: {
       type: DataTypes.STRING,
@@ -37,6 +35,11 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    role: {
+      type: DataTypes.ENUM(...["admin", "user", "vendor"] as const),
+      allowNull: false,
+      defaultValue: "user",
+    }
   },
   {
     sequelize,

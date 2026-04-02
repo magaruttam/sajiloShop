@@ -3,32 +3,28 @@ import User from "../models/userModel";
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { UserRole } from "../models/userModel";
 
 const registerUser = async (req: Request, res: Response) => {
   try {
-    const { userName, email, password } = req.body;
+    const { email, password,role } = req.body;
 
     const existingUser = await User.findOne({
-      where: {
-        [Op.or]: [{ userName: userName }, { email: email }],
-      },
+      where: 
+         { email: email },
+      
     });
 
     if (existingUser) {
-      if (existingUser.email === email) {
-        return res.status(409).json({ message: "email already exist" });
-      }
-      if (existingUser.userName === userName) {
-        return res.status(409).json({ message: "username already exist" });
-      }
+      return res.status(409).json({ message: "email already exist" });
     }
 
     //Hash Password
     const hashPassword = await bcrypt.hash(password, 10);
 
     const newUser = await User.create({
-      userName,
       email,
+      role: role as UserRole,
       password: hashPassword,
     });
 
@@ -50,21 +46,11 @@ const registerUser = async (req: Request, res: Response) => {
 
 const loginUser = async (req: Request, res: Response) => {
   try {
-    const {userName, email, password} = req.body;
+    const { email, password} = req.body;
 
-    const condition = [];
-    if (userName){
-      condition.push({userName});
-    }
-    if (email){
-      condition.push({email});
-    }
-      if (condition.length === 0){
-        return res.status(400).json({messsage: "Please provide either username or email"})
-      }
     const user = await User.findOne({
       where: {
-        [Op.or]: condition
+        email: email
       }
     })
 
