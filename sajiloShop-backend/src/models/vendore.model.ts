@@ -9,7 +9,8 @@ class Vendor extends Model<InferAttributes<Vendor>, InferCreationAttributes<Vend
  declare userId: number;
  declare status: VendorStatus;
  declare commission_rate: string;
- declare balance: string;
+ declare balance?: string;
+ declare shopName: string;
 }
 
 Vendor.init({
@@ -35,6 +36,10 @@ balance: {
     type: DataTypes.DECIMAL(10, 2),
     allowNull: false,
     defaultValue: "0.00"
+},
+shopName: {
+    type: DataTypes.STRING,
+    allowNull: false,
 }
 
 

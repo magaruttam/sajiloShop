@@ -38,7 +38,7 @@ User.init(
     role: {
       type: DataTypes.ENUM(...["admin", "user", "vendor"] as const),
       allowNull: false,
-      defaultValue: "user",
+      defaultValue: "user", 
     }
   },
   {
@@ -47,7 +47,6 @@ User.init(
     timestamps: true,
     tableName: "users",
     indexes: [
-      { unique: true, fields: ["userName"] }, // add unique here instead
       { unique: true, fields: ["email"] }, // add unique here instead
     ],
   },

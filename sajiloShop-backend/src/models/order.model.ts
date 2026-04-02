@@ -62,3 +62,5 @@ Order.init({
     indexes: [{ fields: ["userId"] }, { fields: ["orderStatus"] }],
 }
 )
+
+export default Order;
