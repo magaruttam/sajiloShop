@@ -4,7 +4,7 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { UserRole } from "../models/userModel";
-import Vendor from "../models/vendor.model";
+import Vendor from "../models/vendore.model";
 
 const registerUser = async (req: Request, res: Response) => {
   try {
