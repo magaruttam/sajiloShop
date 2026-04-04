@@ -49,8 +49,13 @@ const registerUser = async (req: Request, res: Response) => {
         email: email,
         role: role
       } });
-  } catch (error: any) {
-    return res.status(500).json({ error: error.message });
+ } catch (error: unknown) {
+    if (error instanceof Error){
+       console.error("Error",error.message);
+    }else{
+      console.error("Unknown Error",error)
+    }
+    return res.status(500).json({ message: "Internal Server Error"});
   }
 };
 
@@ -83,8 +88,13 @@ const loginUser = async (req: Request, res: Response) => {
     res.cookie("token", token);
     return res.status(200).json({ message: "Login successful", user: user });
 
-  } catch (error: any) {
-    return res.status(500).json({ error: error.message });
+  } catch (error: unknown) {
+    if (error instanceof Error){
+       console.error("Error",error.message);
+    }else{
+      console.error("Unknown Error",error)
+    }
+    return res.status(500).json({ message: "Internal Server Error"});
   }
 };
 

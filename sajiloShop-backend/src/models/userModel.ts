@@ -4,7 +4,7 @@ import {
   Model,
   InferAttributes,
   InferCreationAttributes,
-  CreationOptional
+  CreationOptional,
 } from "sequelize";
 
 export type UserRole = "admin" | "user" | "vendor";
@@ -36,10 +36,10 @@ User.init(
       allowNull: false,
     },
     role: {
-      type: DataTypes.ENUM(...["admin", "user", "vendor"] as const),
+      type: DataTypes.ENUM(...(["admin", "user", "vendor"] as const)),
       allowNull: false,
-      defaultValue: "user", 
-    }
+      defaultValue: "user",
+    },
   },
   {
     sequelize,

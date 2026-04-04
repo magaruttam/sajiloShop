@@ -1,7 +1,7 @@
-import ImageKit, { toFile } from '@imagekit/nodejs';
+import ImageKit, { toFile } from "@imagekit/nodejs";
 
 const imagekit = new ImageKit({
-    privateKey: process.env.IMAGEKIT_PRIVATE_KEY
+  privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
 });
 
 /**
@@ -11,20 +11,20 @@ const imagekit = new ImageKit({
  * @param folder  - destination folder in ImageKit e.g. "/products"
  */
 export const uploadToImageKit = async (
-    buffer: Buffer,
-    fileName: string,
-    folder: string = "/"
+  buffer: Buffer,
+  fileName: string,
+  folder: string = "/",
 ) => {
-    try {
-        const response = await imagekit.files.upload({
-            file: await toFile(buffer, fileName),
-            fileName: fileName,
-            folder: folder,
-        });
-        return response; // contains response.url — the live image URL
-    } catch (err) {
-        throw err;
-    }
+  try {
+    const response = await imagekit.files.upload({
+      file: await toFile(buffer, fileName),
+      fileName: fileName,
+      folder: folder,
+    });
+    return response; // contains response.url — the live image URL
+  } catch (err) {
+    throw err;
+  }
 };
 
 export default imagekit;
