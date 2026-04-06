@@ -1,12 +1,29 @@
-<div class="max-w-[1300px] mx-auto px-8">
-  <h1 class="text-[#002045] text-2xl font-extrabold mb-14">Trending in Nepal</h1>
-  <!-- Categories Items -->
-  <div class="bg-[#FFFFFF] grid grid-cols-8 gap-0">
-    @for (item of [1,2,4,5,6,7,8,9,10,11,12,13,14,15,16,17]; track item){
-    <div class="bg-neutral-primary-soft  max-w-[139px] p-6 border border-default flex-col gap-2 rounded-base shadow-xs">
-        <img class="rounded-base mb-4" src="/images/monitors.png" alt="Category Image" />
-    <p class="text-center">Monitors</p>
-</div>
+<section class="mx-auto max-w-[1300px] px-8 pt-7">
+  <h2 class="text-[#002045] text-2xl font-extrabold mb-10 tracking-tight">Trending Products</h2>
+
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-1">
+    @for (product of trendingProducts; track product.id) {
+    <div class="flex flex-col group cursor-pointer max-w-[200px]">
+      <div class="relative overflow-hidden rounded-[1.5rem] aspect-square bg-gray-50 shadow-sm border border-black/5">
+        @if (product.badge) {
+        <span
+          class="absolute top-4 left-4 bg-[#0f4d4a] text-white text-[9px] font-bold px-2.5 py-1.2 rounded-full z-10 uppercase tracking-widest shadow-md">
+          {{ product.badge }}
+        </span>
+        }
+        <img [src]="product.image" [alt]="product.title"
+          class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
+      </div>
+      <div class="mt-4 px-1">
+        <h3 class="text-[#002045] font-extrabold text-[1.1rem] leading-tight tracking-tight">
+          {{ product.title }}
+        </h3>
+        <p class="text-[#0f4d4a] font-bold mt-2 text-base flex items-center gap-1">
+          <span class="text-[0.85em] opacity-90 uppercase">NPR</span>
+          <span>{{ product.price }}</span>
+        </p>
+      </div>
+    </div>
     }
   </div>
-</div>
+</section>

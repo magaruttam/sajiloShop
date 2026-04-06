@@ -7,5 +7,27 @@ import { Component } from '@angular/core';
   styleUrl: './trending-in-nepal-section.scss',
 })
 export class TrendinginNepalSection {
+  trendingProducts = [
+    {
+      id: 1,
+      title: 'Organic Cotton Script Tee',
+      price: '1,850',
+      image: '/images/tree.webp',
+      badge: 'NEW ARRIVAL'
+    },
+    {
+      id: 2,
+      title: 'Hammered Copper Vessel',
+      price: '2,400',
+      image: '/images/bottle.webp'
+    },
+    {
+      id: 3,
+      title: 'Brass Panas Pair',
+      price: '4,500',
+      image: '/images/tea.webp'
+    }
 
+  ];
 }
+
