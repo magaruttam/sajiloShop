@@ -1,0 +1,21 @@
+<div class="container mx-auto max-w-[1300px] px-8">
+  <!-- Hero Section Swiper -->
+  <swiper-container #swiperEl init="false">
+    @for (image of heroSectionImages; track image.src) {
+      <swiper-slide lazy="true">
+        <picture>
+          <!-- AVIF first (modern browsers) -->
+          <source [srcset]="image.src" type="image/avif" />
+          <!-- Fallback JPG for older browsers -->
+          <img
+            [src]="image.src.replace('.avif', '.jpg')"
+            [alt]="image.alt"
+            loading="lazy"
+            width="400"
+            height="300"
+          />
+        </picture>
+      </swiper-slide>
+    }
+  </swiper-container>
+</div>
