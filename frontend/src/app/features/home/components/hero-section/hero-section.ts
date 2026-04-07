@@ -1,5 +1,7 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef } from '@angular/core';
+
 
 @Component({
   selector: 'app-hero-section',
@@ -10,6 +12,8 @@ import { CommonModule } from '@angular/common';
 })
 export class HeroSection implements AfterViewInit {
   @ViewChild('swiperEl') swiperEl!: ElementRef;
+
+constructor(private cdr: ChangeDetectorRef) {}
 
   heroSectionImages = [{
     src: '/images/hero-section-1.avif',
@@ -48,5 +52,6 @@ export class HeroSection implements AfterViewInit {
 
     Object.assign(swiperContainer, params);
     swiperContainer.initialize();
+    this.cdr.detectChanges();
   }
 }

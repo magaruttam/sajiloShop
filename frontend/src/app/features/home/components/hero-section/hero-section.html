@@ -2,7 +2,7 @@
   <!-- Hero Section Swiper -->
   <swiper-container #swiperEl init="false">
     @for (image of heroSectionImages; track image.src) {
-      <swiper-slide lazy="true">
+      <swiper-slide>
         <picture>
           <!-- AVIF first (modern browsers) -->
           <source [srcset]="image.src" type="image/avif" />
@@ -10,9 +10,6 @@
           <img
             [src]="image.src.replace('.avif', '.jpg')"
             [alt]="image.alt"
-            loading="lazy"
-            width="400"
-            height="300"
           />
         </picture>
       </swiper-slide>

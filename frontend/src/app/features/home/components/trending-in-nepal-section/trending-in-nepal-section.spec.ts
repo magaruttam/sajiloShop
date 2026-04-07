@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TrendinginNepalSection } from './trending-in-nepal-section';
+import { TrendingInNepalSection } from './trending-in-nepal-section';
 
-describe('TrendinginNepalSection', () => {
-  let component: TrendinginNepalSection;
-  let fixture: ComponentFixture<TrendinginNepalSection>;
+describe('TrendingInNepalSection', () => {
+  let component: TrendingInNepalSection;
+  let fixture: ComponentFixture<TrendingInNepalSection>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TrendinginNepalSection]
+      imports: [TrendingInNepalSection]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TrendinginNepalSection);
+    fixture = TestBed.createComponent(TrendingInNepalSection);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

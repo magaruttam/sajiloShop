@@ -6,7 +6,8 @@ import { Component } from '@angular/core';
   templateUrl: './trending-in-nepal-section.html',
   styleUrl: './trending-in-nepal-section.scss',
 })
-export class TrendinginNepalSection {
+  
+export class TrendingInNepalSection{
   trendingProducts = [
     {
       id: 1,
@@ -26,8 +27,6 @@ export class TrendinginNepalSection {
       title: 'Brass Panas Pair',
       price: '4,500',
       image: '/images/tea.webp'
-    }
-
-  ];
-}
+    }]
+  }
 
