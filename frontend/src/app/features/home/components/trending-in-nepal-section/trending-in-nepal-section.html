@@ -1,5 +1,5 @@
-<section class="mx-auto max-w-[1300px] px-8 pt-7">
-  <h2 class="text-[#002045] text-2xl font-extrabold mb-10 tracking-tight">Trending Products</h2>
+<section class="mx-auto max-w-[1300px] px-4 md:px-8 pt-7">
+  <h2 class="text-[#002045] text-2xl font-extrabold mb-10 tracking-tight font-inter">Trending Products</h2>
 
   <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-1">
     @for (product of trendingProducts; track product.id) {
@@ -7,7 +7,7 @@
       <div class="relative overflow-hidden rounded-[1.5rem] aspect-square bg-gray-50 shadow-sm border border-black/5">
         @if (product.badge) {
         <span
-          class="absolute top-4 left-4 bg-[#0f4d4a] text-white text-[9px] font-bold px-2.5 py-1.2 rounded-full z-10 uppercase tracking-widest shadow-md">
+          class="absolute top-4 left-4 bg-[#0f4d4a] text-white text-[9px] font-bold px-2.5 py-1.2 rounded-full z-10 uppercase tracking-widest shadow-md font-inter">
           {{ product.badge }}
         </span>
         }
@@ -15,12 +15,12 @@
           class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
       </div>
       <div class="mt-4 px-1">
-        <h3 class="text-[#002045] font-extrabold text-[1.1rem] leading-tight tracking-tight">
+        <h3 class="text-[#002045] font-extrabold text-[1.1rem] leading-tight tracking-tight font-inter">
           {{ product.title }}
         </h3>
-        <p class="text-[#0f4d4a] font-bold mt-2 text-base flex items-center gap-1">
-          <span class="text-[0.85em] opacity-90 uppercase">NPR</span>
-          <span>{{ product.price }}</span>
+        <p class="text-[#0f4d4a] font-bold mt-2 text-base flex items-center gap-1 font-inter">
+          <span class="text-[0.85em] opacity-90 uppercase font-inter">NPR</span>
+          <span class="font-inter">{{ product.price }}</span>
         </p>
       </div>
     </div>

@@ -7,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrl: './categories-section.scss',
 })
 export class CategoriesSection {
-
+  categories = [
+    'Monitors', 'Laptops', 'Keyboards', 'Mice',
+    'Headphones', 'Speakers', 'Cameras', 'Printers',
+    'Tablets', 'Phones', 'TVs', 'Routers',
+    'Storage', 'Graphics Cards', 'Processors', 'Accessories'
+  ];
 }

@@ -1,48 +1,44 @@
-<header class="bg-[#F8FAFC] sticky top-0 left-0 w-full shadow-md z-20 mb-4">
+<header #header class="bg-[#F8FAFC] sticky top-0 left-0 w-full transition-transform duration-300 shadow-md z-20 mb-4">
   <!-- Container -->
-  <div class="w-full mx-full max-w-[1300px]  flex justify-between py-4 my-0 mx-auto px-8 ">
-    <!-- Left Section -->
-    <div class="flex items-center gap-24">
-      <!-- Logo -->
-      <div>
-        <img src="/images/logo-sajilo.png" alt="Sajilo Shop Logo" class="h-10">
+  <div class="w-full max-w-[1300px] flex flex-col py-4 mx-auto px-4 md:px-8">
+    <!-- Top Header -->
+    <div class="flex justify-between">
+      <!-- Left Section: Logo + Navigation -->
+       <span class="material-symbols-outlined lg:hidden"> menu </span>
+      <div class="flex items-center gap-24">
+        <!-- Logo -->
+        <figure>
+          <img src="/images/logo-sajilo.png" alt="Sajilo Shop Logo" class="h-10" />
+        </figure>
+        <!-- Navigation -->
+        <nav aria-label="Main Navigation" class="hidden lg:block">
+          <ul class="flex gap-8 text-[#64748B] text-sm">
+            <li><a routerLink="/home " class="font-inter">Home</a></li>
+            <li><a routerLink="/vendor" class="font-inter">Become a Seller</a></li>
+            <li><a routerLink="/aboutus" class="font-inter">About Us</a></li>
+            <li><a routerLink="/contactus" class="font-inter">Contact Us</a></li>
+          </ul>
+        </nav>
       </div>
-      <!-- Navigatioin -->
-      <nav>
-        <ul class="flex gap-8 text-[#64748B] text-sm">
-          <li><a routerLink="/home">Home</a></li>
-          <li><a routerLink="/vendor">Become a Seller</a></li>
-          <li><a routerLink="/aboutus">About Us</a></li>
-          <li><a routerLink="/contactus">Contact Us</a></li>
-        </ul>
-      </nav>
-    </div>
-    <!-- Right Section -->
-    <div class="flex items-center gap-4">
-      <!-- Search Section -->
-      <form class="max-w-md w-full ">
-        <label for="search" class="block mb-2.5 text-sm font-medium  sr-only ">Search</label>
-        <div class="relative">
-          <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-            <svg class="w-4 h-4 text-body" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-              fill="none" viewBox="0 0 24 24">
-              <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
-                d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" />
-            </svg>
-          </div>
-          <input type="search" id="search"
-            class="block w-full p-3 ps-9 bg-neutral-secondary-medium border-[#EBEEF0] text-heading text-sm rounded-xl bg-[#EBEEF0] focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
-            placeholder="Search" required />
-        </div>
-      </form>
-      <!-- Icon sectioin -->
-      <span class="material-symbols-outlined">
-        shopping_bag
-      </span>
 
-      <span class="material-symbols-outlined">
-        person
-      </span>
+      <!-- Right Section: Search + Icons -->
+      <div class="flex items-center gap-4">
+        <!-- Search Form: Desktop only -->
+        <app-search-box class="max-w-md w-full hidden lg:block" />
+
+        <!-- Icon Section -->
+        <div class="flex items-center gap-4" aria-label="User Actions">
+          <button aria-label="Shopping Bag">
+            <span class="material-symbols-outlined">shopping_bag</span>
+          </button>
+
+          <button aria-label="User Account">
+            <span class="material-symbols-outlined">person</span>
+          </button>
+        </div>
+      </div>
     </div>
+    <!-- Bottom Header: Mobile/Tablet only -->
+    <app-search-box class="w-full lg:hidden" />
   </div>
 </header>

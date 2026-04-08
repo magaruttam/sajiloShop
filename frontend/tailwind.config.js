@@ -8,6 +8,10 @@ module.exports = {
     extend: {
       colors: {
         brand: '#3b82f6',
+      },
+      fontFamily: {
+        'inter': ['Inter', 'sans-serif'],
+
       }
     },
   },
