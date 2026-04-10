@@ -1,17 +1,17 @@
-<article class="max-w-[280px]  bg-[#F7FAFC] border-[#C4C6CF] border border-opacity-20 rounded border-solid">
-  <!-- Product Image -->
+<article class="bg-[#F7FAFC] border-[#C4C6CF] border border-opacity-20 rounded border-solid">
   <figure class="flex w-full p-2 h-60 rounded-md md:justify-center">
-    <img src="/images/clothes.webp" class="h-full object-fill" alt="Amazfit GTS 4 MINI Metal Magnetic Watch Strap"/>
+    <img [src]="image()" class="h-full object-fill" [alt]="name()" />
   </figure>
-
-  <!-- Product Detail -->
-  <div class="text-center px-4 py-2">
-    <h3 class="text-[#002045] text-xs font-semibold text-left font-inter">
-      Amazfit GTS 4 MINI Metal Magnetic Watch Strap
-    </h3>
-    <p class="text-[#13696A] font-semibold text-lg text-left font-inter">
-      Rs 2,999 
-      <span class="font-normal text-[#43474E] text-xs font-inter">-74%</span>
+  <div class="px-4 py-2">
+    <h3 class="text-[#002045] text-xs font-semibold font-inter">{{ name() }}</h3>
+    @if (subtitle()) {
+      <p class="text-[#43474E] text-xs font-inter">{{ subtitle() }}</p>
+    }
+    <p class="text-[#13696A] font-semibold text-lg font-inter">
+      {{ price() }}
+      @if (discount()) {
+        <span class="font-normal text-[#43474E] text-xs font-inter">{{ discount() }}</span>
+      }
     </p>
   </div>
 </article>

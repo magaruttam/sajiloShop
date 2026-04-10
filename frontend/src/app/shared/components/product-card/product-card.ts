@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-product-card',
@@ -7,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrl: './product-card.scss',
 })
 export class ProductCard {
-
+  image = input('/images/clothes.webp');
+  name = input('Product Name');
+  subtitle = input('');
+  price = input('');
+  discount = input('');
 }
