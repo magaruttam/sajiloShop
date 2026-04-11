@@ -1,17 +1,20 @@
-<article class="bg-[#F7FAFC] border-[#C4C6CF] border border-opacity-20 rounded border-solid">
-  <figure class="flex w-full p-2 h-60 rounded-md md:justify-center">
-    <img [src]="image()" class="h-full object-fill" [alt]="name()" />
-  </figure>
-  <div class="px-4 py-2">
-    <h3 class="text-[#002045] text-xs font-semibold font-inter">{{ name() }}</h3>
+<article class="bg-white border border-[#E5E9EB] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200 flex flex-col">
+  <!-- Image container with fixed aspect ratio -->
+  <div class="w-full aspect-square bg-[#F7FAFC] overflow-hidden">
+    <img [src]="image()" [alt]="name()" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+  </div>
+
+  <!-- Content -->
+  <div class="px-3 py-3 flex flex-col gap-1 flex-1">
+    <h3 class="text-[#1A365D] text-sm font-semibold leading-tight line-clamp-2">{{ name() }}</h3>
     @if (subtitle()) {
-      <p class="text-[#43474E] text-xs font-inter">{{ subtitle() }}</p>
+      <p class="text-[#43474E] text-xs leading-snug line-clamp-1">{{ subtitle() }}</p>
     }
-    <p class="text-[#13696A] font-semibold text-lg font-inter">
-      {{ price() }}
+    <div class="mt-auto pt-2 flex items-baseline gap-2">
+      <span class="text-[#13696A] font-bold text-base">{{ price() }}</span>
       @if (discount()) {
-        <span class="font-normal text-[#43474E] text-xs font-inter">{{ discount() }}</span>
+        <span class="text-[#C4C6CF] text-xs line-through">{{ discount() }}</span>
       }
-    </p>
+    </div>
   </div>
 </article>

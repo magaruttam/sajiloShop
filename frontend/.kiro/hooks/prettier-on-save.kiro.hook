@@ -1,0 +1,17 @@
+{
+  "enabled": true,
+  "name": "Prettier on Save",
+  "description": "Runs Prettier on TypeScript and HTML files whenever they are saved",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "**/*.ts",
+      "**/*.html"
+    ]
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "npx prettier --write \"${file}\""
+  }
+}

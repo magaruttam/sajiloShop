@@ -1,0 +1,25 @@
+<div class="price-range-slider">
+  <div class="slider-track-wrapper">
+    <div class="slider-track"></div>
+    <div class="slider-fill"></div>
+    <input
+      type="range"
+      class="slider slider-min"
+      min="0"
+      max="50000"
+      [value]="minValue"
+      aria-label="Minimum price"
+    />
+    <input
+      type="range"
+      class="slider slider-max"
+      min="0"
+      max="50000"
+      [value]="maxValue"
+      aria-label="Maximum price"
+    />
+  </div>
+  <div class="slider-label">
+    NPR {{ minValue | number }} – NPR {{ maxValue | number }}
+  </div>
+</div>

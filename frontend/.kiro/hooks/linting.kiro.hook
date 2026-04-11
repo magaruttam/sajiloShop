@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "enabled": true,
+  "name": "Linting ",
+  "description": "Run Prettier on TypeScript and HTML files when saved",
+  "when": {
+    "type": "userTriggered"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Run Prettier on TypeScript and HTML files when saved"
+  }
+}
