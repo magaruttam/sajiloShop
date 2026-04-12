@@ -1,0 +1,232 @@
+<!-- Top Bar -->
+<div class="w-full bg-white border-b border-[#E5E9EB] px-4 md:px-8 py-4 flex items-center justify-between">
+  <a routerLink="/" class="flex items-center gap-2 text-[#1A365D] font-bold text-base hover:opacity-80 transition-opacity">
+    <span class="material-symbols-outlined text-base">arrow_back</span> Fast Checkout
+  </a>
+  <span class="text-[10px] font-bold tracking-widest text-[#43474E] uppercase flex items-center gap-1">
+    <span class="material-symbols-outlined text-sm text-[#13696A]">lock</span> Secure SSL Encrypted
+  </span>
+</div>
+
+<!-- Main -->
+<div class="max-w-[1100px] mx-auto px-4 md:px-8 py-8 flex flex-col lg:flex-row gap-8 items-start">
+
+  <!-- Left: Forms -->
+  <div class="flex-1 space-y-8">
+
+    <!-- Shipping -->
+    <div>
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-9 h-9 rounded-lg bg-[#E6F4F4] flex items-center justify-center">
+          <span class="material-symbols-outlined text-[#13696A] text-lg">local_shipping</span>
+        </div>
+        <h2 class="text-[#1A365D] font-extrabold text-xl">Shipping Information</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="text-[9px] font-bold tracking-widest text-[#43474E] uppercase block mb-1">Full Name</label>
+          <input [(ngModel)]="form.fullName" placeholder="John Doe"
+                 class="w-full border border-[#E5E9EB] rounded-lg px-4 py-3 text-sm text-[#1A365D] placeholder-[#C4C6CF] focus:outline-none focus:border-[#13696A] transition-colors" />
+        </div>
+        <div>
+          <label class="text-[9px] font-bold tracking-widest text-[#43474E] uppercase block mb-1">Email Address</label>
+          <input [(ngModel)]="form.email" placeholder="john@example.com" type="email"
+                 class="w-full border border-[#E5E9EB] rounded-lg px-4 py-3 text-sm text-[#1A365D] placeholder-[#C4C6CF] focus:outline-none focus:border-[#13696A] transition-colors" />
+        </div>
+        <div class="md:col-span-2">
+          <label class="text-[9px] font-bold tracking-widest text-[#43474E] uppercase block mb-1">Street Address</label>
+          <input [(ngModel)]="form.street" placeholder="House no. 42, Himalayan Heights"
+                 class="w-full border border-[#E5E9EB] rounded-lg px-4 py-3 text-sm text-[#1A365D] placeholder-[#C4C6CF] focus:outline-none focus:border-[#13696A] transition-colors" />
+        </div>
+        <div>
+          <label class="text-[9px] font-bold tracking-widest text-[#43474E] uppercase block mb-1">City</label>
+          <input [(ngModel)]="form.city" placeholder="Kathmandu"
+                 class="w-full border border-[#E5E9EB] rounded-lg px-4 py-3 text-sm text-[#1A365D] placeholder-[#C4C6CF] focus:outline-none focus:border-[#13696A] transition-colors" />
+        </div>
+        <div>
+          <label class="text-[9px] font-bold tracking-widest text-[#43474E] uppercase block mb-1">Postal Code</label>
+          <input [(ngModel)]="form.postalCode" placeholder="44600"
+                 class="w-full border border-[#E5E9EB] rounded-lg px-4 py-3 text-sm text-[#1A365D] placeholder-[#C4C6CF] focus:outline-none focus:border-[#13696A] transition-colors" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Payment Method -->
+    <div>
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-9 h-9 rounded-lg bg-[#E6F4F4] flex items-center justify-center">
+          <span class="material-symbols-outlined text-[#13696A] text-lg">payments</span>
+        </div>
+        <h2 class="text-[#1A365D] font-extrabold text-xl">Payment Method</h2>
+      </div>
+
+      <div class="space-y-3">
+        <!-- Digital Wallets -->
+        <label class="flex items-center justify-between p-4 border rounded-lg cursor-pointer transition-colors"
+               [class.border-[#13696A]]="paymentMethod() === 'wallet'"
+               [class.bg-[#F0FAFA]]="paymentMethod() === 'wallet'"
+               [class.border-[#E5E9EB]]="paymentMethod() !== 'wallet'">
+          <div class="flex items-center gap-3">
+            <input type="radio" name="payment" value="wallet"
+                   [checked]="paymentMethod() === 'wallet'"
+                   (change)="paymentMethod.set('wallet')"
+                   class="accent-[#13696A] w-4 h-4" />
+            <div>
+              <p class="text-[#1A365D] font-semibold text-sm">Digital Wallets</p>
+              <p class="text-[#43474E] text-xs">eSewa, Khalti, or IME Pay</p>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-[#43474E] text-xl">account_balance_wallet</span>
+        </label>
+
+        <!-- Credit/Debit Card -->
+        <label class="flex items-center justify-between p-4 border rounded-lg cursor-pointer transition-colors"
+               [class.border-[#13696A]]="paymentMethod() === 'card'"
+               [class.bg-[#F0FAFA]]="paymentMethod() === 'card'"
+               [class.border-[#E5E9EB]]="paymentMethod() !== 'card'">
+          <div class="flex items-center gap-3">
+            <input type="radio" name="payment" value="card"
+                   [checked]="paymentMethod() === 'card'"
+                   (change)="paymentMethod.set('card')"
+                   class="accent-[#13696A] w-4 h-4" />
+            <div>
+              <p class="text-[#1A365D] font-semibold text-sm">Credit or Debit Card</p>
+              <p class="text-[#43474E] text-xs">Visa, Mastercard, or American Express</p>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-[#43474E] text-xl">credit_card</span>
+        </label>
+
+        <!-- COD -->
+        <label class="flex items-center justify-between p-4 border rounded-lg cursor-pointer transition-colors"
+               [class.border-[#13696A]]="paymentMethod() === 'cod'"
+               [class.bg-[#F0FAFA]]="paymentMethod() === 'cod'"
+               [class.border-[#E5E9EB]]="paymentMethod() !== 'cod'">
+          <div class="flex items-center gap-3">
+            <input type="radio" name="payment" value="cod"
+                   [checked]="paymentMethod() === 'cod'"
+                   (change)="paymentMethod.set('cod')"
+                   class="accent-[#13696A] w-4 h-4" />
+            <div>
+              <p class="text-[#1A365D] font-semibold text-sm">Cash on Delivery</p>
+              <p class="text-[#43474E] text-xs">Pay when you receive your order</p>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-[#43474E] text-xl">local_atm</span>
+        </label>
+      </div>
+
+      <!-- Card Fields -->
+      @if (paymentMethod() === 'card') {
+        <div class="mt-4 border border-[#E5E9EB] rounded-lg p-4 space-y-4">
+          <div>
+            <label class="text-[9px] font-bold tracking-widest text-[#43474E] uppercase block mb-1">Card Number</label>
+            <div class="relative">
+              <input [(ngModel)]="form.cardNumber" placeholder="0000 0000 0000 0000" maxlength="19"
+                     class="w-full border border-[#E5E9EB] rounded-lg px-4 py-3 text-sm text-[#1A365D] placeholder-[#C4C6CF] focus:outline-none focus:border-[#13696A] pr-10" />
+              <span class="material-symbols-outlined absolute right-3 top-3 text-[#C4C6CF] text-lg">credit_card</span>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="text-[9px] font-bold tracking-widest text-[#43474E] uppercase block mb-1">Expiry Date</label>
+              <input [(ngModel)]="form.expiry" placeholder="MM/YY" maxlength="5"
+                     class="w-full border border-[#E5E9EB] rounded-lg px-4 py-3 text-sm text-[#1A365D] placeholder-[#C4C6CF] focus:outline-none focus:border-[#13696A]" />
+            </div>
+            <div>
+              <label class="text-[9px] font-bold tracking-widest text-[#43474E] uppercase block mb-1">CVV</label>
+              <input [(ngModel)]="form.cvv" placeholder="123" maxlength="3" type="password"
+                     class="w-full border border-[#E5E9EB] rounded-lg px-4 py-3 text-sm text-[#1A365D] placeholder-[#C4C6CF] focus:outline-none focus:border-[#13696A]" />
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Right: Order Summary -->
+  <div class="w-full lg:w-80 shrink-0 space-y-4">
+    <div class="bg-white border border-[#E5E9EB] rounded-xl p-5 space-y-4">
+      <h2 class="text-[#1A365D] font-bold text-base">Order Summary</h2>
+
+      <!-- Items -->
+      @for (item of items; track item.name) {
+        <div class="flex gap-3">
+          <img [src]="item.image" [alt]="item.name"
+               class="w-16 h-16 object-cover rounded-lg shrink-0" />
+          <div class="flex-1 min-w-0">
+            <p class="text-[#1A365D] font-semibold text-sm leading-snug">{{ item.name }}</p>
+            <p class="text-[#43474E] text-xs mt-0.5">Size: {{ item.size }} | Color: {{ item.color }}</p>
+            <p class="text-[#13696A] font-bold text-sm mt-1">Rs. {{ (item.unitPrice * item.quantity).toLocaleString() }}</p>
+          </div>
+        </div>
+      }
+
+      <hr class="border-[#E5E9EB]" />
+
+      <div class="space-y-2 text-sm text-[#43474E]">
+        <div class="flex justify-between">
+          <span>Subtotal</span>
+          <span>Rs. {{ subtotal.toLocaleString() }}</span>
+        </div>
+        <div class="flex justify-between">
+          <span>Shipping</span>
+          <span class="text-[#13696A] font-semibold">{{ shipping === 0 ? 'FREE' : 'Rs. ' + shipping }}</span>
+        </div>
+        <div class="flex justify-between">
+          <span>Tax (VAT 13%)</span>
+          <span>Rs. {{ tax.toLocaleString() }}</span>
+        </div>
+      </div>
+
+      <hr class="border-[#E5E9EB]" />
+
+      <div>
+        <p class="text-[9px] font-bold tracking-widest text-[#43474E] uppercase">Total Payable</p>
+        <p class="text-[#1A365D] font-extrabold text-3xl mt-1">Rs. {{ total.toLocaleString() }}</p>
+      </div>
+
+      <button class="w-full bg-[#1A365D] text-white font-bold text-sm py-3.5 rounded-lg hover:bg-[#142a4a] transition-colors flex items-center justify-center gap-2">
+        Complete Purchase <span class="material-symbols-outlined text-base">arrow_forward</span>
+      </button>
+      <p class="text-[#43474E] text-xs text-center flex items-center justify-center gap-1">
+        <span class="material-symbols-outlined text-sm text-[#13696A]">shield</span>
+        Encrypted 256-bit secure transaction
+      </p>
+
+      <!-- Promo -->
+      <div class="flex gap-2 pt-1">
+        <input [(ngModel)]="promoCode" placeholder="Promo code"
+               class="flex-1 border border-[#E5E9EB] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#13696A]" />
+        <button class="text-[#13696A] font-bold text-sm px-3 hover:underline">Apply</button>
+      </div>
+
+      <!-- Trust badges -->
+      <div class="flex justify-around pt-2 border-t border-[#E5E9EB]">
+        <div class="text-center">
+          <span class="material-symbols-outlined text-[#43474E] text-2xl">restart_alt</span>
+          <p class="text-[9px] font-bold tracking-widest text-[#43474E] uppercase mt-1">14 Day Return</p>
+        </div>
+        <div class="text-center">
+          <span class="material-symbols-outlined text-[#43474E] text-2xl">verified</span>
+          <p class="text-[9px] font-bold tracking-widest text-[#43474E] uppercase mt-1">Authentic Only</p>
+        </div>
+        <div class="text-center">
+          <span class="material-symbols-outlined text-[#43474E] text-2xl">support_agent</span>
+          <p class="text-[9px] font-bold tracking-widest text-[#43474E] uppercase mt-1">24/7 Support</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="border-t border-[#E5E9EB] mt-8 py-6 text-center">
+  <div class="flex justify-center gap-6 mb-3">
+    <span class="material-symbols-outlined text-[#C4C6CF] text-2xl">account_balance_wallet</span>
+    <span class="material-symbols-outlined text-[#C4C6CF] text-2xl">fingerprint</span>
+    <span class="material-symbols-outlined text-[#C4C6CF] text-2xl">shield</span>
+  </div>
+  <p class="text-[#43474E] text-xs">&copy; 2024 Sajilo Curator. Handcrafted with precision in the Himalayas.</p>
+</footer>

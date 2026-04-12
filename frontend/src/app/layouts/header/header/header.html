@@ -32,16 +32,17 @@
       <!-- Right: Search + Icons -->
       <div class="flex items-center gap-4">
         <app-search-box class="max-w-md w-full hidden lg:block" />
-
+        
         <button aria-label="Shopping Bag" [routerLink]="['/cart']"
           class="text-[#43474E] hover:text-[#1A365D] transition-colors">
           <span class="material-symbols-outlined">shopping_bag</span>
         </button>
 
         <!-- User menu -->
-        <div class="relative" id="user-menu-area">
-          <button (click)="userDropdownOpen = !userDropdownOpen"
-            class="text-[#43474E] hover:text-[#1A365D] transition-colors"
+        <div class="relative" id="user-menu-area"
+             (mouseenter)="userDropdownOpen = true"
+             (mouseleave)="userDropdownOpen = false">
+          <button class="text-[#43474E] hover:text-[#1A365D] transition-colors"
             aria-label="User Account">
             <span class="material-symbols-outlined">person</span>
           </button>
@@ -54,10 +55,10 @@
                 <span class="block text-[#43474E] text-xs truncate">name@sajilo.com</span>
               </div>
               <ul class="p-2 text-sm text-[#43474E]">
-                <li><a href="#" class="flex items-center gap-2 w-full px-2 py-2 rounded hover:bg-[#F7FAFC] hover:text-[#1A365D]">
+                <li><a routerLink="/account/orders" (click)="userDropdownOpen = false" class="flex items-center gap-2 w-full px-2 py-2 rounded hover:bg-[#F7FAFC] hover:text-[#1A365D]">
                   <span class="material-symbols-outlined text-base">receipt_long</span> My Orders
                 </a></li>
-                <li><a href="#" class="flex items-center gap-2 w-full px-2 py-2 rounded hover:bg-[#F7FAFC] hover:text-[#1A365D]">
+                <li><a routerLink="/wishlist" (click)="userDropdownOpen = false" class="flex items-center gap-2 w-full px-2 py-2 rounded hover:bg-[#F7FAFC] hover:text-[#1A365D]">
                   <span class="material-symbols-outlined text-base">favorite</span> My Wishlist
                 </a></li>
                 <li><a href="#" class="flex items-center gap-2 w-full px-2 py-2 rounded hover:bg-[#F7FAFC] hover:text-[#1A365D]">

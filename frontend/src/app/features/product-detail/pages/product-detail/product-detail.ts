@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { StarRating } from '../../components/star-rating/star-rating';
 import { ReviewCard, Review } from '../../components/review-card/review-card';
 import { ProductCard } from '../../../../shared/components/product-card/product-card';
@@ -10,6 +11,7 @@ import { ProductCard } from '../../../../shared/components/product-card/product-
   styleUrl: './product-detail.scss',
 })
 export class ProductDetail {
+  private router = inject(Router);
   quantity = 1;
   showMagnifier = false;
   lensX = 0;
@@ -79,6 +81,21 @@ export class ProductDetail {
   decrement() { if (this.quantity > 1) this.quantity--; }
   selectImage(img: string) { this.selectedImage = img; }
 
+  buyNow() {
+    this.router.navigate(['/checkout'], {
+      state: {
+        items: [{
+          image: this.selectedImage,
+          name: 'Nordic Clay Vase',
+          size: 'Standard',
+          color: 'Bone White',
+          quantity: this.quantity,
+          unitPrice: 4500,
+        }]
+      }
+    });
+  }
+
   onMouseMove(event: MouseEvent, container: HTMLElement) {
     console.log(container.getBoundingClientRect())
     const rect = container.getBoundingClientRect();
@@ -97,7 +114,6 @@ export class ProductDetail {
     this.bgPosition = `${bgX}% ${bgY}%`;
     this.showMagnifier = true;
   }
-
   onMouseLeave() {
     this.showMagnifier = false;
   }

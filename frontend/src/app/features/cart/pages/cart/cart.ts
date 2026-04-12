@@ -1,7 +1,7 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ProductCard } from '../../../../shared/components/product-card/product-card';
 
 export interface CartItem {
@@ -30,6 +30,7 @@ export interface StoreGroup {
   styleUrl: './cart.scss',
 })
 export class Cart {
+  private router = inject(Router);
   promoCode = '';
 
   items: CartItem[] = [
@@ -80,4 +81,19 @@ export class Cart {
   decrement(item: CartItem) { if (item.quantity > 1) item.quantity--; }
   remove(item: CartItem) { this.items = this.items.filter(i => i.id !== item.id); }
   applyPromo() { /* promo logic */ }
+
+  proceedToCheckout() {
+    this.router.navigate(['/checkout'], {
+      state: {
+        items: this.selectedItems.map(i => ({
+          image: i.image,
+          name: i.name,
+          size: i.size,
+          color: i.color,
+          quantity: i.quantity,
+          unitPrice: i.unitPrice,
+        }))
+      }
+    });
+  }
 }

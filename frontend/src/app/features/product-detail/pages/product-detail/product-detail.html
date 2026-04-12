@@ -14,18 +14,13 @@
       <!-- Thumbnails -->
       <div class="flex md:flex-col gap-2 md:max-h-[380px] md:overflow-y-auto">
         @for (img of thumbnails; track $index) {
-        <img [src]="img" alt="thumbnail" class="w-14 h-14 object-cover rounded-lg cursor-pointer border-2 flex-shrink-0"
-          [class.border-[#1A365D]]="selectedImage === img" [class.border-transparent]="selectedImage !== img"
-          (click)="selectImage(img)" />
+          <img [src]="img" alt="thumbnail" class="w-14 h-14 object-cover rounded-lg cursor-pointer border-2 flex-shrink-0"
+            [class.border-[#1A365D]]="selectedImage === img" [class.border-transparent]="selectedImage !== img"
+            (click)="selectImage(img)" />
         }
       </div>
-      <!-- Main Image -->
-<<<<<<< Updated upstream
-      <div class="relative">
-        <img [src]="selectedImage" alt="Nordic Clay Vase"
-          class="w-full md:w-[340px] md:h-[300px] h-[220px] rounded-md object-cover" />
-        <button class="absolute top-3 right-3 bg-white rounded-full w-8 h-8 flex items-center justify-center shadow">
-=======
+
+      <!-- Main Image with Magnifier -->
       <div class="relative magnifier-container"
            #imageContainer
            (mousemove)="onMouseMove($event, imageContainer)"
@@ -45,13 +40,11 @@
         }
 
         <button class="absolute top-3 right-3 bg-white rounded-full w-8 h-8 flex items-center justify-center shadow z-10">
->>>>>>> Stashed changes
           <span class="material-symbols-outlined text-[#43474E] text-lg">favorite</span>
         </button>
         <span class="absolute top-3 left-3 bg-[#13696A] text-white text-xs px-2 py-1 rounded md:hidden z-10">In Stock</span>
       </div>
     </div>
-    <!-- Testing -->
 
     <!-- Details -->
     <div class="flex-1 space-y-4">
@@ -95,7 +88,7 @@
       <!-- Action Buttons (desktop) -->
       <div class="hidden md:flex gap-4">
         <button class="py-3 px-12 bg-[#1A365D] text-white font-bold text-sm rounded">ADD TO BAG</button>
-        <button class="py-3 px-12 bg-[#A2EDED] text-[#1A6D6E] font-bold text-sm rounded">BUY NOW</button>
+        <button class="py-3 px-12 bg-[#A2EDED] text-[#1A6D6E] font-bold text-sm rounded" (click)="buyNow()">BUY NOW</button>
       </div>
 
       <!-- Store Info -->
@@ -132,6 +125,7 @@
         </div>
       </div>
     </div>
+
   </div>
 </div>
 
@@ -155,10 +149,10 @@
   <h2 class="text-[#1A365D] font-bold text-xl">Specifications</h2>
   <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
     @for (spec of specs; track spec.label) {
-    <div class="space-y-1">
-      <p class="text-[10px] font-semibold text-[#43474E] uppercase tracking-widest">{{ spec.label }}</p>
-      <p class="text-sm font-medium text-[#1A365D]">{{ spec.value }}</p>
-    </div>
+      <div class="space-y-1">
+        <p class="text-[10px] font-semibold text-[#43474E] uppercase tracking-widest">{{ spec.label }}</p>
+        <p class="text-sm font-medium text-[#1A365D]">{{ spec.value }}</p>
+      </div>
     }
   </div>
 </div>
@@ -180,13 +174,13 @@
       </div>
       <div class="space-y-1">
         @for (row of ratingBreakdown; track row.stars) {
-        <div class="flex items-center gap-2 text-xs text-[#43474E]">
-          <span class="w-3">{{ row.stars }}</span>
-          <div class="flex-1 bg-[#E5E9EB] rounded-full h-1.5">
-            <div class="bg-[#13696A] h-1.5 rounded-full" [style.width.%]="row.percent"></div>
+          <div class="flex items-center gap-2 text-xs text-[#43474E]">
+            <span class="w-3">{{ row.stars }}</span>
+            <div class="flex-1 bg-[#E5E9EB] rounded-full h-1.5">
+              <div class="bg-[#13696A] h-1.5 rounded-full" [style.width.%]="row.percent"></div>
+            </div>
+            <span class="w-6 text-right">{{ row.percent }}%</span>
           </div>
-          <span class="w-6 text-right">{{ row.percent }}%</span>
-        </div>
         }
       </div>
     </div>
@@ -194,7 +188,7 @@
     <!-- Review Cards -->
     <div class="flex-1 space-y-4">
       @for (review of reviews; track review.name) {
-      <app-review-card [review]="review" />
+        <app-review-card [review]="review" />
       }
       <div class="text-center pt-2">
         <button class="text-sm text-[#1A365D] font-semibold underline">View All 128 Reviews</button>
@@ -205,10 +199,10 @@
 
 <!-- Inspired Pairings -->
 <div class="max-w-[1300px] mx-auto px-4 py-10">
-  <p class="text-center text-xs tracking-widest text-[#43474E] uppercase mb-6">Inspired Pairings</p>
+  <p class="text-left text-xs tracking-widest text-[#43474E] uppercase mb-6">YOU MAY ALSO LIKE</p>
   <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
     @for (item of pairings; track item.name) {
-    <app-product-card [image]="item.image" [name]="item.name" [subtitle]="item.subtitle" [price]="item.price" />
+      <app-product-card [image]="item.image" [name]="item.name" [subtitle]="item.subtitle" [price]="item.price" />
     }
   </div>
 </div>
@@ -219,7 +213,7 @@
     class="flex-1 py-3 border border-[#1A365D] text-[#1A365D] font-bold text-sm rounded flex items-center justify-center gap-2">
     <span class="material-symbols-outlined text-base">shopping_bag</span> ADD TO BAG
   </button>
-  <button class="flex-1 py-3 bg-[#1A365D] text-white font-bold text-sm rounded flex items-center justify-center gap-2">
+  <button (click)="buyNow()" class="flex-1 py-3 bg-[#1A365D] text-white font-bold text-sm rounded flex items-center justify-center gap-2">
     <span class="material-symbols-outlined text-base">bolt</span> BUY NOW
   </button>
 </div>

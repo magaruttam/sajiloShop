@@ -28,12 +28,4 @@ export class Header {
     }
     this.lastScroll = currentScroll;
   }
-
-  @HostListener('document:click', ['$event'])
-  onDocumentClick(event: MouseEvent) {
-    const target = event.target as HTMLElement;
-    if (!target.closest('#user-menu-area')) {
-      this.userDropdownOpen = false;
-    }
-  }
 }

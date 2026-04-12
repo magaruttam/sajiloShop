@@ -14,6 +14,7 @@ export class ProductCard {
   price = input('');
   badge = input('');
   badgeColor = input('bg-[#13696A]');
+  discount = input('');
   isFavorite = model(false);
 
   favoriteToggled = output<void>();
