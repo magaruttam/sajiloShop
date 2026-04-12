@@ -1,0 +1,102 @@
+<!-- Hero Section -->
+<section class="relative w-full min-h-[420px] flex items-center overflow-hidden">
+  <img src="/images/hero-section-1.avif" alt="Vendor Hero"
+       class="absolute inset-0 w-full h-full object-cover brightness-50" />
+  <div class="relative z-10 max-w-[1300px] mx-auto px-6 md:px-12 py-16 text-white">   
+    <h1 class="text-3xl md:text-5xl font-extrabold leading-tight max-w-lg">
+      Elevate Your Craft,<br />Reach the World
+    </h1>
+    <p class="mt-4 text-sm md:text-base text-gray-200 max-w-md leading-relaxed">
+      Join a curated digital sanctuary for authentic Himalayan artisan brands. We handle the logistics, you focus on the art.
+    </p>
+    <div class="flex gap-3 mt-8 flex-wrap">
+      <button class="bg-[#13696A] text-white text-sm font-semibold px-5 py-2.5 rounded hover:bg-[#0f5556] transition-colors">
+        Join the Curator's Circle
+      </button>
+      <button class="border border-white text-white text-sm font-semibold px-5 py-2.5 rounded hover:bg-white hover:text-[#1A365D] transition-colors">
+        Watch the Guide
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Why Partner -->
+<section class="max-w-[1300px] mx-auto px-6 md:px-12 py-16 text-center">
+  <h2 class="text-[#1A365D] font-extrabold text-2xl md:text-3xl">Why Partner with SajiloShop?</h2>
+  <div class="w-10 h-1 bg-[#13696A] mx-auto mt-3 mb-12 rounded"></div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    @for (feature of features; track feature.title) {
+      <div class="flex flex-col items-center text-center px-4">
+        <div class="w-14 h-14 rounded-full bg-[#E6F4F4] flex items-center justify-center mb-4">
+          <span class="material-symbols-outlined text-[#13696A] text-2xl">{{ feature.icon }}</span>
+        </div>
+        <h3 class="text-[#1A365D] font-bold text-base mb-2">{{ feature.title }}</h3>
+        <p class="text-[#43474E] text-sm leading-relaxed">{{ feature.desc }}</p>
+      </div>
+    }
+  </div>
+</section>
+
+<!-- How It Works -->
+<section class="bg-white py-16">
+  <div class="max-w-[1300px] mx-auto px-6 md:px-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      @for (step of steps; track step.number) {
+        <div class="flex flex-col gap-3 p-6 border border-[#E5E9EB] rounded-lg">
+          <div class="w-8 h-8 rounded-full bg-[#1A365D] text-white flex items-center justify-center text-sm font-bold">
+            {{ step.number }}
+          </div>
+          <h3 class="text-[#1A365D] font-bold text-base">{{ step.title }}</h3>
+          <p class="text-[#43474E] text-sm leading-relaxed">{{ step.desc }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="max-w-[1300px] mx-auto px-6 md:px-12 py-16">
+  <div class="flex items-center justify-between mb-2">
+    <h2 class="text-[#1A365D] font-extrabold text-2xl">Voices from the Circle</h2>
+    <div class="flex gap-2">
+      <button (click)="prev()"
+        class="w-8 h-8 border border-[#E5E9EB] rounded flex items-center justify-center text-[#43474E] hover:border-[#1A365D] transition-colors disabled:opacity-30"
+        [disabled]="currentTestimonial === 0">‹</button>
+      <button (click)="next()"
+        class="w-8 h-8 border border-[#E5E9EB] rounded flex items-center justify-center text-[#43474E] hover:border-[#1A365D] transition-colors disabled:opacity-30"
+        [disabled]="currentTestimonial === testimonials.length - 1">›</button>
+    </div>
+  </div>
+  <p class="text-[#43474E] text-sm mb-8">Hear stories from local vendors who found a global audience with SajiloShop.</p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    @for (t of testimonials; track t.name; let i = $index) {
+      <div class="flex gap-4 p-6 border border-[#E5E9EB] rounded-lg bg-white"
+           [class.opacity-40]="i !== currentTestimonial && testimonials.length > 1"
+           [class.md:opacity-100]="true">
+        <img [src]="t.image" [alt]="t.name"
+             class="w-16 h-16 rounded-full object-cover shrink-0" />
+        <div>
+          <span class="text-[#13696A] text-3xl font-serif leading-none">"</span>
+          <p class="text-[#43474E] text-sm leading-relaxed italic mt-1">{{ t.quote }}</p>
+          <p class="text-[#1A365D] font-bold text-sm mt-3">{{ t.name }}</p>
+          <p class="text-[#43474E] text-xs">{{ t.role }}</p>
+        </div>
+      </div>
+    }
+  </div>
+</section>
+
+<!-- CTA Banner -->
+<section class="bg-[#1A365D] py-16 px-6 text-center">
+  <h2 class="text-white font-extrabold text-2xl md:text-3xl mb-3">Ready to Curate Your Success?</h2>
+  <p class="text-gray-300 text-sm max-w-md mx-auto mb-8 leading-relaxed">
+    Become part of a movement that values craftsmanship, sustainability, and story. Applications are open for our next cohort.
+  </p>
+  <button class="bg-[#13696A] text-white font-semibold text-sm px-8 py-3 rounded hover:bg-[#0f5556] transition-colors">
+    Join the Curator's Circle →
+  </button>
+  <p class="text-gray-400 text-xs mt-4">Schedule a call with our vendor success team</p>
+</section>
+

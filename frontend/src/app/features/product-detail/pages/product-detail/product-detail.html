@@ -20,14 +20,35 @@
         }
       </div>
       <!-- Main Image -->
+<<<<<<< Updated upstream
       <div class="relative">
         <img [src]="selectedImage" alt="Nordic Clay Vase"
           class="w-full md:w-[340px] md:h-[300px] h-[220px] rounded-md object-cover" />
         <button class="absolute top-3 right-3 bg-white rounded-full w-8 h-8 flex items-center justify-center shadow">
+=======
+      <div class="relative magnifier-container"
+           #imageContainer
+           (mousemove)="onMouseMove($event, imageContainer)"
+           (mouseleave)="onMouseLeave()">
+        <img [src]="selectedImage" alt="Nordic Clay Vase"
+             class="w-full md:w-[380px] rounded-md object-cover block" />
+
+        <!-- Magnifier Lens -->
+        @if (showMagnifier) {
+          <div class="magnifier-lens"
+               [style.left.px]="lensX"
+               [style.top.px]="lensY"
+               [style.background-image]="'url(' + selectedImage + ')'"
+               [style.background-size]="bgSize"
+               [style.background-position]="bgPosition">
+          </div>
+        }
+
+        <button class="absolute top-3 right-3 bg-white rounded-full w-8 h-8 flex items-center justify-center shadow z-10">
+>>>>>>> Stashed changes
           <span class="material-symbols-outlined text-[#43474E] text-lg">favorite</span>
         </button>
-        <!-- Mobile: In Stock badge -->
-        <span class="absolute top-3 left-3 bg-[#13696A] text-white text-xs px-2 py-1 rounded md:hidden">In Stock</span>
+        <span class="absolute top-3 left-3 bg-[#13696A] text-white text-xs px-2 py-1 rounded md:hidden z-10">In Stock</span>
       </div>
     </div>
     <!-- Testing -->
@@ -75,6 +96,24 @@
       <div class="hidden md:flex gap-4">
         <button class="py-3 px-12 bg-[#1A365D] text-white font-bold text-sm rounded">ADD TO BAG</button>
         <button class="py-3 px-12 bg-[#A2EDED] text-[#1A6D6E] font-bold text-sm rounded">BUY NOW</button>
+      </div>
+
+      <!-- Store Info -->
+      <div class="border border-[#E5E9EB] rounded-lg p-4 flex items-center gap-4 bg-[#F7FAFC]">
+        <img [src]="store.avatar" [alt]="store.name"
+             class="w-12 h-12 rounded-full object-cover shrink-0 border-2 border-[#E5E9EB]" />
+        <div class="flex-1 min-w-0">
+          <p class="text-[9px] font-bold tracking-widest text-[#43474E] uppercase">Sold by</p>
+          <p class="text-[#1A365D] font-bold text-sm">{{ store.name }}</p>
+          <div class="flex items-center gap-1 mt-0.5">
+            <span class="text-[#F59E0B] text-xs">★</span>
+            <span class="text-xs text-[#43474E]">{{ store.rating }} · {{ store.totalSales }} sales</span>
+            @if (store.verified) {
+              <span class="ml-1 bg-[#E6F4F4] text-[#13696A] text-[9px] font-bold px-1.5 py-0.5 rounded-full">✓ Verified</span>
+            }
+          </div>
+        </div>
+        <a href="#" class="text-[#13696A] text-xs font-semibold hover:underline shrink-0">Visit Store →</a>
       </div>
 
       <!-- Feature Icons (desktop) -->

@@ -1,44 +1,95 @@
-<header #header class="bg-[#F8FAFC] sticky top-0 left-0 w-full transition-transform duration-300 shadow-md z-20 mb-4">
-  <!-- Container -->
+<header #header class="bg-[#F8FAFC] sticky top-0 left-0 w-full transition-transform duration-300 shadow-md z-20">
   <div class="w-full max-w-[1300px] flex flex-col py-4 mx-auto px-4 md:px-8">
-    <!-- Top Header -->
-    <div class="flex justify-between">
-      <!-- Left Section: Logo + Navigation -->
-       <span class="material-symbols-outlined lg:hidden"> menu </span>
-      <div class="flex items-center gap-24">
+
+    <!-- Top Row -->
+    <div class="flex items-center justify-between">
+
+      <!-- Left: Hamburger + Logo + Nav -->
+      <div class="flex items-center gap-6">
+        <!-- Hamburger (mobile only) -->
+        <button (click)="mobileMenuOpen = !mobileMenuOpen"
+          class="lg:hidden p-1 text-[#43474E] hover:text-[#1A365D] transition-colors"
+          aria-label="Toggle menu">
+          <span class="material-symbols-outlined">{{ mobileMenuOpen ? 'close' : 'menu' }}</span>
+        </button>
+
         <!-- Logo -->
         <figure>
-          <img src="/images/logo-sajilo.png" alt="Sajilo Shop Logo" class="h-10" />
+          <img src="/images/logo-sajilo.png" alt="Sajilo Shop Logo" class="h-10 cursor-pointer" routerLink="/" />
         </figure>
-        <!-- Navigation -->
-        <nav aria-label="Main Navigation" class="hidden lg:block">
+
+        <!-- Desktop Nav -->
+        <nav class="hidden lg:block">
           <ul class="flex gap-8 text-[#64748B] text-sm">
-            <li><a routerLink="/home " class="font-inter">Home</a></li>
-            <li><a routerLink="/vendor" class="font-inter">Become a Seller</a></li>
-            <li><a routerLink="/aboutus" class="font-inter">About Us</a></li>
-            <li><a routerLink="/contactus" class="font-inter">Contact Us</a></li>
+            <li><a routerLink="/" class="hover:text-[#1A365D] transition-colors">Home</a></li>
+            <li><a routerLink="/become-a-seller" class="hover:text-[#1A365D] transition-colors">Become a Seller</a></li>
+            <li><a routerLink="/aboutus" class="hover:text-[#1A365D] transition-colors">About Us</a></li>
+            <li><a routerLink="/contactus" class="hover:text-[#1A365D] transition-colors">Contact Us</a></li>
           </ul>
         </nav>
       </div>
 
-      <!-- Right Section: Search + Icons -->
+      <!-- Right: Search + Icons -->
       <div class="flex items-center gap-4">
-        <!-- Search Form: Desktop only -->
         <app-search-box class="max-w-md w-full hidden lg:block" />
 
-        <!-- Icon Section -->
-        <div class="flex items-center gap-4" aria-label="User Actions">
-          <button aria-label="Shopping Bag">
-            <span class="material-symbols-outlined">shopping_bag</span>
-          </button>
+        <button aria-label="Shopping Bag" [routerLink]="['/cart']"
+          class="text-[#43474E] hover:text-[#1A365D] transition-colors">
+          <span class="material-symbols-outlined">shopping_bag</span>
+        </button>
 
-          <button aria-label="User Account">
+        <!-- User menu -->
+        <div class="relative" id="user-menu-area">
+          <button (click)="userDropdownOpen = !userDropdownOpen"
+            class="text-[#43474E] hover:text-[#1A365D] transition-colors"
+            aria-label="User Account">
             <span class="material-symbols-outlined">person</span>
           </button>
+
+          <!-- Dropdown — absolutely positioned, outside flow -->
+          @if (userDropdownOpen) {
+            <div class="absolute right-0 top-full mt-2 w-44 bg-white border border-[#E5E9EB] rounded-lg shadow-lg z-50">
+              <div class="px-4 py-3 text-sm border-b border-[#E5E9EB]">
+                <span class="block text-[#1A365D] font-semibold">Joseph McFall</span>
+                <span class="block text-[#43474E] text-xs truncate">name@sajilo.com</span>
+              </div>
+              <ul class="p-2 text-sm text-[#43474E]">
+                <li><a href="#" class="flex items-center gap-2 w-full px-2 py-2 rounded hover:bg-[#F7FAFC] hover:text-[#1A365D]">
+                  <span class="material-symbols-outlined text-base">receipt_long</span> My Orders
+                </a></li>
+                <li><a href="#" class="flex items-center gap-2 w-full px-2 py-2 rounded hover:bg-[#F7FAFC] hover:text-[#1A365D]">
+                  <span class="material-symbols-outlined text-base">favorite</span> My Wishlist
+                </a></li>
+                <li><a href="#" class="flex items-center gap-2 w-full px-2 py-2 rounded hover:bg-[#F7FAFC] hover:text-[#1A365D]">
+                  <span class="material-symbols-outlined text-base">settings</span> Settings
+                </a></li>
+                <li><a href="#" class="flex items-center gap-2 w-full px-2 py-2 rounded hover:bg-[#F7FAFC] hover:text-[#1A365D]">
+                  <span class="material-symbols-outlined text-base">logout</span> Sign out
+                </a></li>
+              </ul>
+            </div>
+          }
         </div>
       </div>
     </div>
-    <!-- Bottom Header: Mobile/Tablet only -->
-    <app-search-box class="w-full lg:hidden" />
+
+    <!-- Mobile Search -->
+    <app-search-box class="w-full lg:hidden mt-3" />
   </div>
+
+  <!-- Mobile Nav Menu — slides below header, outside flex flow -->
+  @if (mobileMenuOpen) {
+    <div class="lg:hidden bg-[#F8FAFC] border-t border-[#E5E9EB] px-4 py-3 shadow-md">
+      <ul class="flex flex-col gap-1 text-sm text-[#43474E]">
+        <li><a routerLink="/" (click)="mobileMenuOpen = false"
+          class="block px-3 py-2 rounded hover:bg-[#F0F4F8] hover:text-[#1A365D]">Home</a></li>
+        <li><a routerLink="/become-a-seller" (click)="mobileMenuOpen = false"
+          class="block px-3 py-2 rounded hover:bg-[#F0F4F8] hover:text-[#1A365D]">Become a Seller</a></li>
+        <li><a routerLink="/aboutus" (click)="mobileMenuOpen = false"
+          class="block px-3 py-2 rounded hover:bg-[#F0F4F8] hover:text-[#1A365D]">About Us</a></li>
+        <li><a routerLink="/contactus" (click)="mobileMenuOpen = false"
+          class="block px-3 py-2 rounded hover:bg-[#F0F4F8] hover:text-[#1A365D]">Contact Us</a></li>
+      </ul>
+    </div>
+  }
 </header>

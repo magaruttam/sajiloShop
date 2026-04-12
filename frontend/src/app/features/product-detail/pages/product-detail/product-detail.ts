@@ -11,6 +11,14 @@ import { ProductCard } from '../../../../shared/components/product-card/product-
 })
 export class ProductDetail {
   quantity = 1;
+  showMagnifier = false;
+  lensX = 0;
+  lensY = 0;
+  bgSize = '200% 200%';
+  bgPosition = '0% 0%';
+
+  readonly LENS_SIZE = 120;
+  readonly ZOOM = 2.5;
 
   thumbnails = [
     '/images/clothes.webp',
@@ -59,7 +67,38 @@ export class ProductDetail {
     { name: 'Himalayan Cedarwood', subtitle: '', price: 'NPR 1,850', image: '/images/clothes.webp' },
   ];
 
+  store = {
+    name: 'Himalayan Clay Studio',
+    avatar: '/images/clothes.webp',
+    rating: 4.9,
+    totalSales: '1.2k',
+    verified: true,
+  };
+
   increment() { this.quantity++; }
   decrement() { if (this.quantity > 1) this.quantity--; }
   selectImage(img: string) { this.selectedImage = img; }
+
+  onMouseMove(event: MouseEvent, container: HTMLElement) {
+    console.log(container.getBoundingClientRect())
+    const rect = container.getBoundingClientRect();
+    const mouseX = event.clientX - rect.left;
+    const mouseY = event.clientY - rect.top;
+
+    // Center the lens on the cursor
+    this.lensX = mouseX - this.LENS_SIZE / 2;
+    this.lensY = mouseY - this.LENS_SIZE / 2;
+
+    // Calculate background position so the zoomed area matches cursor
+    const bgX = ((mouseX / rect.width) * 100);
+    const bgY = ((mouseY / rect.height) * 100);
+
+    this.bgSize = `${rect.width * this.ZOOM}px ${rect.height * this.ZOOM}px`;
+    this.bgPosition = `${bgX}% ${bgY}%`;
+    this.showMagnifier = true;
+  }
+
+  onMouseLeave() {
+    this.showMagnifier = false;
+  }
 }

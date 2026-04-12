@@ -1,8 +1,9 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output, model } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-product-card',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './product-card.html',
   styleUrl: './product-card.scss',
 })
@@ -11,5 +12,15 @@ export class ProductCard {
   name = input('Product Name');
   subtitle = input('');
   price = input('');
-  discount = input('');
+  badge = input('');
+  badgeColor = input('bg-[#13696A]');
+  isFavorite = model(false);
+
+  favoriteToggled = output<void>();
+
+  toggleFavorite(event: MouseEvent) {
+    event.stopPropagation();
+    this.isFavorite.set(!this.isFavorite());
+    this.favoriteToggled.emit();
+  }
 }

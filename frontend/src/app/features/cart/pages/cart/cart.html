@@ -1,0 +1,140 @@
+<!-- Page Header -->
+<div class="max-w-[1300px] mx-auto px-4 md:px-8 pt-6 pb-2">
+  <h1 class="text-[#1A365D] font-extrabold text-2xl md:text-3xl">Shopping Bag</h1>
+  <p class="text-[#43474E] text-sm mt-1">Review your selections before proceeding to a serene checkout experience.</p>
+</div>
+
+<!-- Main Content -->
+<div class="max-w-[1300px] mx-auto px-4 md:px-8 py-6 flex flex-col lg:flex-row gap-6 items-start">
+
+  <!-- Cart Items grouped by store -->
+  <div class="flex-1 space-y-6">
+
+    @for (group of storeGroups; track group.storeName) {
+      <div class="bg-white border border-[#E5E9EB] rounded-lg overflow-hidden">
+
+        <!-- Store Header -->
+        <div class="flex items-center gap-3 px-4 py-3 border-b border-[#E5E9EB] bg-[#F7FAFC]">
+          <input type="checkbox"
+                 [checked]="isStoreAllSelected(group)"
+                 [indeterminate]="isStoreIndeterminate(group)"
+                 (change)="toggleStore(group, $any($event.target).checked)"
+                 class="w-4 h-4 accent-[#1A365D] cursor-pointer rounded" />
+          <img [src]="group.storeAvatar" [alt]="group.storeName"
+               class="w-7 h-7 rounded-full object-cover border border-[#E5E9EB]" />
+          <span class="text-[#1A365D] font-bold text-sm">{{ group.storeName }}</span>
+          <span class="material-symbols-outlined text-[#13696A] text-base">verified</span>
+        </div>
+
+        <!-- Items -->
+        <div class="divide-y divide-[#E5E9EB]">
+          @for (item of group.items; track item.id) {
+            <div class="flex gap-3 p-4" [class.opacity-50]="!item.selected">
+              <!-- Checkbox -->
+              <input type="checkbox" [(ngModel)]="item.selected"
+                     class="w-4 h-4 accent-[#1A365D] cursor-pointer mt-1 shrink-0 rounded" />
+
+              <!-- Image -->
+              <img [src]="item.image" [alt]="item.name"
+                   class="w-20 h-20 object-cover rounded-md shrink-0" />
+
+              <!-- Details -->
+              <div class="flex-1 flex flex-col justify-between min-w-0">
+                <div class="flex justify-between items-start gap-2">
+                  <div>
+                    <h3 class="text-[#1A365D] font-semibold text-sm leading-snug">{{ item.name }}</h3>
+                    <p class="text-[#43474E] text-xs mt-0.5">Color: {{ item.color }} | Size: {{ item.size }}</p>
+                  </div>
+                  <button (click)="remove(item)" class="text-[#C4C6CF] hover:text-red-500 transition-colors shrink-0">
+                    <span class="material-symbols-outlined text-lg">delete</span>
+                  </button>
+                </div>
+
+                <div class="flex items-center justify-between mt-3">
+                  <div class="flex items-center border border-[#E5E9EB] rounded-md overflow-hidden">
+                    <button (click)="decrement(item)"
+                      class="px-3 py-1 text-[#1A365D] font-bold hover:bg-[#F7FAFC] transition-colors">−</button>
+                    <span class="px-3 py-1 text-sm font-semibold text-[#1A365D] border-x border-[#E5E9EB]">{{ item.quantity }}</span>
+                    <button (click)="increment(item)"
+                      class="px-3 py-1 text-[#1A365D] font-bold hover:bg-[#F7FAFC] transition-colors">+</button>
+                  </div>
+                  <span class="text-[#1A365D] font-bold text-base">NPR {{ (item.unitPrice * item.quantity).toLocaleString() }}</span>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- Continue Shopping -->
+    <a routerLink="/" class="inline-flex items-center gap-1 text-[#13696A] text-sm font-semibold hover:underline">
+      <span class="material-symbols-outlined text-base">arrow_back</span> Continue Shopping
+    </a>
+  </div>
+
+  <!-- Order Summary -->
+  <div class="w-full lg:w-80 shrink-0 space-y-4">
+    <div class="bg-white border border-[#E5E9EB] rounded-lg p-5 space-y-3">
+      <div class="flex items-center justify-between">
+        <h2 class="text-[#1A365D] font-bold text-base">Order Summary</h2>
+        <span class="text-xs text-[#43474E]">{{ selectedItems.length }} item(s) selected</span>
+      </div>
+      <hr class="border-[#E5E9EB]" />
+
+      <div class="flex justify-between text-sm text-[#43474E]">
+        <span>Subtotal</span>
+        <span>NPR {{ subtotal.toLocaleString() }}</span>
+      </div>
+      <div class="flex justify-between text-sm text-[#43474E]">
+        <span>Estimated Shipping</span>
+        <span>NPR {{ shipping.toLocaleString() }}</span>
+      </div>
+      <div class="flex justify-between text-sm text-[#43474E]">
+        <span>Tax</span>
+        <span>NPR {{ tax.toLocaleString() }}</span>
+      </div>
+
+      <hr class="border-[#E5E9EB]" />
+
+      <div class="flex justify-between items-center">
+        <span class="text-xs font-bold tracking-widest text-[#43474E] uppercase">Total</span>
+        <span class="text-[#1A365D] font-extrabold text-2xl">NPR {{ total.toLocaleString() }}</span>
+      </div>
+
+      <button class="w-full bg-[#1A365D] text-white font-bold text-sm py-3 rounded hover:bg-[#142a4a] transition-colors mt-2"
+              [disabled]="selectedItems.length === 0"
+              [class.opacity-40]="selectedItems.length === 0"
+              [class.cursor-not-allowed]="selectedItems.length === 0">
+        Proceed to Checkout
+      </button>
+      <p class="text-[#43474E] text-xs text-center leading-relaxed">
+        Secure payments handled with care. 30-day effortless returns.
+      </p>
+    </div>
+
+    <!-- Promo Code -->
+    <div class="bg-white border border-[#E5E9EB] rounded-lg p-5 space-y-3">
+      <h3 class="text-[#1A365D] font-semibold text-sm">Himalayan Perks Code</h3>
+      <div class="flex gap-2">
+        <input [(ngModel)]="promoCode" placeholder="Enter code"
+               class="flex-1 border border-[#E5E9EB] rounded px-3 py-2 text-sm focus:outline-none focus:border-[#13696A]" />
+        <button (click)="applyPromo()"
+          class="bg-[#A2EDED] text-[#1A6D6E] font-bold text-sm px-4 py-2 rounded hover:bg-[#8dd8d8] transition-colors">
+          Apply
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- You May Also Like -->
+<div class="max-w-[1300px] mx-auto px-4 md:px-8 py-10">
+  <h2 class="text-[#1A365D] font-extrabold text-xl mb-1">You May Also Like</h2>
+  <p class="text-[#43474E] text-sm mb-6">Curated pairings for your aesthetic home.</p>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    @for (item of suggestions; track item.name) {
+      <app-product-card [image]="item.image" [name]="item.name" [price]="item.price" />
+    }
+  </div>
+</div>

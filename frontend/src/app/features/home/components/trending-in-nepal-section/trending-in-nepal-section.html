@@ -1,29 +1,32 @@
-<section class="mx-auto max-w-[1300px] px-4 md:px-8 pt-7">
-  <h2 class="text-[#002045] text-2xl font-extrabold mb-10 tracking-tight font-inter">Trending Products</h2>
+<section class="mx-auto max-w-[1300px] px-4 md:px-8 py-10">
 
-  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-1">
-    @for (product of trendingProducts; track product.id) {
-    <div class="flex flex-col group cursor-pointer max-w-[200px]">
-      <div class="relative overflow-hidden rounded-[1.5rem] aspect-square bg-gray-50 shadow-sm border border-black/5">
-        @if (product.badge) {
-        <span
-          class="absolute top-4 left-4 bg-[#0f4d4a] text-white text-[9px] font-bold px-2.5 py-1.2 rounded-full z-10 uppercase tracking-widest shadow-md font-inter">
-          {{ product.badge }}
-        </span>
-        }
-        <img [src]="product.image" [alt]="product.title"
-          class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
-      </div>
-      <div class="mt-4 px-1">
-        <h3 class="text-[#002045] font-extrabold text-[1.1rem] leading-tight tracking-tight font-inter">
-          {{ product.title }}
-        </h3>
-        <p class="text-[#0f4d4a] font-bold mt-2 text-base flex items-center gap-1 font-inter">
-          <span class="text-[0.85em] opacity-90 uppercase font-inter">NPR</span>
-          <span class="font-inter">{{ product.price }}</span>
-        </p>
-      </div>
+  <!-- Section Header -->
+  <div class="flex items-end justify-between mb-8">
+    <div>
+      <h2 class="text-[#1A365D] text-2xl md:text-3xl font-extrabold tracking-tight">Trending in Nepal</h2>
     </div>
+    <a href="#" class="hidden md:flex items-center gap-1 text-sm font-semibold text-[#13696A] hover:underline shrink-0">
+      See More <span class="material-symbols-outlined text-base">arrow_forward</span>
+    </a>
+  </div>
+
+  <!-- Product Grid -->
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+    @for (product of trendingProducts; track product.id) {
+      <app-product-card
+        [image]="product.image"
+        [name]="product.name"
+        [subtitle]="product.subtitle"
+        [price]="product.price"
+        [badge]="product.badge" />
     }
   </div>
+
+  <!-- Mobile See More -->
+  <div class="flex justify-center mt-6 md:hidden">
+    <a href="#" class="flex items-center gap-1 text-sm font-semibold text-[#13696A] border border-[#13696A] px-5 py-2 rounded hover:bg-[#E6F4F4] transition-colors">
+      See More <span class="material-symbols-outlined text-base">arrow_forward</span>
+    </a>
+  </div>
+
 </section>

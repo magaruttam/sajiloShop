@@ -1,0 +1,158 @@
+<!-- Breadcrumb -->
+<div class="max-w-[1300px] mx-auto px-4 py-3 text-xs text-[#43474E]">
+  <span>HOME</span> <span class="mx-1">›</span>
+  <span>SEARCH</span> <span class="mx-1">›</span>
+  <span class="font-semibold text-[#1A365D] uppercase">{{ query }}</span>
+</div>
+
+<!-- Header -->
+<div class="max-w-[1300px] mx-auto px-4 pb-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+  <h1 class="text-[#1A365D] font-extrabold text-2xl md:text-3xl">
+    124 results found for "{{ query }}"
+  </h1>
+  <div class="flex items-center gap-2 text-sm text-[#43474E]">
+    <span>Sort by:</span>
+    <select [(ngModel)]="sortBy"
+      class="border border-[#E5E9EB] rounded px-3 py-1.5 text-sm text-[#1A365D] font-medium focus:outline-none cursor-pointer">
+      @for (opt of sortOptions; track opt) {
+        <option [value]="opt">{{ opt }}</option>
+      }
+    </select>
+  </div>
+</div>
+
+<!-- Body -->
+<div class="max-w-[1300px] mx-auto px-4 pb-16 flex gap-8">
+
+  <!-- Sidebar Filters -->
+  <aside class="hidden md:block w-52 shrink-0 space-y-6">
+
+    <!-- Category -->
+    <div>
+      <p class="text-[10px] font-bold tracking-widest text-[#43474E] uppercase mb-3">Category</p>
+      <ul class="space-y-2">
+        @for (cat of categories; track cat.label; let i = $index) {
+          <li (click)="selectCategory(i)"
+              class="flex items-center justify-between cursor-pointer text-sm"
+              [class.text-[#1A365D]]="cat.active"
+              [class.font-bold]="cat.active"
+              [class.text-[#43474E]]="!cat.active">
+            <span>{{ cat.label }}</span>
+            @if (cat.active) {
+              <span class="bg-[#A2EDED] text-[#1A6D6E] text-xs font-bold px-2 py-0.5 rounded-full">{{ cat.count }}</span>
+            }
+          </li>
+        }
+      </ul>
+    </div>
+
+    <hr class="border-[#E5E9EB]" />
+
+    <!-- Price Range -->
+    <div>
+      <p class="text-[10px] font-bold tracking-widest text-[#43474E] uppercase mb-3">Price Range</p>
+      <input type="range" min="1000" max="50000" [(ngModel)]="priceMax"
+             class="w-full accent-[#1A365D]" />
+      <div class="flex justify-between text-xs text-[#43474E] mt-1">
+        <span>NPR 1,000</span>
+        <span>NPR 50,000</span>
+      </div>
+    </div>
+
+    <hr class="border-[#E5E9EB]" />
+
+    <!-- Color -->
+    <div>
+      <p class="text-[10px] font-bold tracking-widest text-[#43474E] uppercase mb-3">Color</p>
+      <div class="flex gap-2 flex-wrap">
+        @for (color of colors; track color.hex; let i = $index) {
+          <button (click)="toggleColor(i)"
+            class="w-7 h-7 rounded-full border-2 transition-all"
+            [style.background-color]="color.hex"
+            [class.border-[#1A365D]]="color.active"
+            [class.border-transparent]="!color.active"
+            [class.scale-110]="color.active">
+          </button>
+        }
+      </div>
+    </div>
+
+    <hr class="border-[#E5E9EB]" />
+
+    <!-- Material -->
+    <div>
+      <p class="text-[10px] font-bold tracking-widest text-[#43474E] uppercase mb-3">Material</p>
+      <ul class="space-y-2">
+        @for (mat of materials; track mat.label) {
+          <li class="flex items-center gap-2 text-sm text-[#43474E]">
+            <input type="checkbox" [(ngModel)]="mat.checked"
+                   class="accent-[#1A365D] w-4 h-4 rounded cursor-pointer" />
+            <span>{{ mat.label }}</span>
+          </li>
+        }
+      </ul>
+    </div>
+
+    <hr class="border-[#E5E9EB]" />
+
+    <!-- Rating -->
+    <div>
+      <p class="text-[10px] font-bold tracking-widest text-[#43474E] uppercase mb-3">Rating</p>
+      <div class="flex items-center gap-1 text-sm text-[#43474E]">
+        @for (star of [1,2,3,4]; track star) {
+          <span class="text-[#F59E0B] text-base">★</span>
+        }
+        <span class="ml-1">& Up</span>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- Product Grid -->
+  <div class="flex-1">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      @for (product of products; track product.id) {
+        <app-product-card
+          [image]="product.image"
+          [name]="product.name"
+          [subtitle]="product.subtitle"
+          [price]="product.price"
+          [badge]="product.badge || ''"
+          [badgeColor]="product.badgeColor || 'bg-[#13696A]'"
+          [(isFavorite)]="product.isFavorite" />
+      }
+    </div>
+
+    <!-- Pagination -->
+    <div class="flex items-center justify-center gap-2 mt-12">
+      <button (click)="goToPage(currentPage - 1)"
+              [disabled]="currentPage === 1"
+              class="w-8 h-8 flex items-center justify-center rounded border border-[#E5E9EB] text-[#43474E] disabled:opacity-30 hover:border-[#1A365D] transition-colors">
+        >
+      </button>
+
+      @for (page of pages; track $index) {  
+        @if (page === '...') {
+          <span class="w-8 h-8 flex items-center justify-center text-[#43474E] text-sm">...</span>
+        } @else {
+          <button (click)="goToPage(page)"
+            class="w-8 h-8 flex items-center justify-center rounded text-sm font-medium transition-colors"
+            [class.bg-[#1A365D]]="currentPage === page"
+            [class.text-white]="currentPage === page"
+            [class.border]="currentPage !== page"
+            [class.border-[#E5E9EB]]="currentPage !== page"
+            [class.text-[#43474E]]="currentPage !== page"
+            [class.hover:border-[#1A365D]]="currentPage !== page">
+            {{ page }}
+          </button>
+        }
+      }
+
+      <button (click)="goToPage(currentPage + 1)"
+              [disabled]="currentPage === totalPages"
+              class="w-8 h-8 flex items-center justify-center rounded border border-[#E5E9EB] text-[#43474E] disabled:opacity-30 hover:border-[#1A365D] transition-colors">
+        ›
+      </button>
+    </div>
+  </div>
+</div>

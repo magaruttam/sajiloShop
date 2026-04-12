@@ -3,6 +3,18 @@ swiper-container {
   width: 100%;
   height: auto;
   padding-bottom: 30px !important;
+
+  /* Pagination bullets */
+  --swiper-pagination-color: #f97316;
+  --swiper-pagination-bullet-inactive-color: #d1d5db;
+  --swiper-pagination-bullet-inactive-opacity: 1;
+  --swiper-pagination-bullet-size: 8px;
+
+  /* Navigation arrows color */
+  --swiper-navigation-color: #f97316;
+
+  /* Navigation arrows size */
+  --swiper-navigation-size: 24px;
 } 
 swiper-slide {
   display: flex;

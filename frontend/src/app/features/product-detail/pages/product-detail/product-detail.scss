@@ -1,0 +1,17 @@
+.magnifier-container {
+  position: relative;
+  cursor: crosshair;
+  display: inline-block;
+}
+
+.magnifier-lens {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 2px solid #1A365D;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+  background-repeat: no-repeat;
+  z-index: 20;
+}
