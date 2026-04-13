@@ -1,0 +1,9 @@
+<div class="flex h-screen bg-[#F7FAFC] overflow-hidden">
+  <app-vendor-sidenav />
+  <main class="flex-1 overflow-y-auto flex flex-col">
+    @if (showHeader()) {
+      <app-vendor-header />
+    }
+    <router-outlet />
+  </main>
+</div>

@@ -35,4 +35,5 @@ src/app/features/search-results/
 └── services/
     └── product-search.service.ts
 ```
-just create a static page now , now more focus on the design part , i manually create the state management part in future , your task now is to crate the page design perfactly not thinking on the logic part now ,leave that at me 
+
+just create a static page now , now more focus on the design part , i manually create the state management part in future , your task now is to crate the page design perfactly not thinking on the logic part now ,leave that at me

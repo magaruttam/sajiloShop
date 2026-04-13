@@ -7,10 +7,7 @@
           <!-- AVIF first (modern browsers) -->
           <source [srcset]="image.src" type="image/avif" />
           <!-- Fallback JPG for older browsers -->
-          <img
-            [src]="image.src.replace('.avif', '.jpg')"
-            [alt]="image.alt"
-          />
+          <img [src]="image.src.replace('.avif', '.jpg')" [alt]="image.alt" />
         </picture>
       </swiper-slide>
     }

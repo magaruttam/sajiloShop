@@ -1,23 +1,30 @@
 <div class="max-w-[1300px] mx-auto px-4 md:px-8 py-8 flex flex-col md:flex-row gap-8">
-
   <!-- Sidebar -->
   <aside class="w-full md:w-52 shrink-0">
     <p class="text-[9px] font-bold tracking-widest text-[#43474E] uppercase mb-4">My Account</p>
     <nav class="flex flex-col gap-1">
-      <a routerLink="/account/profile"
-         class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-[#43474E] hover:bg-[#F0F4F8] hover:text-[#1A365D] transition-colors">
+      <a
+        routerLink="/account/profile"
+        class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-[#43474E] hover:bg-[#F0F4F8] hover:text-[#1A365D] transition-colors"
+      >
         <span class="material-symbols-outlined text-base">person</span> Profile
       </a>
-      <a routerLink="/account/orders"
-         class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold bg-[#1A365D] text-white">
+      <a
+        routerLink="/account/orders"
+        class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold bg-[#1A365D] text-white"
+      >
         <span class="material-symbols-outlined text-base">receipt_long</span> Orders
       </a>
-      <a routerLink="/account/wishlist"
-         class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-[#43474E] hover:bg-[#F0F4F8] hover:text-[#1A365D] transition-colors">
+      <a
+        routerLink="/account/wishlist"
+        class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-[#43474E] hover:bg-[#F0F4F8] hover:text-[#1A365D] transition-colors"
+      >
         <span class="material-symbols-outlined text-base">favorite</span> Wishlist
       </a>
-      <a routerLink="/account/settings"
-         class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-[#43474E] hover:bg-[#F0F4F8] hover:text-[#1A365D] transition-colors">
+      <a
+        routerLink="/account/settings"
+        class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-[#43474E] hover:bg-[#F0F4F8] hover:text-[#1A365D] transition-colors"
+      >
         <span class="material-symbols-outlined text-base">settings</span> Settings
       </a>
     </nav>
@@ -26,16 +33,20 @@
   <!-- Main Content -->
   <div class="flex-1 min-w-0">
     <h1 class="text-[#1A365D] font-extrabold text-2xl md:text-3xl">My Orders</h1>
-    <p class="text-[#43474E] text-sm mt-1 mb-6">Manage your artisan selections and track your serenity journey.</p>
+    <p class="text-[#43474E] text-sm mt-1 mb-6">
+      Manage your artisan selections and track your serenity journey.
+    </p>
 
     <!-- Tabs -->
     <div class="flex gap-1 border-b border-[#E5E9EB] mb-6">
       @for (tab of tabs; track tab) {
-        <button (click)="activeTab.set(tab)"
+        <button
+          (click)="activeTab.set(tab)"
           class="px-4 py-2.5 text-sm font-medium transition-colors relative"
           [class.text-[#1A365D]]="activeTab() === tab"
           [class.text-[#43474E]]="activeTab() !== tab"
-          [class.font-bold]="activeTab() === tab">
+          [class.font-bold]="activeTab() === tab"
+        >
           {{ tab }}
           @if (activeTab() === tab) {
             <span class="absolute bottom-0 left-0 right-0 h-0.5 bg-[#1A365D] rounded-t"></span>
@@ -48,43 +59,61 @@
     <div class="space-y-4">
       @for (order of filteredOrders; track order.id) {
         <div class="bg-white border border-[#E5E9EB] rounded-xl overflow-hidden">
-
           <!-- Store Header -->
-          <div class="flex items-center justify-between px-4 py-3 border-b border-[#E5E9EB] bg-[#F7FAFC]">
+          <div
+            class="flex items-center justify-between px-4 py-3 border-b border-[#E5E9EB] bg-[#F7FAFC]"
+          >
             <div class="flex items-center gap-3">
-              <div class="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0"
-                   [ngClass]="order.storeColor">
+              <div
+                class="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0"
+                [ngClass]="order.storeColor"
+              >
                 {{ order.storeInitial }}
               </div>
               <div>
                 <p class="text-[#1A365D] font-bold text-sm leading-tight">{{ order.storeName }}</p>
-                <p class="text-[9px] font-bold tracking-widest text-[#43474E] uppercase">{{ order.storeCategory }}</p>
+                <p class="text-[9px] font-bold tracking-widest text-[#43474E] uppercase">
+                  {{ order.storeCategory }}
+                </p>
               </div>
             </div>
-            <span class="text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide"
-                  [ngClass]="statusStyle(order.status)">
+            <span
+              class="text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide"
+              [ngClass]="statusStyle(order.status)"
+            >
               {{ order.status }}
             </span>
           </div>
 
           <!-- Order Item -->
           <div class="flex flex-col sm:flex-row gap-4 p-4">
-            <img [src]="order.productImage" [alt]="order.productName"
-                 class="w-full sm:w-28 h-28 object-cover rounded-lg shrink-0" />
+            <img
+              [src]="order.productImage"
+              [alt]="order.productName"
+              class="w-full sm:w-28 h-28 object-cover rounded-lg shrink-0"
+            />
 
             <div class="flex-1 min-w-0 flex flex-col justify-between">
               <div>
                 <p class="text-[10px] text-[#43474E] mb-0.5">Order {{ order.orderNumber }}</p>
-                <h3 class="text-[#1A365D] font-bold text-base leading-snug">{{ order.productName }}</h3>
-                <p class="text-[#43474E] text-xs mt-1 leading-relaxed line-clamp-2">{{ order.productDesc }}</p>
+                <h3 class="text-[#1A365D] font-bold text-base leading-snug">
+                  {{ order.productName }}
+                </h3>
+                <p class="text-[#43474E] text-xs mt-1 leading-relaxed line-clamp-2">
+                  {{ order.productDesc }}
+                </p>
               </div>
               <div class="flex items-center gap-6 mt-3">
                 <div>
-                  <p class="text-[9px] font-bold tracking-widest text-[#43474E] uppercase">Placed On</p>
+                  <p class="text-[9px] font-bold tracking-widest text-[#43474E] uppercase">
+                    Placed On
+                  </p>
                   <p class="text-[#1A365D] text-xs font-semibold mt-0.5">{{ order.placedOn }}</p>
                 </div>
                 <div>
-                  <p class="text-[9px] font-bold tracking-widest text-[#43474E] uppercase">Total Amount</p>
+                  <p class="text-[9px] font-bold tracking-widest text-[#43474E] uppercase">
+                    Total Amount
+                  </p>
                   <p class="text-[#13696A] text-xs font-bold mt-0.5">{{ order.totalAmount }}</p>
                 </div>
               </div>
@@ -92,15 +121,18 @@
 
             <!-- Actions -->
             <div class="flex sm:flex-col gap-2 shrink-0 justify-end">
-              <button class="bg-[#1A365D] text-white text-xs font-bold px-4 py-2 rounded hover:bg-[#142a4a] transition-colors whitespace-nowrap">
+              <button
+                class="bg-[#1A365D] text-white text-xs font-bold px-4 py-2 rounded hover:bg-[#142a4a] transition-colors whitespace-nowrap"
+              >
                 View Details
               </button>
-              <button class="border border-[#1A365D] text-[#1A365D] text-xs font-bold px-4 py-2 rounded hover:bg-[#F0F4F8] transition-colors">
+              <button
+                class="border border-[#1A365D] text-[#1A365D] text-xs font-bold px-4 py-2 rounded hover:bg-[#F0F4F8] transition-colors"
+              >
                 Reorder
               </button>
             </div>
           </div>
-
         </div>
       }
 
@@ -117,11 +149,15 @@
     <div class="mt-12 text-center py-10 border-t border-[#E5E9EB]">
       <span class="material-symbols-outlined text-4xl text-[#C4C6CF]">search</span>
       <h3 class="text-[#1A365D] font-bold text-base mt-2">Looking for something specific?</h3>
-      <p class="text-[#43474E] text-sm mt-1">Explore our new Autumn Collection sourced directly from the heart of the Himalayas.</p>
-      <a routerLink="/search" class="inline-flex items-center gap-1 text-[#13696A] text-sm font-semibold mt-4 hover:underline">
+      <p class="text-[#43474E] text-sm mt-1">
+        Explore our new Autumn Collection sourced directly from the heart of the Himalayas.
+      </p>
+      <a
+        routerLink="/search"
+        class="inline-flex items-center gap-1 text-[#13696A] text-sm font-semibold mt-4 hover:underline"
+      >
         Browse Collections <span class="material-symbols-outlined text-base">arrow_forward</span>
       </a>
     </div>
   </div>
-
 </div>

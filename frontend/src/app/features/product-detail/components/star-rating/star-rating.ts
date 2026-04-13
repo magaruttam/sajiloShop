@@ -11,7 +11,7 @@ export class StarRating {
   reviewCount = input<number>(0);
 
   get stars() {
-    return [1, 2, 3, 4, 5].map(i => ({
+    return [1, 2, 3, 4, 5].map((i) => ({
       full: i <= Math.floor(this.rating()),
       half: i === Math.ceil(this.rating()) && this.rating() % 1 >= 0.5,
     }));

@@ -1,0 +1,150 @@
+<div class="p-8 space-y-6">
+
+  <!-- Stat Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    @for (stat of stats; track stat.label) {
+      <div class="bg-white rounded-xl border border-[#E5E9EB] p-5 flex flex-col gap-3">
+        <div class="flex items-center justify-between">
+          <div class="w-10 h-10 rounded-lg bg-[#F0F4F8] flex items-center justify-center">
+            <span class="material-symbols-outlined text-[#1A365D] text-xl">{{ stat.icon }}</span>
+          </div>
+          <span class="text-xs font-semibold {{ stat.badgeColor }}">{{ stat.badge }}</span>
+        </div>
+        <div>
+          <p class="text-xs text-[#43474E] mb-1">{{ stat.label }}</p>
+          <p class="text-2xl font-extrabold text-[#1A365D]">{{ stat.value }}</p>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Sales Trend + Stock Alerts -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+
+    <!-- Sales Trend Chart -->
+    <div class="lg:col-span-2 bg-white rounded-xl border border-[#E5E9EB] p-6">
+      <div class="flex items-start justify-between mb-6">
+        <div>
+          <h2 class="text-[#1A365D] font-bold text-lg">Sales Trend</h2>
+          <p class="text-xs text-[#43474E] mt-0.5">Weekly revenue performance overview</p>
+        </div>
+        <div class="flex gap-1 bg-[#F0F4F8] rounded-lg p-1">
+          <button
+            (click)="salesRange.set('7days')"
+            class="text-xs font-semibold px-3 py-1.5 rounded-md transition-colors"
+            [class.bg-white]="salesRange() === '7days'"
+            [class.text-[#1A365D]]="salesRange() === '7days'"
+            [class.shadow-sm]="salesRange() === '7days'"
+            [class.text-[#43474E]]="salesRange() !== '7days'"
+          >7 Days</button>
+          <button
+            (click)="salesRange.set('30days')"
+            class="text-xs font-semibold px-3 py-1.5 rounded-md transition-colors"
+            [class.bg-white]="salesRange() === '30days'"
+            [class.text-[#1A365D]]="salesRange() === '30days'"
+            [class.shadow-sm]="salesRange() === '30days'"
+            [class.text-[#43474E]]="salesRange() !== '30days'"
+          >30 Days</button>
+        </div>
+      </div>
+
+      <!-- Bar Chart -->
+      <div class="flex items-end justify-between gap-2 h-40 px-2">
+        @for (bar of chartBars; track bar.day) {
+          <div class="flex flex-col items-center gap-2 flex-1">
+            <div
+              class="w-full rounded-t-md transition-all duration-300"
+              [class.bg-[#1A365D]]="bar.day === 'Wed'"
+              [class.bg-[#A2EDED]]="bar.day !== 'Wed'"
+              [style.height.%]="bar.height"
+            ></div>
+            <span class="text-[10px] font-semibold" [class.text-[#1A365D]]="bar.day === 'Wed'" [class.text-[#C4C6CF]]="bar.day !== 'Wed'">
+              {{ bar.day }}
+            </span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Stock Alerts -->
+    <div class="bg-white rounded-xl border border-[#E5E9EB] p-6 flex flex-col">
+      <h2 class="text-[#1A365D] font-bold text-base mb-4">Stock Alerts</h2>
+      <div class="flex flex-col gap-3 flex-1">
+        @for (alert of stockAlerts; track alert.name) {
+          <div class="flex items-center gap-3 p-3 rounded-lg border"
+            [class.border-l-4]="true"
+            [class.border-red-400]="alert.urgency === 'critical'"
+            [class.border-orange-400]="alert.urgency === 'warning'"
+            [class.border-[#E5E9EB]]="true"
+          >
+            <img [src]="alert.image" [alt]="alert.name" class="w-10 h-10 rounded-md object-cover shrink-0" />
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-semibold text-[#1A365D] truncate">{{ alert.name }}</p>
+              <p class="text-[10px] font-bold uppercase tracking-wide"
+                [class.text-red-500]="alert.urgency === 'critical'"
+                [class.text-orange-500]="alert.urgency === 'warning'"
+              >
+                @if (alert.urgency === 'critical') { ONLY {{ alert.stock }} LEFT }
+                @else { {{ alert.stock }} REMAINING }
+              </p>
+            </div>
+            <button class="text-[#43474E] hover:text-[#1A365D]">
+              <span class="material-symbols-outlined text-base">add_shopping_cart</span>
+            </button>
+          </div>
+        }
+      </div>
+      <a routerLink="/vendor/catalog" class="mt-4 text-center text-xs font-bold text-[#13696A] tracking-widest uppercase hover:underline">
+        View Full Inventory
+      </a>
+    </div>
+  </div>
+
+  <!-- Recent Orders -->
+  <div class="bg-white rounded-xl border border-[#E5E9EB] p-6">
+    <div class="flex items-center justify-between mb-5">
+      <h2 class="text-[#1A365D] font-bold text-lg">Recent Orders</h2>
+      <a routerLink="/vendor/sales" class="text-sm font-semibold text-[#13696A] hover:underline">View All →</a>
+    </div>
+
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="border-b border-[#E5E9EB]">
+          <th class="text-left text-[10px] font-bold tracking-widest text-[#43474E] uppercase pb-3">Order ID</th>
+          <th class="text-left text-[10px] font-bold tracking-widest text-[#43474E] uppercase pb-3">Date</th>
+          <th class="text-left text-[10px] font-bold tracking-widest text-[#43474E] uppercase pb-3">Customer</th>
+          <th class="text-left text-[10px] font-bold tracking-widest text-[#43474E] uppercase pb-3">Status</th>
+          <th class="text-right text-[10px] font-bold tracking-widest text-[#43474E] uppercase pb-3">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (order of orders; track order.id) {
+          <tr class="border-b border-[#F0F4F8] hover:bg-[#F7FAFC] transition-colors">
+            <td class="py-4 text-[#43474E] text-xs">{{ order.id }}</td>
+            <td class="py-4 text-[#1A365D] font-medium">{{ order.date }}</td>
+            <td class="py-4 text-[#1A365D] font-semibold">{{ order.customer }}</td>
+            <td class="py-4">
+              <span class="text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide" [ngClass]="statusStyles[order.status]">
+                {{ order.status }}
+              </span>
+            </td>
+            <td class="py-4 text-right font-bold text-[#1A365D]">{{ order.amount }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<!-- Profile Completion Toast -->
+<div class="fixed bottom-6 right-6 bg-white rounded-xl shadow-lg border border-[#E5E9EB] p-4 w-64 z-20">
+  <div class="flex items-center justify-between mb-2">
+    <span class="text-[10px] font-bold tracking-widest text-[#43474E] uppercase">Store Profile Level</span>
+    <span class="text-sm font-extrabold text-[#13696A]">{{ profileCompletion }}%</span>
+  </div>
+  <div class="w-full bg-[#E5E9EB] rounded-full h-2 mb-2">
+    <div class="bg-[#13696A] h-2 rounded-full transition-all" [style.width.%]="profileCompletion"></div>
+  </div>
+  <p class="text-[10px] text-[#43474E]">"Sajilo" Tip: Add 2 more high-res product photos to reach Level 5.</p>
+</div>

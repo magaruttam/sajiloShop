@@ -8,9 +8,8 @@ describe('TrendingInNepalSection', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TrendingInNepalSection]
-    })
-    .compileComponents();
+      imports: [TrendingInNepalSection],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TrendingInNepalSection);
     component = fixture.componentInstance;

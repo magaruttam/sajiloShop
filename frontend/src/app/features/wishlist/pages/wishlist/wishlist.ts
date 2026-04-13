@@ -54,13 +54,13 @@ export class Wishlist {
   ];
 
   recentItems: RecentItem[] = [
-    { id: 1, image: '/images/tree.webp',    name: 'Kintsugi Vessel',        price: 'NPR 5,200' },
-    { id: 2, image: '/images/tea.webp',     name: 'Himalayan Cedar Burner', price: 'NPR 3,800' },
-    { id: 3, image: '/images/clothes.webp', name: 'Raw Silk Cushion',       price: 'NPR 4,500' },
-    { id: 4, image: '/images/bottle.webp',  name: 'Hand-Poured Soy Candle', price: 'NPR 2,100' },
+    { id: 1, image: '/images/tree.webp', name: 'Kintsugi Vessel', price: 'NPR 5,200' },
+    { id: 2, image: '/images/tea.webp', name: 'Himalayan Cedar Burner', price: 'NPR 3,800' },
+    { id: 3, image: '/images/clothes.webp', name: 'Raw Silk Cushion', price: 'NPR 4,500' },
+    { id: 4, image: '/images/bottle.webp', name: 'Hand-Poured Soy Candle', price: 'NPR 2,100' },
   ];
 
   remove(id: number) {
-    this.items = this.items.filter(i => i.id !== id);
+    this.items = this.items.filter((i) => i.id !== id);
   }
 }

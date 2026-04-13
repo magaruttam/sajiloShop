@@ -1,0 +1,290 @@
+<div class="p-8 max-w-7xl mx-auto space-y-6"> 
+
+  <!-- Breadcrumb -->
+  <nav class="text-xs text-[#43474E] flex items-center gap-1.5">
+    <a routerLink="/vendor/catalog" class="hover:underline">Products</a>
+    <span>/</span>
+    <span class="text-[#1A365D] font-semibold">Add New Product</span>
+  </nav>
+
+  <!-- Page Title -->
+  <div>
+    <h1 class="text-2xl font-extrabold text-[#1A365D]">Create New Entry</h1>
+    <p class="text-sm text-[#43474E] mt-1">Curate your storefront with detail. Every field contributes to the story of your craftsmanship.</p>
+  </div>
+
+  <!-- Core Information -->
+  <section class="bg-white rounded-xl border border-[#E5E9EB] p-6 space-y-4">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-[#1A365D] text-lg">info</span>
+        <h2 class="text-[#1A365D] font-bold text-sm">Core Information</h2>
+      </div>
+      <!-- Active toggle -->
+      <div class="flex items-center gap-2">
+        <span class="text-[10px] font-bold tracking-widest text-[#43474E] uppercase">Active Status</span>
+        <button
+          type="button"
+          (click)="isActive.update(v => !v)"
+          class="relative inline-flex h-5 w-9 items-center rounded-full transition-colors"
+          [ngClass]="isActive() ? 'bg-[#13696A]' : 'bg-[#C4C6CF]'"
+        >
+          <span
+            class="inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow transition-transform"
+            [ngClass]="isActive() ? 'translate-x-4' : 'translate-x-1'"
+          ></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Product Name -->
+    <div>
+      <label class="block text-[10px] font-bold tracking-widest text-[#43474E] uppercase mb-1.5">Product Name</label>
+      <input
+        [(ngModel)]="productName"
+        type="text"
+        placeholder="e.g. Handcrafted Pashmina Scarf"
+        class="w-full border border-[#E5E9EB] rounded-lg px-4 py-2.5 text-sm text-[#1A365D] placeholder:text-[#C4C6CF] focus:outline-none focus:ring-2 focus:ring-[#13696A]"
+      />
+    </div>
+
+    <!-- Category + SKU -->
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="block text-[10px] font-bold tracking-widest text-[#43474E] uppercase mb-1.5">Category</label>
+        <select
+          [(ngModel)]="category"
+          class="w-full border border-[#E5E9EB] rounded-lg px-4 py-2.5 text-sm text-[#43474E] focus:outline-none focus:ring-2 focus:ring-[#13696A] bg-white"
+        >
+          <option value="" disabled selected>Select a category</option>
+          <option>Clothing</option>
+          <option>Handicrafts</option>
+          <option>Jewelry</option>
+          <option>Home Decor</option>
+          <option>Food & Beverages</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-[10px] font-bold tracking-widest text-[#43474E] uppercase mb-1.5">SKU / Product Code</label>
+        <input
+          [(ngModel)]="sku"
+          type="text"
+          placeholder="SKU-001-ABC"
+          class="w-full border border-[#E5E9EB] rounded-lg px-4 py-2.5 text-sm text-[#1A365D] placeholder:text-[#C4C6CF] focus:outline-none focus:ring-2 focus:ring-[#13696A]"
+        />
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div>
+      <label class="block text-[10px] font-bold tracking-widest text-[#43474E] uppercase mb-1.5">Product Description</label>
+      <div class="border border-[#E5E9EB] rounded-lg overflow-hidden">
+        <div class="flex items-center gap-2 px-3 py-2 border-b border-[#E5E9EB] bg-[#F7FAFC]">
+          <button type="button" class="text-xs font-bold text-[#43474E] hover:text-[#1A365D] px-1">B</button>
+          <button type="button" class="text-xs italic text-[#43474E] hover:text-[#1A365D] px-1">I</button>
+          <button type="button" class="text-xs text-[#43474E] hover:text-[#1A365D] px-1">≡</button>
+          <button type="button" class="text-xs text-[#43474E] hover:text-[#1A365D] px-1">"</button>
+        </div>
+        <textarea
+          [(ngModel)]="description"
+          rows="5"
+          placeholder="Tell the story of your product..."
+          class="w-full px-4 py-3 text-sm text-[#1A365D] placeholder:text-[#C4C6CF] focus:outline-none resize-none"
+        ></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- Financials -->
+  <section class="bg-white rounded-xl border border-[#E5E9EB] p-6 space-y-4">
+    <div class="flex items-center gap-2">
+      <span class="material-symbols-outlined text-[#1A365D] text-lg">payments</span>
+      <h2 class="text-[#1A365D] font-bold text-sm">Financials</h2>
+    </div>
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="block text-[10px] font-bold tracking-widest text-[#43474E] uppercase mb-1.5">Price (NPR)</label>
+        <div class="flex items-center border border-[#E5E9EB] rounded-lg overflow-hidden">
+          <span class="px-3 py-2.5 text-sm text-[#43474E] bg-[#F7FAFC] border-r border-[#E5E9EB]">₨</span>
+          <input
+            [(ngModel)]="price"
+            type="number"
+            placeholder="0.00"
+            class="flex-1 px-3 py-2.5 text-sm text-[#1A365D] focus:outline-none"
+          />
+        </div>
+      </div>
+      <div>
+        <label class="block text-[10px] font-bold tracking-widest text-[#43474E] uppercase mb-1.5">Discount (Optional)</label>
+        <div class="flex items-center border border-[#E5E9EB] rounded-lg overflow-hidden">
+          <input
+            [(ngModel)]="discount"
+            type="number"
+            placeholder="Amount or %"
+            class="flex-1 px-3 py-2.5 text-sm text-[#1A365D] focus:outline-none"
+          />
+          <button
+            type="button"
+            (click)="toggleDiscount()"
+            class="px-3 py-2.5 text-sm font-bold text-[#43474E] bg-[#F7FAFC] border-l border-[#E5E9EB] hover:bg-[#E5E9EB] transition-colors"
+          >{{ discountType() }}</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Visual Showcase -->
+  <section class="bg-white rounded-xl border border-[#E5E9EB] p-6 space-y-4">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-[#1A365D] text-lg">photo_library</span>
+        <div>
+          <h2 class="text-[#1A365D] font-bold text-sm">Visual Showcase</h2>
+          <p class="text-[10px] text-[#43474E]">High quality photography of key sales. Show every angle.</p>
+        </div>
+      </div>
+      <span class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-[#13696A] text-white uppercase tracking-wide">5 Slots</span>
+    </div>
+
+    <div class="grid grid-cols-5 gap-3">
+      <!-- Main upload slot -->
+      <div class="col-span-1 aspect-square border-2 border-dashed border-[#1A365D] rounded-xl flex flex-col items-center justify-center gap-1 cursor-pointer hover:bg-[#F0F4F8] transition-colors">
+        <span class="material-symbols-outlined text-[#1A365D] text-2xl">add_photo_alternate</span>
+        <span class="text-[9px] font-bold text-[#1A365D] uppercase tracking-wide text-center">Click to Browse</span>
+      </div>
+      @for (slot of [1,2,3,4]; track slot) {
+        <div class="col-span-1 aspect-square border border-dashed border-[#C4C6CF] rounded-xl flex flex-col items-center justify-center gap-1 cursor-pointer hover:bg-[#F7FAFC] transition-colors">
+          <span class="material-symbols-outlined text-[#C4C6CF] text-xl">image</span>
+          <span class="text-[9px] text-[#C4C6CF] uppercase tracking-wide">Add Photo</span>
+        </div>
+      }
+    </div>
+    <p class="text-[10px] text-[#43474E]">Recommended: 2000 × 2000 px for best quality. Max 10MB per file.</p>
+  </section>
+
+  <!-- Inventory & Variants -->
+  <section class="bg-white rounded-xl border border-[#E5E9EB] p-6 space-y-4">
+    <div class="flex items-center gap-2">
+      <span class="material-symbols-outlined text-[#1A365D] text-lg">inventory</span>
+      <h2 class="text-[#1A365D] font-bold text-sm">Inventory &amp; Variants</h2>
+    </div>
+
+    <div>
+      <label class="block text-[10px] font-bold tracking-widest text-[#43474E] uppercase mb-1.5">Global Stock Quantity</label>
+      <input
+        [(ngModel)]="stockQty"
+        type="number"
+        min="0"
+        class="w-40 border border-[#E5E9EB] rounded-lg px-4 py-2.5 text-sm text-[#1A365D] focus:outline-none focus:ring-2 focus:ring-[#13696A]"
+      />
+    </div>
+
+    <div>
+      <div class="flex items-center justify-between mb-2">
+        <label class="text-[10px] font-bold tracking-widest text-[#43474E] uppercase">Product Variants</label>
+        <button type="button" (click)="addVariant()" class="flex items-center gap-1 text-xs font-bold text-[#13696A] hover:underline">
+          <span class="material-symbols-outlined text-sm">add_circle</span>
+          Add Variant Type
+        </button>
+      </div>
+      <div class="space-y-2">
+        @for (variant of variants(); track $index) {
+          <div class="flex items-center gap-3">
+            <select
+              [(ngModel)]="variant.type"
+              class="w-32 border border-[#E5E9EB] rounded-lg px-3 py-2 text-sm text-[#43474E] bg-white focus:outline-none focus:ring-2 focus:ring-[#13696A]"
+            >
+              <option>Size</option>
+              <option>Color</option>
+              <option>Material</option>
+              <option>Weight</option>
+            </select>
+            <input
+              [(ngModel)]="variant.options"
+              type="text"
+              placeholder="Small, Medium, Large"
+              class="flex-1 border border-[#E5E9EB] rounded-lg px-3 py-2 text-sm text-[#1A365D] placeholder:text-[#C4C6CF] focus:outline-none focus:ring-2 focus:ring-[#13696A]"
+            />
+            <button type="button" (click)="removeVariant($index)" class="text-red-400 hover:text-red-600">
+              <span class="material-symbols-outlined text-lg">delete</span>
+            </button>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Logistics + Discovery -->
+  <div class="grid grid-cols-2 gap-4">
+
+    <!-- Logistics -->
+    <section class="bg-white rounded-xl border border-[#E5E9EB] p-6 space-y-3">
+      <div class="flex items-center gap-2 mb-1">
+        <span class="material-symbols-outlined text-[#1A365D] text-lg">local_shipping</span>
+        <h2 class="text-[#1A365D] font-bold text-sm">Logistics</h2>
+      </div>
+      @for (opt of deliveryOptions(); track opt.label) {
+        <div
+          class="flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-colors"
+          [ngClass]="opt.selected ? 'border-[#13696A] bg-[#F0FAFA]' : 'border-[#E5E9EB]'"
+          (click)="opt.selected = !opt.selected"
+        >
+          <div
+            class="w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0"
+            [ngClass]="opt.selected ? 'border-[#13696A]' : 'border-[#C4C6CF]'"
+          >
+            @if (opt.selected) {
+              <div class="w-2 h-2 rounded-full bg-[#13696A]"></div>
+            }
+          </div>
+          <div>
+            <p class="text-sm font-semibold text-[#1A365D]">{{ opt.label }}</p>
+            <p class="text-[10px] text-[#43474E]">{{ opt.sub }}</p>
+          </div>
+        </div>
+      }
+    </section>
+
+    <!-- Discovery / Tags -->
+    <section class="bg-white rounded-xl border border-[#E5E9EB] p-6 space-y-3">
+      <div class="flex items-center gap-2 mb-1">
+        <span class="material-symbols-outlined text-[#1A365D] text-lg">tag</span>
+        <h2 class="text-[#1A365D] font-bold text-sm">Discovery</h2>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        @for (tag of tags(); track tag) {
+          <span class="flex items-center gap-1 text-xs font-semibold bg-[#EBF4FF] text-[#1A365D] px-2.5 py-1 rounded-full">
+            {{ tag }}
+            <button type="button" (click)="removeTag(tag)" class="text-[#1A365D] hover:text-red-500 leading-none">×</button>
+          </span>
+        }
+      </div>
+      <input
+        [(ngModel)]="tagInput"
+        (keydown)="addTag($event)"
+        type="text"
+        placeholder="Add more tags..."
+        class="w-full border-0 border-b border-[#E5E9EB] py-1.5 text-sm text-[#1A365D] placeholder:text-[#C4C6CF] focus:outline-none focus:border-[#13696A]"
+      />
+      <p class="text-[10px] text-[#C4C6CF]">Press enter to add a tag.</p>
+    </section>
+  </div>
+
+  <!-- Actions -->
+  <div class="flex items-center gap-3 pb-8">
+    <button
+      type="button"
+      class="flex-1 flex items-center justify-center gap-2 bg-[#1A365D] text-white font-bold py-3.5 rounded-xl hover:bg-[#162d4f] transition-colors"
+    >
+      Publish Product
+      <span class="material-symbols-outlined text-lg">publish</span>
+    </button>
+    <button
+      type="button"
+      class="px-6 py-3.5 border border-[#E5E9EB] rounded-xl text-sm font-bold text-[#43474E] hover:bg-[#F7FAFC] transition-colors"
+    >
+      Save as Draft
+    </button>
+  </div>
+
+</div>

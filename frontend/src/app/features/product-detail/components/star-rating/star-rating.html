@@ -1,7 +1,11 @@
 <div class="flex items-center gap-1">
   @for (star of stars; track $index) {
-    <span class="material-symbols-outlined text-[#F5A623] text-base"
-      [style.font-variation-settings]="star.full ? '\'FILL\' 1' : star.half ? '\'FILL\' 0' : '\'FILL\' 0'">
+    <span
+      class="material-symbols-outlined text-[#F5A623] text-base"
+      [style.font-variation-settings]="
+        star.full ? '\'FILL\' 1' : star.half ? '\'FILL\' 0' : '\'FILL\' 0'
+      "
+    >
       {{ star.full ? 'star' : star.half ? 'star_half' : 'star' }}
     </span>
   }

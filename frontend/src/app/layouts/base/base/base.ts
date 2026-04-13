@@ -9,6 +9,4 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './base.html',
   styleUrl: './base.scss',
 })
-export class Base {
-
-}
+export class Base {}

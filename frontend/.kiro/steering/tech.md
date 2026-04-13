@@ -1,6 +1,7 @@
 # Tech Stack
 
 ## Core
+
 - **Framework**: Angular 21 (standalone components, no NgModules)
 - **Language**: TypeScript ~5.9
 - **Styling**: SCSS + Tailwind CSS v3
@@ -11,6 +12,7 @@
 - **Font**: Inter (Google Fonts)
 
 ## Build & Tooling
+
 - **Build system**: Angular CLI v21 (`@angular/build:application`)
 - **Package manager**: npm 11
 - **Test runner**: Vitest v4
@@ -36,6 +38,7 @@ ng generate service path/to/service-name
 ```
 
 ## Notes
+
 - Default component style is SCSS (configured in `angular.json`)
 - Swiper CSS is imported globally in `angular.json` styles array
 - Flowbite is lazy-loaded only in browser context (SSR-safe guard via `isPlatformBrowser`)

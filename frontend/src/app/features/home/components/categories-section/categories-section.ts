@@ -8,9 +8,21 @@ import { Component } from '@angular/core';
 })
 export class CategoriesSection {
   categories = [
-    'Monitors', 'Laptops', 'Keyboards', 'Mice',
-    'Headphones', 'Speakers', 'Cameras', 'Printers',
-    'Tablets', 'Phones', 'TVs', 'Routers',
-    'Storage', 'Graphics Cards', 'Processors', 'Accessories'
+    'Monitors',
+    'Laptops',
+    'Keyboards',
+    'Mice',
+    'Headphones',
+    'Speakers',
+    'Cameras',
+    'Printers',
+    'Tablets',
+    'Phones',
+    'TVs',
+    'Routers',
+    'Storage',
+    'Graphics Cards',
+    'Processors',
+    'Accessories',
   ];
 }

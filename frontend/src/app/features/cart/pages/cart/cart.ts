@@ -34,9 +34,42 @@ export class Cart {
   promoCode = '';
 
   items: CartItem[] = [
-    { id: 1, image: '/images/clothes.webp', name: 'Hand-Woven Pashmina Wrap', color: 'Midnight Navy', size: 'Standard', quantity: 1, unitPrice: 185, storeName: 'Himalayan Clay Studio', storeAvatar: '/images/clothes.webp', selected: true },
-    { id: 2, image: '/images/bottle.webp', name: 'Artisan Terracotta Planter', color: 'Stone Keal', size: 'Large', quantity: 2, unitPrice: 62, storeName: 'Himalayan Clay Studio', storeAvatar: '/images/clothes.webp', selected: true },
-    { id: 3, image: '/images/tea.webp', name: 'Brass Panas Pair', color: 'Antique Gold', size: 'Standard', quantity: 1, unitPrice: 95, storeName: 'Nepal Craft House', storeAvatar: '/images/tea.webp', selected: false },
+    {
+      id: 1,
+      image: '/images/clothes.webp',
+      name: 'Hand-Woven Pashmina Wrap',
+      color: 'Midnight Navy',
+      size: 'Standard',
+      quantity: 1,
+      unitPrice: 185,
+      storeName: 'Himalayan Clay Studio',
+      storeAvatar: '/images/clothes.webp',
+      selected: true,
+    },
+    {
+      id: 2,
+      image: '/images/bottle.webp',
+      name: 'Artisan Terracotta Planter',
+      color: 'Stone Keal',
+      size: 'Large',
+      quantity: 2,
+      unitPrice: 62,
+      storeName: 'Himalayan Clay Studio',
+      storeAvatar: '/images/clothes.webp',
+      selected: true,
+    },
+    {
+      id: 3,
+      image: '/images/tea.webp',
+      name: 'Brass Panas Pair',
+      color: 'Antique Gold',
+      size: 'Standard',
+      quantity: 1,
+      unitPrice: 95,
+      storeName: 'Nepal Craft House',
+      storeAvatar: '/images/tea.webp',
+      selected: false,
+    },
   ];
 
   suggestions = [
@@ -50,7 +83,11 @@ export class Cart {
     const map = new Map<string, StoreGroup>();
     for (const item of this.items) {
       if (!map.has(item.storeName)) {
-        map.set(item.storeName, { storeName: item.storeName, storeAvatar: item.storeAvatar, items: [] });
+        map.set(item.storeName, {
+          storeName: item.storeName,
+          storeAvatar: item.storeAvatar,
+          items: [],
+        });
       }
       map.get(item.storeName)!.items.push(item);
     }
@@ -58,42 +95,60 @@ export class Cart {
   }
 
   isStoreAllSelected(group: StoreGroup): boolean {
-    return group.items.every(i => i.selected);
+    return group.items.every((i) => i.selected);
   }
 
   isStoreIndeterminate(group: StoreGroup): boolean {
-    const some = group.items.some(i => i.selected);
-    const all = group.items.every(i => i.selected);
+    const some = group.items.some((i) => i.selected);
+    const all = group.items.every((i) => i.selected);
     return some && !all;
   }
 
   toggleStore(group: StoreGroup, checked: boolean) {
-    group.items.forEach(i => i.selected = checked);
+    group.items.forEach((i) => (i.selected = checked));
   }
 
-  get selectedItems() { return this.items.filter(i => i.selected); }
-  get subtotal() { return this.selectedItems.reduce((s, i) => s + i.unitPrice * i.quantity, 0); }
-  get shipping() { return this.selectedItems.length > 0 ? 15 : 0; }
-  get tax() { return +(this.subtotal * 0.08).toFixed(2); }
-  get total() { return +(this.subtotal + this.shipping + this.tax).toFixed(2); }
+  get selectedItems() {
+    return this.items.filter((i) => i.selected);
+  }
+  get subtotal() {
+    return this.selectedItems.reduce((s, i) => s + i.unitPrice * i.quantity, 0);
+  }
+  get shipping() {
+    return this.selectedItems.length > 0 ? 15 : 0;
+  }
+  get tax() {
+    return +(this.subtotal * 0.08).toFixed(2);
+  }
+  get total() {
+    return +(this.subtotal + this.shipping + this.tax).toFixed(2);
+  }
 
-  increment(item: CartItem) { item.quantity++; }
-  decrement(item: CartItem) { if (item.quantity > 1) item.quantity--; }
-  remove(item: CartItem) { this.items = this.items.filter(i => i.id !== item.id); }
-  applyPromo() { /* promo logic */ }
+  increment(item: CartItem) {
+    item.quantity++;
+  }
+  decrement(item: CartItem) {
+    if (item.quantity > 1) item.quantity--;
+  }
+  remove(item: CartItem) {
+    this.items = this.items.filter((i) => i.id !== item.id);
+  }
+  applyPromo() {
+    /* promo logic */
+  }
 
   proceedToCheckout() {
     this.router.navigate(['/checkout'], {
       state: {
-        items: this.selectedItems.map(i => ({
+        items: this.selectedItems.map((i) => ({
           image: i.image,
           name: i.name,
           size: i.size,
           color: i.color,
           quantity: i.quantity,
           unitPrice: i.unitPrice,
-        }))
-      }
+        })),
+      },
     });
   }
 }

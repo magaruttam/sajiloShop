@@ -1,27 +1,37 @@
-<article class="relative group bg-[#F7FAFC] border border-[#E5E9EB] rounded overflow-hidden cursor-pointer">
-
+<article
+  class="relative group bg-[#F7FAFC] border border-[#E5E9EB] rounded overflow-hidden cursor-pointer"
+>
   <!-- Badge -->
   @if (badge()) {
-    <span class="absolute top-2 left-2 z-10 text-white text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-wide"
-          [ngClass]="badgeColor()">
+    <span
+      class="absolute top-2 left-2 z-10 text-white text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-wide"
+      [ngClass]="badgeColor()"
+    >
       {{ badge() }}
     </span>
   }
 
   <!-- Favorite -->
-  <button (click)="toggleFavorite($event)"
-    class="absolute top-2 right-2 z-10 bg-white rounded-full w-7 h-7 flex items-center justify-center shadow">
-    <span class="material-symbols-outlined text-base"
-          [class.text-red-500]="isFavorite()"
-          [class.text-[#43474E]]="!isFavorite()">
+  <button
+    (click)="toggleFavorite($event)"
+    class="absolute top-2 right-2 z-10 bg-white rounded-full w-7 h-7 flex items-center justify-center shadow"
+  >
+    <span
+      class="material-symbols-outlined text-base"
+      [class.text-red-500]="isFavorite()"
+      [class.text-[#43474E]]="!isFavorite()"
+    >
       favorite
     </span>
   </button>
 
   <!-- Image -->
   <figure class="h-44 w-full overflow-hidden m-0">
-    <img [src]="image()" [alt]="name()"
-         class="w-full h-full object-fill group-hover:scale-105 transition-transform duration-300" />
+    <img
+      [src]="image()"
+      [alt]="name()"
+      class="w-full h-full object-fill group-hover:scale-105 transition-transform duration-300"
+    />
   </figure>
 
   <!-- Info -->
@@ -37,5 +47,4 @@
       }
     </div>
   </div>
-
 </article>

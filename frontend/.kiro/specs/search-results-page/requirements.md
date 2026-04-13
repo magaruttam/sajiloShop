@@ -84,7 +84,6 @@ The Search Results Page is a core discovery feature for SajiloShop, an e-commerc
 4. THE Price_Range_Slider SHALL initialize with a default range spanning the full price range of the current result set.
 5. IF no products exist within the selected price range, THEN THE Product_Grid SHALL display an empty-state message: `No products match the selected filters.`
 
-
 ### Requirement 7: Material Filter
 
 **User Story:** As a shopper, I want to filter products by material using checkboxes, so that I can find products made from specific materials.

@@ -44,19 +44,29 @@ export class Checkout implements OnInit {
       this.items = state.items;
     } else {
       // fallback demo item
-      this.items = [{
-        image: '/images/clothes.webp',
-        name: 'Nordic Clay Vase',
-        size: 'Standard',
-        color: 'Bone White',
-        quantity: 1,
-        unitPrice: 4500,
-      }];
+      this.items = [
+        {
+          image: '/images/clothes.webp',
+          name: 'Nordic Clay Vase',
+          size: 'Standard',
+          color: 'Bone White',
+          quantity: 1,
+          unitPrice: 4500,
+        },
+      ];
     }
   }
 
-  get subtotal() { return this.items.reduce((s, i) => s + i.unitPrice * i.quantity, 0); }
-  get shipping() { return 0; }
-  get tax() { return Math.round(this.subtotal * 0.13); }
-  get total() { return this.subtotal + this.shipping + this.tax; }
+  get subtotal() {
+    return this.items.reduce((s, i) => s + i.unitPrice * i.quantity, 0);
+  }
+  get shipping() {
+    return 0;
+  }
+  get tax() {
+    return Math.round(this.subtotal * 0.13);
+  }
+  get total() {
+    return this.subtotal + this.shipping + this.tax;
+  }
 }

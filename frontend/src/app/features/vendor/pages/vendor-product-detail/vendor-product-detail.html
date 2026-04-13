@@ -1,0 +1,252 @@
+<div class="p-8 space-y-8 max-w-5xl mx-auto">
+
+  <!-- Breadcrumb + Title -->
+  <div>
+    <nav class="text-xs text-[#43474E] flex items-center gap-1.5 mb-2">
+      <span>Vendor Hub</span>
+      <span>/</span>
+      <a routerLink="/vendor/catalog" class="hover:underline">Products</a>
+    </nav>
+    <div class="flex items-start justify-between">
+      <h1 class="text-2xl font-extrabold text-[#1A365D]">{{ product().name }}</h1>
+      <div class="flex items-center gap-2 shrink-0">
+        <a
+          routerLink="/vendor/catalog/new"
+          class="border border-[#E5E9EB] rounded-lg px-4 py-2 text-sm font-semibold text-[#43474E] hover:bg-[#F7FAFC] transition-colors"
+        >Edit Product</a>
+        <button class="bg-[#1A365D] text-white rounded-lg px-5 py-2 text-sm font-bold hover:bg-[#162d4f] transition-colors">
+          Publish
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main 2-col grid -->
+  <div class="grid grid-cols-3 gap-6 items-start">
+
+    <!-- LEFT: 2×2 image grid -->
+    <div class="col-span-2 space-y-5">
+      <div>
+        <h2 class="text-base font-bold text-[#1A365D] mb-3">Visual Showcase</h2>
+        <div class="grid grid-cols-2 gap-3">
+          @for (img of images; track $index) {
+            <div
+              class="rounded-xl overflow-hidden bg-[#F7FAFC] aspect-[4/3] cursor-pointer border-2 transition-colors"
+              [ngClass]="activeImage() === $index ? 'border-[#1A365D]' : 'border-transparent'"
+              (click)="activeImage.set($index)"
+            >
+              <img [src]="img" [alt]="product().name" class="w-full h-full object-cover" />
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Product Information -->
+      <div>
+        <h2 class="text-base font-bold text-[#1A365D] mb-3">Product Information</h2>
+        <div class="bg-white rounded-xl border border-[#E5E9EB] p-5 space-y-4">
+          <div class="grid grid-cols-2 gap-x-8 gap-y-4">
+            <div>
+              <p class="text-xs text-[#43474E] mb-0.5">Product Name</p>
+              <p class="text-sm font-semibold text-[#1A365D]">{{ product().name }}</p>
+            </div>
+            <div>
+              <p class="text-xs text-[#43474E] mb-0.5">Category</p>
+              <p class="text-sm font-semibold text-[#1A365D]">{{ product().category }}</p>
+            </div>
+            <div>
+              <p class="text-xs text-[#43474E] mb-0.5">Barcode</p>
+              <p class="text-sm font-semibold text-[#1A365D]">9876543210123</p>
+            </div>
+            <div>
+              <p class="text-xs text-[#43474E] mb-0.5">Customized Product</p>
+              <span class="inline-block text-xs font-semibold border border-[#E5E9EB] rounded-md px-2.5 py-0.5 text-[#43474E]">No</span>
+            </div>
+          </div>
+          <div>
+            <p class="text-xs text-[#43474E] mb-1">Description</p>
+            <p class="text-sm text-[#43474E] leading-relaxed">
+              A luxurious skincare collection featuring natural ingredients and dermatologist-tested formulas. Perfect for daily use and suitable for all skin types.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inventory & Variants -->
+      <div>
+        <h2 class="text-base font-bold text-[#1A365D] mb-3">Inventory &amp; Variants</h2>
+        <div class="bg-white rounded-xl border border-[#E5E9EB] p-5 space-y-5">
+          <div>
+            <p class="text-xs text-[#43474E] mb-1">Stock Quantity</p>
+            <p class="text-3xl font-extrabold text-[#1A365D]">
+              {{ product().stock }} <span class="text-base font-normal text-[#43474E]">units</span>
+            </p>
+          </div>
+          <div>
+            <p class="text-xs text-[#43474E] mb-3">Product Variants</p>
+            <div class="space-y-3">
+              <div>
+                <p class="text-xs font-semibold text-[#1A365D] mb-2">Size</p>
+                <div class="flex flex-wrap gap-2">
+                  @for (v of ['Small', 'Medium', 'Large']; track v) {
+                    <span class="border border-[#E5E9EB] rounded-md px-3 py-1 text-xs text-[#43474E]">{{ v }}</span>
+                  }
+                </div>
+              </div>
+              <div>
+                <p class="text-xs font-semibold text-[#1A365D] mb-2">Color</p>
+                <div class="flex flex-wrap gap-2">
+                  @for (v of ['White', 'Beige', 'Rose']; track v) {
+                    <span class="border border-[#E5E9EB] rounded-md px-3 py-1 text-xs text-[#43474E]">{{ v }}</span>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Logistics -->
+      <div>
+        <h2 class="text-base font-bold text-[#1A365D] mb-3">Logistics</h2>
+        <div class="bg-white rounded-xl border border-[#E5E9EB] p-5">
+          <div class="grid grid-cols-2 gap-6">
+            <div class="space-y-1">
+              <p class="text-xs text-[#43474E]">Product Delivery</p>
+              <div class="flex items-center gap-2">
+                <!-- toggle on -->
+                <div class="w-10 h-6 bg-[#1A365D] rounded-full flex items-center px-1">
+                  <div class="w-4 h-4 bg-white rounded-full ml-auto"></div>
+                </div>
+                <span class="text-sm font-semibold text-[#1A365D]">Enabled</span>
+              </div>
+            </div>
+            <div class="space-y-1">
+              <p class="text-xs text-[#43474E]">Stationary</p>
+              <div class="flex items-center gap-2">
+                <!-- toggle off -->
+                <div class="w-10 h-6 bg-[#E5E9EB] rounded-full flex items-center px-1">
+                  <div class="w-4 h-4 bg-white rounded-full"></div>
+                </div>
+                <span class="text-sm font-semibold text-[#43474E]">No</span>
+              </div>
+            </div>
+            <div>
+              <p class="text-xs text-[#43474E] mb-0.5">Shipping Method</p>
+              <p class="text-sm font-semibold text-[#1A365D]">Express Shipping</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Performance -->
+      <div>
+        <h2 class="text-base font-bold text-[#1A365D] mb-3">Performance</h2>
+        <div class="bg-white rounded-xl border border-[#E5E9EB] p-5">
+          <div class="grid grid-cols-2 gap-4">
+            @for (stat of [
+              { label: 'Total Sales', value: '124 units', icon: 'shopping_bag' },
+              { label: 'Revenue', value: 'NPR 1,05,400', icon: 'payments' },
+              { label: 'Views', value: '3,842', icon: 'visibility' },
+              { label: 'Conversion', value: '3.2%', icon: 'trending_up' }
+            ]; track stat.label) {
+              <div class="flex items-center gap-3 p-3 rounded-lg bg-[#F7FAFC]">
+                <div class="w-9 h-9 rounded-lg bg-white border border-[#E5E9EB] flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-[#1A365D] text-base">{{ stat.icon }}</span>
+                </div>
+                <div>
+                  <p class="text-[10px] text-[#43474E]">{{ stat.label }}</p>
+                  <p class="text-sm font-bold text-[#1A365D]">{{ stat.value }}</p>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Orders -->
+      <div>
+        <h2 class="text-base font-bold text-[#1A365D] mb-3">Recent Orders for this Product</h2>
+        <div class="bg-white rounded-xl border border-[#E5E9EB] p-5">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-[#E5E9EB]">
+                <th class="text-left text-[10px] font-bold tracking-widest text-[#43474E] uppercase pb-3">Order ID</th>
+                <th class="text-left text-[10px] font-bold tracking-widest text-[#43474E] uppercase pb-3">Date</th>
+                <th class="text-left text-[10px] font-bold tracking-widest text-[#43474E] uppercase pb-3">Customer</th>
+                <th class="text-left text-[10px] font-bold tracking-widest text-[#43474E] uppercase pb-3">Qty</th>
+                <th class="text-left text-[10px] font-bold tracking-widest text-[#43474E] uppercase pb-3">Status</th>
+                <th class="text-right text-[10px] font-bold tracking-widest text-[#43474E] uppercase pb-3">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (order of recentOrders; track order.id) {
+                <tr class="border-b border-[#F0F4F8] hover:bg-[#F7FAFC] transition-colors">
+                  <td class="py-3 text-[#43474E] text-xs">{{ order.id }}</td>
+                  <td class="py-3 text-[#1A365D] font-medium">{{ order.date }}</td>
+                  <td class="py-3 text-[#1A365D] font-semibold">{{ order.customer }}</td>
+                  <td class="py-3 text-[#43474E]">× {{ order.qty }}</td>
+                  <td class="py-3">
+                    <span class="text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide" [ngClass]="statusStyles[order.status]">
+                      {{ order.status }}
+                    </span>
+                  </td>
+                  <td class="py-3 text-right font-bold text-[#1A365D]">{{ order.amount }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT sidebar -->
+    <div class="space-y-4">
+
+      <!-- Financials -->
+      <div>
+        <h2 class="text-base font-bold text-[#1A365D] mb-3">Financials</h2>
+        <div class="bg-white rounded-xl border border-[#E5E9EB] p-5">
+          <p class="text-xs text-[#43474E] mb-1">Price</p>
+          <p class="text-3xl font-extrabold text-[#1A365D]">NPR {{ product().price | number }}</p>
+          <p class="text-xs text-[#43474E] mt-0.5">NPR</p>
+        </div>
+      </div>
+
+      <!-- Status Overview -->
+      <div>
+        <h2 class="text-base font-bold text-[#1A365D] mb-3">Status Overview</h2>
+        <div class="bg-white rounded-xl border border-[#E5E9EB] p-5 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-[#43474E]">Product Status</span>
+            <span class="text-xs font-bold px-2.5 py-1 rounded-md bg-yellow-100 text-yellow-700">Draft</span>
+          </div>
+          <div class="flex items-center justify-between border-t border-[#F0F4F8] pt-3">
+            <span class="text-xs text-[#43474E]">Visibility</span>
+            <span class="text-xs font-semibold text-[#1A365D]">Private</span>
+          </div>
+          <div class="flex items-center justify-between border-t border-[#F0F4F8] pt-3">
+            <span class="text-xs text-[#43474E]">Last Updated</span>
+            <span class="text-xs font-semibold text-[#1A365D]">Apr 13, 2026</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div>
+        <h2 class="text-base font-bold text-[#1A365D] mb-3">Quick Actions</h2>
+        <div class="space-y-2">
+          <button class="w-full text-left border border-[#E5E9EB] rounded-lg px-4 py-3 text-sm font-medium text-[#1A365D] hover:bg-[#F7FAFC] transition-colors">
+            Duplicate Product
+          </button>
+          <button class="w-full text-left border border-[#E5E9EB] rounded-lg px-4 py-3 text-sm font-medium text-[#1A365D] hover:bg-[#F7FAFC] transition-colors">
+            View Analytics
+          </button>
+          <button class="w-full text-left border border-red-200 rounded-lg px-4 py-3 text-sm font-medium text-red-500 hover:bg-[#FEF2F2] transition-colors">
+            Delete Product
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

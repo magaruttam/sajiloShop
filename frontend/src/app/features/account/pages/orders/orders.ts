@@ -39,7 +39,8 @@ export class Orders {
       productImage: '/images/clothes.webp',
       orderNumber: '#SC-89241',
       productName: 'Hand-Knotted Pashmina Throw',
-      productDesc: 'A masterwork of Himalayan craftsmanship, sourced sustainably from the high-altitude valleys.',
+      productDesc:
+        'A masterwork of Himalayan craftsmanship, sourced sustainably from the high-altitude valleys.',
       placedOn: 'Oct 24, 2023',
       totalAmount: 'NPR 18,500',
       status: 'IN TRANSIT',
@@ -53,7 +54,8 @@ export class Orders {
       productImage: '/images/bottle.webp',
       orderNumber: '#SC-77302',
       productName: 'Wildflower & Cedar Incense Set',
-      productDesc: 'Naturally harvested cedarwood mixed with high-altitude wildflowers for a meditative atmosphere.',
+      productDesc:
+        'Naturally harvested cedarwood mixed with high-altitude wildflowers for a meditative atmosphere.',
       placedOn: 'Sep 12, 2023',
       totalAmount: 'NPR 4,200',
       status: 'DELIVERED',
@@ -77,18 +79,23 @@ export class Orders {
   get filteredOrders(): Order[] {
     const tab = this.activeTab();
     if (tab === 'All Orders') return this.orders;
-    if (tab === 'In Progress') return this.orders.filter(o => o.status === 'IN TRANSIT' || o.status === 'IN PROGRESS');
-    if (tab === 'Completed') return this.orders.filter(o => o.status === 'DELIVERED');
-    if (tab === 'Cancelled') return this.orders.filter(o => o.status === 'CANCELLED');
+    if (tab === 'In Progress')
+      return this.orders.filter((o) => o.status === 'IN TRANSIT' || o.status === 'IN PROGRESS');
+    if (tab === 'Completed') return this.orders.filter((o) => o.status === 'DELIVERED');
+    if (tab === 'Cancelled') return this.orders.filter((o) => o.status === 'CANCELLED');
     return this.orders;
   }
 
   statusStyle(status: OrderStatus): string {
     switch (status) {
-      case 'IN TRANSIT': return 'bg-[#E6F4F4] text-[#13696A]';
-      case 'DELIVERED': return 'bg-[#E8F5E9] text-[#2E7D32]';
-      case 'CANCELLED': return 'bg-[#FDECEA] text-[#C62828]';
-      case 'IN PROGRESS': return 'bg-[#FFF8E1] text-[#F57F17]';
+      case 'IN TRANSIT':
+        return 'bg-[#E6F4F4] text-[#13696A]';
+      case 'DELIVERED':
+        return 'bg-[#E8F5E9] text-[#2E7D32]';
+      case 'CANCELLED':
+        return 'bg-[#FDECEA] text-[#C62828]';
+      case 'IN PROGRESS':
+        return 'bg-[#FFF8E1] text-[#F57F17]';
     }
   }
 }

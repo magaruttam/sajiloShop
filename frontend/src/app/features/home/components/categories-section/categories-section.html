@@ -1,12 +1,15 @@
 <div class="max-w-[1300px] mx-auto px-4 md:px-8">
-  <h1 class="text-[#002045] text-2xl font-extrabold mb-7 ">Categories</h1>
+  <h1 class="text-[#002045] text-2xl font-extrabold mb-7">Categories</h1>
   <!-- Categories Items -->
   <div class="bg-[#FFFFFF] grid grid-cols-4 md:grid-cols-4 lg:grid-cols-8 gap-0">
     @for (item of categories; track item; let i = $index) {
-      <div class="bg-neutral-primary-soft w-full px-2 py-4 md:p-6 border border-default flex-col gap-2 rounded-base shadow-xs"
-        [class.hidden]="i >= 8" [class.lg:block]="i >= 8">
+      <div
+        class="bg-neutral-primary-soft w-full px-2 py-4 md:p-6 border border-default flex-col gap-2 rounded-base shadow-xs"
+        [class.hidden]="i >= 8"
+        [class.lg:block]="i >= 8"
+      >
         <img class="rounded-base mb-4" src="/images/monitors.png" alt="Category Image" />
-        <p class=" text-center text-[10px] md:text-sm font-inter">{{ item }}</p>
+        <p class="text-center text-[10px] md:text-sm font-inter">{{ item }}</p>
       </div>
     }
   </div>

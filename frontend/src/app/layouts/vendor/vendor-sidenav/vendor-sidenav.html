@@ -1,0 +1,63 @@
+<aside class="vendor-sidenav flex flex-col h-full w-[210px] bg-white border-r border-[#E5E9EB] px-4 py-6 shrink-0">
+
+  <!-- Brand -->
+  <div class="flex items-center gap-2 mb-8 px-2">
+    <img src="/images/logo-sajilo.png" alt="SajiloShop" class="w-8 h-8 object-contain" />
+    <div>
+      <p class="text-[#1A365D] font-extrabold text-sm leading-tight">Himalayan Crafts</p>
+      <p class="text-[#13696A] text-[10px] font-semibold">Verified Merchant</p>
+    </div>
+  </div>
+
+  <!-- Nav -->
+  <nav class="flex flex-col gap-1 flex-1">
+    @for (item of navItems; track item.route) {
+    <!-- Case 1 -has children -->
+    @if (item.children?.length){
+    <a [routerLink]="item.route" routerLinkActive="bg-[#1A365D] text-white" [routerLinkActiveOptions]="{ exact: false }"
+      class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-[#43474E] transition-colors"
+      data-collapse-toggle="dropdown-example">
+      <span class="material-symbols-outlined text-[18px]">{{ item.icon }}</span>
+      {{ item.label }}
+      <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+        viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7" />
+      </svg>
+    </a>
+    <ul id="dropdown-example" class="hidden py-2 space-y-2">
+      @for (children of item.children; track children.route){
+      <li>
+        <a [routerLink]="children.route" routerLinkActive="text-[#1A365D] px-2 py-3 hover:bg-white underline"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="flex items-center gap-3 ml-8 rounded-lg text-sm font-medium text-[#43474E] hover:bg-[#F0F4F8] transition-colors"
+          data-collapse-toggle="dropdown-example">
+          {{ children.label }}
+        </a>
+      </li>
+      }
+    </ul>
+    }<!-- CASE 2: Normal link -->
+    @else {
+    <a [routerLink]="item.route" routerLinkActive="bg-[#1A365D] text-white" [routerLinkActiveOptions]="{ exact: false }"
+      class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-[#43474E] transition-colors">
+      <span class="material-symbols-outlined text-[18px]">{{ item.icon }}</span>
+      {{ item.label }}
+    </a>
+    }
+    }
+  </nav>
+
+  <!-- Add New Product CTA -->
+  <a routerLink="/vendor/catalog/new"
+    class="flex items-center justify-center gap-2 bg-[#1A365D] text-white text-sm font-bold py-3 rounded-lg mb-6 hover:bg-[#162d4f] transition-colors">
+    <span class="material-symbols-outlined text-[18px]">add</span>
+    Add New Product
+  </a>
+
+  <!-- Sign Out -->
+  <button class="flex items-center gap-2 px-3 py-2 text-sm text-[#43474E] hover:text-red-500 transition-colors">
+    <span class="material-symbols-outlined text-[18px]">logout</span>
+    Sign Out
+  </button>
+
+</aside>

@@ -48,13 +48,15 @@ export class BecomeASeller {
 
   testimonials = [
     {
-      quote: '"SajiloShop changed how I think about my business. I\'m no longer just a local potter, my works are on shelves in New York."',
+      quote:
+        '"SajiloShop changed how I think about my business. I\'m no longer just a local potter, my works are on shelves in New York."',
       name: 'Anisha Thay',
       role: 'Artisan Ceramics',
       image: '/images/clothes.webp',
     },
     {
-      quote: '"The onboarding was so simple. They understood the heritage value of my weavings and helped me price them fairly."',
+      quote:
+        '"The onboarding was so simple. They understood the heritage value of my weavings and helped me price them fairly."',
       name: 'Ramit Shrestha',
       role: 'Artisan Ceramics',
       image: '/images/clothes.webp',
