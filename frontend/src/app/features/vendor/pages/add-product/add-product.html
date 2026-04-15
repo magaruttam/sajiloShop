@@ -21,7 +21,7 @@
         <h2 class="text-[#1A365D] font-bold text-sm">Core Information</h2>
       </div>
       <!-- Active toggle -->
-      <div class="flex items-center gap-2">
+      <!-- <div class="flex items-center gap-2">
         <span class="text-[10px] font-bold tracking-widest text-[#43474E] uppercase">Active Status</span>
         <button
           type="button"
@@ -34,14 +34,14 @@
             [ngClass]="isActive() ? 'translate-x-4' : 'translate-x-1'"
           ></span>
         </button>
-      </div>
+      </div> -->  
     </div>
     
     <!-- Product Name -->
     <div>
       <label class="block text-[10px] font-bold tracking-widest text-[#43474E] uppercase mb-1.5">Product Name</label>
       <input
-        [formControl]="name"
+        formControlName="name"
         type="text"
         placeholder="e.g. Handcrafted Pashmina Scarf"
         class="w-full border border-[#E5E9EB] rounded-lg px-4 py-2.5 text-sm text-[#1A365D] placeholder:text-[#C4C6CF] focus:outline-none focus:ring-2 focus:ring-[#13696A]"
@@ -53,7 +53,7 @@
       <div>
         <label class="block text-[10px] font-bold tracking-widest text-[#43474E] uppercase mb-1.5">Category</label>
         <select
-          [(ngModel)]="category"
+         formControlName="category"
           class="w-full border border-[#E5E9EB] rounded-lg px-4 py-2.5 text-sm text-[#43474E] focus:outline-none focus:ring-2 focus:ring-[#13696A] bg-white"
         >
           <option value="" disabled selected>Select a category</option>
@@ -64,15 +64,15 @@
           <option>Food & Beverages</option>
         </select>
       </div>
-      <div>
+      <!-- <div>
         <label class="block text-[10px] font-bold tracking-widest text-[#43474E] uppercase mb-1.5">SKU / Product Code</label>
         <input
-          [(ngModel)]="sku"
+        formControlName=""
           type="text"
           placeholder="SKU-001-ABC"
           class="w-full border border-[#E5E9EB] rounded-lg px-4 py-2.5 text-sm text-[#1A365D] placeholder:text-[#C4C6CF] focus:outline-none focus:ring-2 focus:ring-[#13696A]"
         />
-      </div>
+      </div> -->
     </div>
 
     <!-- Description -->
@@ -86,7 +86,7 @@
           <button type="button" class="text-xs text-[#43474E] hover:text-[#1A365D] px-1">"</button>
         </div>
         <textarea
-          [(ngModel)]="description"
+          formControlName="description"
           rows="5"
           placeholder="Tell the story of your product..."
           class="w-full px-4 py-3 text-sm text-[#1A365D] placeholder:text-[#C4C6CF] focus:outline-none resize-none"
@@ -107,7 +107,7 @@
         <div class="flex items-center border border-[#E5E9EB] rounded-lg overflow-hidden">
           <span class="px-3 py-2.5 text-sm text-[#43474E] bg-[#F7FAFC] border-r border-[#E5E9EB]">₨</span>
           <input
-            [(ngModel)]="price"
+            formControlName="price"
             type="number"
             placeholder="0.00"
             class="flex-1 px-3 py-2.5 text-sm text-[#1A365D] focus:outline-none"
@@ -118,16 +118,16 @@
         <label class="block text-[10px] font-bold tracking-widest text-[#43474E] uppercase mb-1.5">Discount (Optional)</label>
         <div class="flex items-center border border-[#E5E9EB] rounded-lg overflow-hidden">
           <input
-            [(ngModel)]="discount"
+            formControlName="discount"
             type="number"
             placeholder="Amount or %"
             class="flex-1 px-3 py-2.5 text-sm text-[#1A365D] focus:outline-none"
           />
-          <button
+          <!-- <button
             type="button"
             (click)="toggleDiscount()"
             class="px-3 py-2.5 text-sm font-bold text-[#43474E] bg-[#F7FAFC] border-l border-[#E5E9EB] hover:bg-[#E5E9EB] transition-colors"
-          >{{ discountType() }}</button>
+          >{{ discountType() }}</button> -->
         </div>
       </div>
     </div>
@@ -172,7 +172,7 @@
     <div>
       <label class="block text-[10px] font-bold tracking-widest text-[#43474E] uppercase mb-1.5">Global Stock Quantity</label>
       <input
-        [(ngModel)]="stockQty"
+        formControlName="stockQty"
         type="number"
         min="0"
         class="w-40 border border-[#E5E9EB] rounded-lg px-4 py-2.5 text-sm text-[#1A365D] focus:outline-none focus:ring-2 focus:ring-[#13696A]"
@@ -191,7 +191,7 @@
         @for (variant of variants(); track $index) {
           <div class="flex items-center gap-3">
             <select
-              [(ngModel)]="variant.type"
+              formControlName="variant.type"
               class="w-32 border border-[#E5E9EB] rounded-lg px-3 py-2 text-sm text-[#43474E] bg-white focus:outline-none focus:ring-2 focus:ring-[#13696A]"
             >
               <option>Size</option>
@@ -200,7 +200,7 @@
               <option>Weight</option>
             </select>
             <input
-              [(ngModel)]="variant.options"
+              formControlName="variant.options"
               type="text"
               placeholder="Small, Medium, Large"
               class="flex-1 border border-[#E5E9EB] rounded-lg px-3 py-2 text-sm text-[#1A365D] placeholder:text-[#C4C6CF] focus:outline-none focus:ring-2 focus:ring-[#13696A]"
@@ -246,7 +246,7 @@
     </section>
 
     <!-- Discovery / Tags -->
-    <section class="bg-white rounded-xl border border-[#E5E9EB] p-6 space-y-3">
+    <!-- <section class="bg-white rounded-xl border border-[#E5E9EB] p-6 space-y-3">
       <div class="flex items-center gap-2 mb-1">
         <span class="material-symbols-outlined text-[#1A365D] text-lg">tag</span>
         <h2 class="text-[#1A365D] font-bold text-sm">Discovery</h2>
@@ -260,14 +260,14 @@
         }
       </div>
       <input
-        [(ngModel)]="tagInput"
+        formControlName="tagInput"
         (keydown)="addTag($event)"
         type="text"
         placeholder="Add more tags..."
         class="w-full border-0 border-b border-[#E5E9EB] py-1.5 text-sm text-[#1A365D] placeholder:text-[#C4C6CF] focus:outline-none focus:border-[#13696A]"
       />
       <p class="text-[10px] text-[#C4C6CF]">Press enter to add a tag.</p>
-    </section>
+    </section> -->
   </div>
 
   <!-- Actions -->

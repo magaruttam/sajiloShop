@@ -22,10 +22,3 @@ export interface ProductVariant {
 
 // Payload for creating — no id, no stockStatus (backend derives it)
 export type CreateProductPayload = Omit<Product, 'id' | 'stockStatus'>;
-
-// Generic API response wrapper
-export interface ApiResponse<T> {
-  proudct: T;  
-  message: string;
-  success: boolean;
-}

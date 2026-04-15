@@ -2,6 +2,7 @@
 import express, { Application } from "express";
 import cookieParser from "cookie-parser";
 import sequelize from "./config/db";
+import cors from 'cors';
 
 // 1. Import base tables first (the ones being referenced)
 import User from "./models/userModel";
@@ -23,6 +24,8 @@ import productRouter from "./routes/product.route";
 const app: Application = express();
 app.use(express.json());
 app.use(cookieParser());
+
+app.use(cors());
 
 // Synchronize Database
 sequelize.sync();
