@@ -53,16 +53,20 @@
       <div>
         <label class="block text-[10px] font-bold tracking-widest text-[#43474E] uppercase mb-1.5">Category</label>
         <select
-         formControlName="category"
+          formControlName="category"
           class="w-full border border-[#E5E9EB] rounded-lg px-4 py-2.5 text-sm text-[#43474E] focus:outline-none focus:ring-2 focus:ring-[#13696A] bg-white"
         >
           <option value="" disabled selected>Select a category</option>
-          <option>Clothing</option>
-          <option>Handicrafts</option>
-          <option>Jewelry</option>
-          <option>Home Decor</option>
-          <option>Food & Beverages</option>
+          @if (categoriesStore.isLoading()) {
+            <option disabled>Loading categories...</option>
+          }
+          @for (category of categoriesStore.categories(); track category.id) {
+            <option [value]="category.id">{{ category.name }}</option>
+          }
         </select>
+        @if (categoriesStore.error()) {
+          <p class="text-xs text-red-500 mt-1">{{ categoriesStore.error() }}</p>
+        }
       </div>
       <!-- <div>
         <label class="block text-[10px] font-bold tracking-widest text-[#43474E] uppercase mb-1.5">SKU / Product Code</label>

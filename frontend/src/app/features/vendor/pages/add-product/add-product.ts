@@ -1,12 +1,9 @@
-import { Category } from '../../../../core/models/category.model';
-import { CategoryService } from '../../../../core/services/category.service';
 import { Component, inject, signal } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import {FormGroup , FormControl, ReactiveFormsModule} from '@angular/forms';
-import { Product } from '../../models/product.model';
-
+import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { CategoriesStore } from '../../../../core/store/categories.store';
 
 interface Variant {
   type: string;
@@ -15,27 +12,22 @@ interface Variant {
 
 @Component({
   selector: 'app-add-product',
-  imports: [NgClass, RouterLink, FormsModule,ReactiveFormsModule],
+  imports: [NgClass, RouterLink, FormsModule, ReactiveFormsModule],
   templateUrl: './add-product.html',
-  styleUrl: './add-product.scss', 
+  styleUrl: './add-product.scss',
 })
 export class AddProduct {
-private CategoryService = inject(CategoryService);
+  // Inject the global categories store
+  readonly categoriesStore = inject(CategoriesStore);
 
-Category!: Category[];
-
-ngOnInit(){
-  this.CategoryService.getCategories().subscribe((res)=>{
-     this.Category = res;
-  })
-}
-
-  // discountType = signal<'%' | 'flat'>('%');
-
- profileForm  = new FormGroup({
+  profileForm = new FormGroup({
     name: new FormControl(''),
+    category: new FormControl(''),
+    description: new FormControl(''),
+    price: new FormControl(0),
+    discount: new FormControl(0),
+    stockQty: new FormControl(0),
   });
-
 
   deliveryOptions = signal([
     { label: 'Standard Delivery', sub: '3-5 business days', selected: true },
@@ -51,10 +43,4 @@ ngOnInit(){
   removeVariant(index: number) {
     this.variants.update((v) => v.filter((_, i) => i !== index));
   }
-
- 
-
-  // toggleDiscount() {
-  //   this.discountType.update((d) => (d === '%' ? 'flat' : '%'));
-  // }
 }
