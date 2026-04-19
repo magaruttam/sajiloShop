@@ -8,12 +8,11 @@ import Vendor from "../models/vendor.model";
 
 const registerUser = async (req: Request, res: Response) => {
   try {
-    const { email, password, role, shopName } = req.body;
+    const {name, email, password, role, shopName } = req.body;
 
     const existingUser = await User.findOne({
       where:
         { email: email },
-
     });
 
     if (existingUser) {
@@ -24,6 +23,7 @@ const registerUser = async (req: Request, res: Response) => {
     const hashPassword = await bcrypt.hash(password, 10);
 
     const newUser = await User.create({
+      name,
       email,
       role: role as UserRole,
       password: hashPassword,

@@ -1,0 +1,95 @@
+<div class="min-h-screen bg-[#F0F4F8] flex items-center justify-center px-4 relative overflow-hidden">
+
+  <!-- Decorative leaf bottom-right -->
+  <div class="absolute bottom-8 right-8 opacity-10">
+    <span class="material-symbols-outlined text-[120px] text-[#1A365D]">eco</span>
+  </div>
+
+  <div class="w-full max-w-sm">
+    <h1 class="text-3xl font-extrabold text-[#1A365D] mb-2">Welcome Back</h1>
+    <p class="text-sm text-[#43474E] mb-8">Please enter your details to access your collection.</p>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-5">
+
+      <!-- Error message -->
+      @if (errorMessage()) {
+        <div class="bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-xl">
+          {{ errorMessage() }}
+        </div>
+      }
+
+      <!-- Email -->
+      <div>
+        <label class="block text-sm text-[#1A365D] mb-1">Email or Phone Number</label>
+        <div class="flex items-center border-b border-[#C4C6CF] focus-within:border-[#1A365D]">
+          <input
+            formControlName="email"
+            type="text"
+            placeholder="name@example.com"
+            class="flex-1 bg-transparent py-2 text-sm text-[#1A365D] placeholder:text-[#C4C6CF] focus:outline-none"
+          />
+          <span class="material-symbols-outlined text-[#C4C6CF] text-lg">alternate_email</span>
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div>
+        <div class="flex items-center justify-between mb-1">
+          <label class="text-sm text-[#1A365D]">Password</label>
+          <a href="#" class="text-xs text-[#13696A] font-semibold hover:underline">Forgot password?</a>
+        </div>
+        <div class="flex items-center border-b border-[#C4C6CF] focus-within:border-[#1A365D]">
+          <input
+            formControlName="password"
+            [type]="showPassword() ? 'text' : 'password'"
+            placeholder="••••••••"
+            class="flex-1 bg-transparent py-2 text-sm text-[#1A365D] placeholder:text-[#C4C6CF] focus:outline-none"
+          />
+          <button type="button" (click)="showPassword.update(v => !v)" class="text-[#C4C6CF] hover:text-[#1A365D]">
+            <span class="material-symbols-outlined text-lg">{{ showPassword() ? 'visibility_off' : 'visibility' }}</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Remember me -->
+      <label class="flex items-center gap-2 cursor-pointer">
+        <input formControlName="rememberMe" type="checkbox" class="w-4 h-4 rounded border-[#C4C6CF] accent-[#1A365D]" />
+        <span class="text-sm text-[#43474E]">Stay logged in for 30 days</span>
+      </label>
+
+      <!-- Submit -->
+      <button
+        type="submit"
+        [disabled]="loading()"
+        class="w-full bg-[#1A365D] text-white font-bold py-3.5 rounded-xl hover:bg-[#162d4f] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        {{ loading() ? 'Signing In...' : 'Sign In to Shop' }}
+      </button>
+    </form>
+
+    <!-- Divider -->
+    <div class="flex items-center gap-3 my-6">
+      <div class="flex-1 h-px bg-[#E5E9EB]"></div>
+      <span class="text-xs text-[#C4C6CF] font-semibold tracking-widest uppercase">or continue with</span>
+      <div class="flex-1 h-px bg-[#E5E9EB]"></div>
+    </div>
+
+    <!-- Social buttons -->
+    <div class="grid grid-cols-2 gap-3">
+      <button class="flex items-center justify-center gap-2 border border-[#E5E9EB] rounded-xl py-2.5 text-sm font-semibold text-[#1A365D] hover:bg-[#F7FAFC] transition-colors">
+        <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5" alt="Google" />
+        Google
+      </button>
+      <button class="flex items-center justify-center gap-2 border border-[#E5E9EB] rounded-xl py-2.5 text-sm font-semibold text-[#1A365D] hover:bg-[#F7FAFC] transition-colors">
+        <img src="https://www.svgrepo.com/show/448224/facebook.svg" class="w-5 h-5" alt="Facebook" />
+        Facebook
+      </button>
+    </div>
+
+    <!-- Register link -->
+    <p class="text-center text-sm text-[#43474E] mt-8">
+      New to SajiloShop?
+      <a routerLink="/register" class="text-[#13696A] font-semibold hover:underline">Create an account</a>
+    </p>
+  </div>
+</div>

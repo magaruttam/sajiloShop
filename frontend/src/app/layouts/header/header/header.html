@@ -59,69 +59,14 @@
           <span class="material-symbols-outlined">shopping_bag</span>
         </button>
 
-        <!-- User menu -->
-        <div
-          class="relative"
-          id="user-menu-area"
-          (mouseenter)="userDropdownOpen = true"
-          (mouseleave)="userDropdownOpen = false"
+        <!-- Login button (not logged in) -->
+        <a
+          routerLink="/login"
+          class="flex items-center gap-1.5 bg-[#1A365D] text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-[#162d4f] transition-colors"
         >
-          <button
-            class="text-[#43474E] hover:text-[#1A365D] transition-colors"
-            aria-label="User Account"
-          >
-            <span class="material-symbols-outlined">person</span>
-          </button>
-
-          <!-- Dropdown — absolutely positioned, outside flow -->
-          @if (userDropdownOpen) {
-            <div
-              class="absolute right-0 top-full mt-2 w-44 bg-white border border-[#E5E9EB] rounded-lg shadow-lg z-50"
-            >
-              <div class="px-4 py-3 text-sm border-b border-[#E5E9EB]">
-                <span class="block text-[#1A365D] font-semibold">Joseph McFall</span>
-                <span class="block text-[#43474E] text-xs truncate">name@sajilo.com</span>
-              </div>
-              <ul class="p-2 text-sm text-[#43474E]">
-                <li>
-                  <a
-                    routerLink="/account/orders"
-                    (click)="userDropdownOpen = false"
-                    class="flex items-center gap-2 w-full px-2 py-2 rounded hover:bg-[#F7FAFC] hover:text-[#1A365D]"
-                  >
-                    <span class="material-symbols-outlined text-base">receipt_long</span> My Orders
-                  </a>
-                </li>
-                <li>
-                  <a
-                    routerLink="/wishlist"
-                    (click)="userDropdownOpen = false"
-                    class="flex items-center gap-2 w-full px-2 py-2 rounded hover:bg-[#F7FAFC] hover:text-[#1A365D]"
-                  >
-                    <span class="material-symbols-outlined text-base">favorite</span> My Wishlist
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    class="flex items-center gap-2 w-full px-2 py-2 rounded hover:bg-[#F7FAFC] hover:text-[#1A365D]"
-                  >
-                    <span class="material-symbols-outlined text-base">settings</span> Settings
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    class="flex items-center gap-2 w-full px-2 py-2 rounded hover:bg-[#F7FAFC] hover:text-[#1A365D]"
-                  >
-                    <span class="material-symbols-outlined text-base">logout</span> Sign out
-                  </a>
-                </li>
-              </ul>
-            </div>
-          }
-        </div>
-      </div>
+          <span class="material-symbols-outlined text-base">login</span>
+          Login
+        </a>      </div>
     </div>
 
     <!-- Mobile Search -->

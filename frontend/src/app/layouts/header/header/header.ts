@@ -1,7 +1,8 @@
-import { Component, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { Component, ViewChild, ElementRef, HostListener, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SearchBox } from '../../../shared/components/search-box/search-box';
+import { AuthStore } from '../../../core/store/auth.store';
 
 @Component({
   selector: 'app-header',
@@ -11,6 +12,7 @@ import { SearchBox } from '../../../shared/components/search-box/search-box';
 })
 export class Header {
   @ViewChild('header') header!: ElementRef;
+  auth = inject(AuthStore);
 
   mobileMenuOpen = false;
   userDropdownOpen = false;

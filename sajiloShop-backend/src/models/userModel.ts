@@ -11,6 +11,7 @@ export type UserRole = "admin" | "user" | "vendor";
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare id: CreationOptional<number>;
+  declare name: string;
   declare email: string;
   declare password: string;
   declare role: UserRole;
@@ -23,6 +24,10 @@ User.init(
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
+    },
+    name: {
+  type: DataTypes.STRING,
+  allowNull: false,
     },
     email: {
       type: DataTypes.STRING,

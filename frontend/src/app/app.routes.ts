@@ -14,8 +14,12 @@ import { VendorSales } from './features/vendor/pages/sales/sales';
 import { AddProduct } from './features/vendor/pages/add-product/add-product';
 import { VendorCatalog } from './features/vendor/pages/catalog/catalog';
 import { VendorProductDetail } from './features/vendor/pages/vendor-product-detail/vendor-product-detail';
+import { Login } from './features/auth/pages/login/login';
+import { Register } from './features/auth/pages/register/register';
 
 export const routes: Routes = [
+  { path: 'login', component: Login },
+  { path: 'register', component: Register },
   {
     path: '',
     component: Base,

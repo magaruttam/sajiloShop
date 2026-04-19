@@ -20,7 +20,7 @@ type CategoriesState = {
 
 const initialState: CategoriesState = {
   categories: [],
-  isLoading: false,
+  isLoading: false, 
   error: null,
 };
 
@@ -33,7 +33,7 @@ export const CategoriesStore = signalStore(
   })),
   withMethods((store, categoryService = inject(CategoryService)) => ({
     loadCategories: rxMethod<void>(
-      pipe(
+      pipe( 
         tap(() => patchState(store, { isLoading: true, error: null })), 
         switchMap(() =>
           categoryService.getCategories().pipe(
