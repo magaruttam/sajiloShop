@@ -80,13 +80,13 @@ const loginUser = async (req: Request, res: Response) => {
       return res.status(401).json({ message: "Invalid password" });
     }
 
+    if (user.role !== "user") {
+      return res.status(403).json({ message: "Access denied" });
+    }
 
-    //Create a token for the user and send it in the response
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, {
-      expiresIn: "2d",
-    });
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, { expiresIn: "2d" });
     res.cookie("token", token);
-    return res.status(200).json({ message: "Login successful", user: user });
+    return res.status(200).json({ message: "Login successful", user: { name: user.name, email: user.email, role: user.role } });
 
   } catch (error: unknown) {
     if (error instanceof Error){
@@ -98,4 +98,35 @@ const loginUser = async (req: Request, res: Response) => {
   }
 };
 
-export { registerUser, loginUser };
+const loginVendor = async (req: Request, res: Response) => {
+  try {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ where: { email } });
+
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) return res.status(401).json({ message: "Invalid password" });
+
+    if (user.role !== "vendor") {
+      return res.status(403).json({ message: "Access denied" });
+    }
+
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, { expiresIn: "2d" });
+    res.cookie("token", token);
+
+    const vendor = await Vendor.findOne({ where: { userId: user.id } });
+    return res.status(200).json({ message: "Login successful", user: { name: user.name, email: user.email, role: user.role }, vendor });
+
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error("Error", error.message);
+    } else {
+      console.error("Unknown Error", error);
+    }
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export { registerUser, loginUser, loginVendor };

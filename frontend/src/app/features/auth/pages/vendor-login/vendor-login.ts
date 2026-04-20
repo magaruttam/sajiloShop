@@ -5,14 +5,14 @@ import { AuthService } from '../../../../core/services/auth.service';
 import { AuthStore } from '../../../../core/store/auth.store';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-vendor-login',
   imports: [ReactiveFormsModule, RouterLink],
-  templateUrl: './login.html',
-  styleUrl: './login.scss',
+  templateUrl: './vendor-login.html',
+  styleUrl: './vendor-login.scss',
 })
-export class Login {
+export class VendorLogin {
   private authService = inject(AuthService);
-  private authStore = inject(AuthStore);  
+  private authStore = inject(AuthStore);
   private router = inject(Router);
 
   showPassword = signal(false);
@@ -33,11 +33,20 @@ export class Login {
 
     const { email, password } = this.form.value;
 
-    this.authService.login({ email: email!, password: password!, role: 'user' }).subscribe({
+    this.authService.vendorLogin({ email: email!, password: password! }).subscribe({
       next: (res) => {
-        this.authStore.login(res.user.name, res.user.email);
+        const vendor = res.vendor
+          ? {
+              id: res.vendor.id,
+              userId: res.vendor.userId,
+              status: res.vendor.status,
+              shopName: res.vendor.shopName,
+              balance: res.vendor.balance,
+            }
+          : null;
+        this.authStore.vendorLogin(res.user.name, res.user.email, vendor);
         this.loading.set(false);
-        this.router.navigate(['/']);
+        this.router.navigate(['/vendor/overview']);
       },
       error: (err) => {
         this.loading.set(false);

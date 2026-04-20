@@ -16,10 +16,14 @@ import { VendorCatalog } from './features/vendor/pages/catalog/catalog';
 import { VendorProductDetail } from './features/vendor/pages/vendor-product-detail/vendor-product-detail';
 import { Login } from './features/auth/pages/login/login';
 import { Register } from './features/auth/pages/register/register';
+import { VendorLogin } from './features/auth/pages/vendor-login/vendor-login';
+import { VendorRegister } from './features/auth/pages/vendor-register/vendor-register';
 
 export const routes: Routes = [
   { path: 'login', component: Login },
   { path: 'register', component: Register },
+  { path: 'vendor-login', component: VendorLogin },
+  { path: 'vendor-register', component: VendorRegister },
   {
     path: '',
     component: Base,

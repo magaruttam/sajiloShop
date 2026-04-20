@@ -14,16 +14,18 @@
       logistics, you focus on the art.
     </p>
     <div class="flex gap-3 mt-8 flex-wrap">
-      <button
+      <a
+        routerLink="/vendor-register"
         class="bg-[#13696A] text-white text-sm font-semibold px-5 py-2.5 rounded hover:bg-[#0f5556] transition-colors"
       >
         Join the Curator's Circle
-      </button>
-      <button
+      </a>
+      <a
+        routerLink="/vendor-login"
         class="border border-white text-white text-sm font-semibold px-5 py-2.5 rounded hover:bg-white hover:text-[#1A365D] transition-colors"
       >
-        Watch the Guide
-      </button>
+        Already a Vendor? Sign In
+      </a>
     </div>
   </div>
 </section>
@@ -118,6 +120,7 @@
   </p>
   <button
     class="bg-[#13696A] text-white font-semibold text-sm px-8 py-3 rounded hover:bg-[#0f5556] transition-colors"
+    routerLink="/vendor-register"
   >
     Join the Curator's Circle →
   </button>

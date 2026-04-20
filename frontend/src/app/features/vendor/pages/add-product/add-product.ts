@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CategoriesStore } from '../../../../core/store/categories.store';
 import { ProductService } from '../../services/product.service';
+import { AuthStore } from '../../../../core/store/auth.store';
 
 interface Variant {
   type: string;
@@ -20,10 +21,12 @@ interface Variant {
 export class AddProduct {
   readonly categoriesStore = inject(CategoriesStore);
   private productService = inject(ProductService);
+  private authStore = inject(AuthStore);
   private router = inject(Router);
 
   submitting = signal(false);
   selectedImage = signal<File | null>(null);
+  errorMessage = signal('');
 
   onImageSelected(event: Event) {
     const file = (event.target as HTMLInputElement).files?.[0];
@@ -42,16 +45,23 @@ export class AddProduct {
   });
 
   onSubmit() {
-    if (this.profileForm.invalid) return;
+    this.errorMessage.set('');
+
+    const vendorId = this.authStore.vendor()?.id;
+    if (!vendorId) {
+      this.errorMessage.set('Vendor session not found. Please log in again.');
+      return;
+    }
 
     const v = this.profileForm.value;
     const formData = new FormData();
+    formData.append('vendorId', String(vendorId));
     formData.append('name', v.name!);
     formData.append('categoryId', v.category!);
     formData.append('description', v.description ?? '');
     formData.append('price', String(v.price));
     formData.append('stock', String(v.stockQty));
-    formData.append('status', 'published');
+    formData.append('status', 'approved');
     if (this.selectedImage()) {
       formData.append('image', this.selectedImage()!);
     }
@@ -63,7 +73,7 @@ export class AddProduct {
         this.router.navigate(['/vendor/catalog']);
       },
       error: (err) => {
-        console.error(err);
+        this.errorMessage.set(err.error?.message ?? 'Failed to add product. Please try again.');
         this.submitting.set(false);
       },
     });

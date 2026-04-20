@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-become-a-seller',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './become-a-seller.html',
   styleUrl: './become-a-seller.scss',
 })

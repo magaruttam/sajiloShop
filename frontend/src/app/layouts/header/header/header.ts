@@ -18,6 +18,14 @@ export class Header {
   userDropdownOpen = false;
   private lastScroll = 0;
 
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.relative')) {
+      this.userDropdownOpen = false;
+    }
+  }
+
   @HostListener('window:scroll', [])
   onWindowScroll() {
     const currentScroll = window.pageYOffset;

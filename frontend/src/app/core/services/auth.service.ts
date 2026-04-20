@@ -1,31 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { LoginRequest } from '../models/auth.model';
+import { LoginResponse } from '../models/auth.model';
+import { RegisterRequest } from '../models/auth.model';
+import { RegisterResponse } from '../models/auth.model';
+
 
 const API_URL = 'http://localhost:3000/api';
-
-export interface LoginRequest {
-  email: string;
-  password: string;
-  vendor: 'user' | 'vendor';
-}
-
-export interface LoginResponse {
-  message: string;
-  user: { name: string; email: string };
-}
-
-export interface RegisterRequest {
-  name: string;
-  email: string;
-  password: string;
-  role: 'user' | 'vendor';
-}
-
-export interface RegisterResponse {
-  message: string;
-  user: { name: string; email: string };
-}
 
 @Injectable({
   providedIn: 'root',
@@ -35,6 +17,12 @@ export class AuthService {
 
   login(data: LoginRequest): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${API_URL}/auth/login`, data, {
+      withCredentials: true,
+    });
+  }
+
+  vendorLogin(data: Pick<LoginRequest, 'email' | 'password'>): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${API_URL}/auth/vendor/login`, data, {
       withCredentials: true,
     });
   }

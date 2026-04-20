@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth.service';
+import { AuthStore } from '../../../../core/store/auth.store';
 
 @Component({
   selector: 'app-register',
@@ -11,6 +12,7 @@ import { AuthService } from '../../../../core/services/auth.service';
 })
 export class Register {
   private authService = inject(AuthService);
+  private authStore = inject(AuthStore);
   private router = inject(Router);
 
   showPassword = signal(false);
@@ -59,8 +61,9 @@ export class Register {
       .subscribe({
         next: (response) => {
           console.log('Registration successful:', response);
+          this.authStore.login(response.user.name, response.user.email);
           this.loading.set(false);
-          this.router.navigate(['/login']);
+          this.router.navigate(['/']);
         },
         error: (err) => {
           console.error('Registration error:', err);

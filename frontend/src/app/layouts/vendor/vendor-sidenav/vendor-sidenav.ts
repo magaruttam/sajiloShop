@@ -1,4 +1,5 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, AfterViewInit, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 interface children {
@@ -19,7 +20,16 @@ interface NavItem {
   templateUrl: './vendor-sidenav.html',
   styleUrl: './vendor-sidenav.scss',
 })
-export class VendorSidenav {
+export class VendorSidenav implements AfterViewInit {
+  private platformId = inject(PLATFORM_ID);
+
+  async ngAfterViewInit() {
+    if (isPlatformBrowser(this.platformId)) {
+      const { initFlowbite } = await import('flowbite');
+      initFlowbite();
+    }
+  }
+
   readonly navItems: NavItem[] = [
     { label: 'Overview', icon: 'grid_view', route: '/vendor/overview' },
     {

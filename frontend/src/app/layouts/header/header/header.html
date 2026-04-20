@@ -59,14 +59,55 @@
           <span class="material-symbols-outlined">shopping_bag</span>
         </button>
 
-        <!-- Login button (not logged in) -->
-        <a
-          routerLink="/login"
-          class="flex items-center gap-1.5 bg-[#1A365D] text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-[#162d4f] transition-colors"
-        >
-          <span class="material-symbols-outlined text-base">login</span>
-          Login
-        </a>      </div>
+        <!-- Login button / User profile -->
+        @if (auth.isLoggedIn()) {
+          <!-- User avatar dropdown -->
+          <div class="relative">
+            <button
+              (click)="userDropdownOpen = !userDropdownOpen"
+              class="flex items-center gap-2 hover:opacity-80 transition-opacity"
+            >
+              <div class="w-8 h-8 rounded-full bg-[#1A365D] text-white flex items-center justify-center text-sm font-bold">
+                {{ auth.name().charAt(0).toUpperCase() }}
+              </div>
+              <span class="hidden lg:block text-sm font-semibold text-[#1A365D]">{{ auth.name() }}</span>
+              <span class="material-symbols-outlined text-sm text-[#43474E]">expand_more</span>
+            </button>
+
+            @if (userDropdownOpen) {
+              <div class="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-[#E5E9EB] py-1 z-50">
+                <div class="px-4 py-2 border-b border-[#E5E9EB]">
+                  <p class="text-sm font-semibold text-[#1A365D] truncate">{{ auth.name() }}</p>
+                  <p class="text-xs text-[#43474E] truncate">{{ auth.email() }}</p>
+                </div>
+                <a routerLink="/account/orders" (click)="userDropdownOpen = false" class="flex items-center gap-2 px-4 py-2 text-sm text-[#43474E] hover:bg-[#F0F4F8] hover:text-[#1A365D]">
+                  <span class="material-symbols-outlined text-base">shopping_bag</span>
+                  My Orders
+                </a>
+                <a routerLink="/account/profile" (click)="userDropdownOpen = false" class="flex items-center gap-2 px-4 py-2 text-sm text-[#43474E] hover:bg-[#F0F4F8] hover:text-[#1A365D]">
+                  <span class="material-symbols-outlined text-base">person</span>
+                  Profile
+                </a>
+                <button
+                  (click)="auth.logout(); userDropdownOpen = false"
+                  class="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-500 hover:bg-red-50"
+                >
+                  <span class="material-symbols-outlined text-base">logout</span>
+                  Logout
+                </button>
+              </div>
+            }
+          </div>
+        } @else {
+          <a
+            routerLink="/login"
+            class="flex items-center gap-1.5 bg-[#1A365D] text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-[#162d4f] transition-colors"
+          >
+            <span class="material-symbols-outlined text-base">login</span>
+            Login
+          </a>
+        }
+      </div>
     </div>
 
     <!-- Mobile Search -->
