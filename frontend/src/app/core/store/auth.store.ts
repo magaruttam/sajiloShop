@@ -1,4 +1,4 @@
-import { signalStore, withState, withMethods, patchState, withHooks } from '@ngrx/signals';
+import { signalStore, withState, withMethods, patchState } from '@ngrx/signals';
 
 type VendorInfo = {
   id: number;

@@ -1,21 +1,37 @@
 <div class="max-w-[1300px] mx-auto px-4 md:px-8 mt-4">
   <h1 class="text-[#002045] text-2xl font-extrabold mb-7 font-inter">Just For You</h1>
-  <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 overflow-x-auto">
-    @for (item of pairings; track item.name) {
-      <app-product-card
-        [image]="item.image"
-        [name]="item.name"
-        [subtitle]="item.subtitle"
-        [price]="item.price"
-        [routerLink]="['/product-detail']"
-      ></app-product-card>
-    }
-  </div>
-  <div class="button flex justify-center">
-    <button
-      class="text-[#002045] text-center mb-4 font-semibold text-sm border border-[#002045] py-2 px-4 rounded hidden lg:block font-inter"
-    >
-      Load More
-    </button>
-  </div>
+
+  <!-- Loading -->
+  @if (productsStore.isLoading()) {
+    <div class="flex justify-center items-center py-12">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-[#002045]"></div>
+    </div>
+  }
+
+  <!-- Product Grid -->
+  @if (!productsStore.isLoading() && productsStore.hasProducts()) {
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+      @for (product of productsStore.products(); track product.id) {
+        <app-product-card
+          [image]="product.image"
+          [name]="product.name"
+          [price]="'NPR ' + product.price"
+          [routerLink]="['/product-detail', product.id]"
+        />
+      }
+    </div>
+    <div class="flex justify-center mt-6">
+      <button class="text-[#002045] text-center mb-4 font-semibold text-sm border border-[#002045] py-2 px-4 rounded hidden lg:block font-inter">
+        Load More
+      </button>
+    </div>
+  }
+
+  <!-- Empty -->
+  @if (!productsStore.isLoading() && !productsStore.hasProducts() && !productsStore.error()) {
+    <div class="flex flex-col items-center justify-center py-16 text-gray-400 gap-3">
+      <span class="material-symbols-outlined text-5xl">inventory_2</span>
+      <p class="text-base font-medium">No products available</p>
+    </div>
+  }
 </div>

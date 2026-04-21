@@ -57,3 +57,16 @@ export const getProducts = async (req: Request, res: Response) => {
     }
   }
 };
+
+//Delete a Product
+export const deleteProduct = async (req: Request, res: Response) => {
+  try {
+  }catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error("Error in deleteProduct:", err.message);
+    } else {
+      console.error("Unknown error in deleteProduct:", err);
+    }
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+}

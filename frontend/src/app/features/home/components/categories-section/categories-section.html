@@ -8,12 +8,12 @@
     </div>
   }
   
-  <!-- Error State -->
+  <!-- Error State
   @if (categoriesStore.error()) {
     <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-base mb-4">
       <p>{{ categoriesStore.error() }}</p>
     </div>
-  }
+  } -->
   
   <!-- Categories Items -->
   @if (!categoriesStore.isLoading() && categoriesStore.hasCategories()) {
@@ -29,12 +29,13 @@
         </div>
       }
     </div>
-  }
+  } 
   
   <!-- Empty State -->
-  @if (!categoriesStore.isLoading() && !categoriesStore.hasCategories() && !categoriesStore.error()) {
-    <div class="text-center py-12 text-gray-500">
-      <p>No categories available</p>
+  @if (!categoriesStore.isLoading() && !categoriesStore.hasCategories()) {
+    <div class="flex flex-col items-center justify-center py-16 text-gray-400 gap-3">
+      <!-- <span class="material-symbols-outlined text-5xl">category</span>  -->
+      <p class="text-base font-medium">No categories available</p>
     </div>
   }
 </div>
