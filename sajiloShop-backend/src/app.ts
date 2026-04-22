@@ -50,7 +50,7 @@ app.get("/health", (req: Request, res: Response) => {
 });
 
 // Synchronize Database
-sequelize.sync();
+sequelize.sync({force: false});
 
 app.use("/api/auth", registerRouter);
 app.use("/api/product", productRouter);
