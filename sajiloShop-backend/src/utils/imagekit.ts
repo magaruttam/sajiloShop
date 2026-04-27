@@ -27,4 +27,30 @@ export const uploadToImageKit = async (
   }
 };
 
+/**
+ * Upload multiple file buffers to ImageKit
+ * @param files - Array of { buffer, originalname } from Multer
+ * @param folder - destination folder in ImageKit e.g. "/products"
+ */
+export const uploadMultipleToImageKit = async (
+  files: { buffer: Buffer; originalname: string }[],
+  folder: string = "/",
+) => {
+  try {
+    const uploadPromises = files.map(async (file) => {
+      const response = await imagekit.files.upload({
+        file: await toFile(file.buffer, file.originalname),
+        fileName: file.originalname,
+        folder: folder,
+      });
+      return response.url!;
+    });
+
+    const urls = await Promise.all(uploadPromises);
+    return urls; // Array of image URLs
+  } catch (err) {
+    throw err;
+  }
+};
+
 export default imagekit;

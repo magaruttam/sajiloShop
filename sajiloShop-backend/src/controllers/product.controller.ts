@@ -1,7 +1,7 @@
 import { getCategory } from './categories.controller';
 import { Request, Response } from "express";
 import Product from "../models/product.model";
-import { uploadToImageKit } from "../utils/imagekit";
+import { uploadToImageKit, uploadMultipleToImageKit } from "../utils/imagekit";
 
 
 //Create a new Product
@@ -9,11 +9,20 @@ export const createProduct = async (req: Request, res: Response) => {
   try {
     const { name, price, vendorId, stock, status, description, categoryId } =
       req.body;
-    const result = await uploadToImageKit(
-      req.file!.buffer,
-      req.file!.originalname,
-      "/products",
-    );
+    
+    // Check if files are uploaded
+    if (!req.files || !Array.isArray(req.files) || req.files.length === 0) {
+      return res.status(400).json({ message: "At least one image is required" });
+    }
+
+    // Upload multiple images to ImageKit
+    const files = req.files.map((file: any) => ({
+      buffer: file.buffer,
+      originalname: file.originalname,
+    }));
+    
+    const imageUrls = await uploadMultipleToImageKit(files, "/products");
+    
     const product = await Product.create({
       name,
       price,
@@ -22,7 +31,8 @@ export const createProduct = async (req: Request, res: Response) => {
       status,
       description,
       categoryId,
-      image: result.url!,
+      image: imageUrls[0] || '', // First image as primary (backward compatibility)
+      images: imageUrls, // Store array of image URLs
     });
     return res
       .status(201)

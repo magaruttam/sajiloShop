@@ -139,16 +139,133 @@
 
   <!-- Visual Showcase -->
   <section class="bg-white rounded-xl border border-[#E5E9EB] p-6 space-y-4">
-   <div class="flex items-center justify-center w-full">
-    <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 bg-neutral-secondary-medium border border-dashed border-default-strong rounded-base cursor-pointer hover:bg-neutral-tertiary-medium">
-        <div class="flex flex-col items-center justify-center text-body pt-5 pb-6">
-            <svg class="w-8 h-8 mb-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h3a3 3 0 0 0 0-6h-.025a5.56 5.56 0 0 0 .025-.5A5.5 5.5 0 0 0 7.207 9.021C7.137 9.017 7.071 9 7 9a4 4 0 1 0 0 8h2.167M12 19v-9m0 0-2 2m2-2 2 2"/></svg>
-            <p class="mb-2 text-sm"><span class="font-semibold">Click to upload</span> or drag and drop</p>
-            <p class="text-xs">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+    <div class="flex items-center gap-2">
+      <span class="material-symbols-outlined text-[#1A365D] text-lg">photo_library</span>
+      <h2 class="text-[#1A365D] font-bold text-sm">Product Images</h2>
+      <span class="text-xs text-[#C4C6CF] ml-auto">{{ selectedImages().length }}/10 images</span>
+    </div>
+    
+    <!-- Image Upload Area -->
+    <div class="space-y-4">
+      <div 
+        class="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed rounded-xl cursor-pointer transition-all duration-200"
+        [ngClass]="{
+          'border-[#13696A] bg-[#F0FAFA]': dragOver(),
+          'border-[#E5E9EB] bg-[#F7FAFC] hover:bg-[#EDF2F7]': !dragOver()
+        }"
+        (dragover)="onDragOver($event)"
+        (dragleave)="onDragLeave($event)"
+        (drop)="onDrop($event)"
+        (click)="fileInput.click()"
+      >
+        <div class="flex flex-col items-center justify-center text-center p-6">
+          <span class="material-symbols-outlined text-4xl mb-3 text-[#43474E]">cloud_upload</span>
+          <p class="mb-2 text-sm font-semibold text-[#1A365D]">
+            <span class="text-[#13696A]">Click to upload</span> or drag and drop
+          </p>
+          <p class="text-xs text-[#43474E]">PNG, JPG, JPEG, WebP (Max 5MB each)</p>
+          <p class="text-xs text-[#C4C6CF] mt-1">You can select multiple images at once (Max 10 images)</p>
         </div>
-        <input id="dropzone-file" type="file" class="hidden" (change)="onImageSelected($event)" accept="image/*" />
-    </label>
-</div> 
+        <input 
+          #fileInput
+          type="file" 
+          class="hidden" 
+          (change)="onImagesSelected($event)" 
+          accept="image/jpeg,image/jpg,image/png,image/webp" 
+          multiple 
+        />
+      </div>
+
+      <!-- Image Error Message -->
+      @if (imageError()) {
+        <div class="bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-xl flex items-center gap-2">
+          <span class="material-symbols-outlined text-lg">error</span>
+          {{ imageError() }}
+        </div>
+      }
+
+      <!-- Selected Images Preview -->
+      @if (selectedImages().length > 0) {
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="text-sm font-semibold text-[#1A365D]">Selected Images ({{ selectedImages().length }})</h3>
+            <button 
+              type="button"
+              (click)="clearAllImages()"
+              class="text-xs text-red-500 hover:text-red-700 font-medium flex items-center gap-1"
+            >
+              <span class="material-symbols-outlined text-sm">delete_sweep</span>
+              Clear All
+            </button>
+          </div>
+          
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 image-preview-container max-h-96 overflow-y-auto pr-2">
+            @for (image of selectedImages(); track $index) {
+              <div class="relative group image-preview-enter">
+                <div class="aspect-square rounded-lg overflow-hidden border border-[#E5E9EB] bg-gray-50 shadow-sm">
+                  <img 
+                    [src]="getImagePreview(image)" 
+                    [alt]="image.name"
+                    class="w-full h-full object-cover transition-transform duration-200 group-hover:scale-105"
+                  />
+                </div>
+                
+                <!-- Image overlay with actions -->
+                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-200 rounded-lg flex items-center justify-center">
+                  <button 
+                    type="button"
+                    (click)="removeImage($index)"
+                    class="opacity-0 group-hover:opacity-100 bg-red-500 hover:bg-red-600 text-white rounded-full p-2 transition-all duration-200 shadow-lg"
+                    title="Remove image"
+                  >
+                    <span class="material-symbols-outlined text-sm">delete</span>
+                  </button>
+                </div>
+                
+                <!-- Primary image indicator -->
+                @if ($index === 0) {
+                  <div class="absolute top-2 left-2 bg-[#13696A] text-white text-xs font-bold px-2 py-1 rounded-full">
+                    Primary
+                  </div>
+                }
+                
+                <!-- Image info -->
+                <div class="mt-2">
+                  <p class="text-xs text-[#43474E] truncate" [title]="image.name">{{ image.name }}</p>
+                  <p class="text-xs text-[#C4C6CF]">{{ (image.size / 1024 / 1024).toFixed(2) }} MB</p>
+                </div>
+              </div>
+            }
+          </div>
+          
+          <!-- Add more images button -->
+          @if (selectedImages().length < 10) {
+            <button 
+              type="button"
+              (click)="fileInput.click()"
+              class="w-full py-3 border-2 border-dashed border-[#E5E9EB] rounded-lg text-sm font-medium text-[#43474E] hover:border-[#13696A] hover:text-[#13696A] transition-colors flex items-center justify-center gap-2"
+            >
+              <span class="material-symbols-outlined text-lg">add_photo_alternate</span>
+              Add More Images ({{ 10 - selectedImages().length }} remaining)
+            </button>
+          }
+          
+          <!-- Image upload tips -->
+          <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <h4 class="text-sm font-semibold text-blue-800 mb-2 flex items-center gap-2">
+              <span class="material-symbols-outlined text-lg">lightbulb</span>
+              Image Tips
+            </h4>
+            <ul class="text-xs text-blue-700 space-y-1">
+              <li>• The first image will be used as the primary product image</li>
+              <li>• Use high-quality images with good lighting</li>
+              <li>• Show different angles and details of your product</li>
+              <li>• Square images (1:1 ratio) work best for product listings</li>
+            </ul>
+          </div>
+        </div>
+      }
+    </div>
   </section>
 
   <!-- Inventory & Variants -->
