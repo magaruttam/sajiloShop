@@ -6,7 +6,7 @@ export interface Product {
   price: string;
   stock: number;
   status: string;
-  image: string;
+  images : Images[];
   description: string;
   createdAt: string;
   updatedAt: string;
@@ -14,4 +14,8 @@ export interface Product {
 
 export interface ProductsResponse {
   allProducts: Product[];
+}
+
+interface Images {
+  url: string;
 }

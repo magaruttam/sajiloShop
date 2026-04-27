@@ -10,22 +10,22 @@ const imagekit = new ImageKit({
  * @param fileName - original file name (req.file.originalname)
  * @param folder  - destination folder in ImageKit e.g. "/products"
  */
-export const uploadToImageKit = async (
-  buffer: Buffer,
-  fileName: string,
-  folder: string = "/",
-) => {
-  try {
-    const response = await imagekit.files.upload({
-      file: await toFile(buffer, fileName),
-      fileName: fileName,
-      folder: folder,
-    });
-    return response; // contains response.url — the live image URL
-  } catch (err) {
-    throw err;
-  }
-};
+// export const uploadToImageKit = async (
+//   buffer: Buffer,
+//   fileName: string,
+//   folder: string = "/",
+// ) => {
+//   try {
+//     const response = await imagekit.files.upload({
+//       file: await toFile(buffer, fileName),
+//       fileName: fileName,
+//       folder: folder,
+//     });
+//     return response; // contains response.url — the live image URL
+//   } catch (err) {
+//     throw err;
+//   }
+// };
 
 /**
  * Upload multiple file buffers to ImageKit

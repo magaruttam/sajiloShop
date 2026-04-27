@@ -5,15 +5,15 @@
   @if (productsStore.isLoading()) {
     <div class="flex justify-center items-center py-12">
       <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-[#002045]"></div>
-    </div>
+    </div>  
   }
 
-  <!-- Product Grid -->
+  <!-- Product Grid --> 
   @if (!productsStore.isLoading() && productsStore.hasProducts()) {
     <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
       @for (product of productsStore.products(); track product.id) {
         <app-product-card
-          [image]="product.image"
+          [image]="product.images[0].url"
           [name]="product.name"
           [price]="'NPR ' + product.price"
           [routerLink]="['/product-detail', product.id]"

@@ -4,6 +4,7 @@ import Product from './product.model';
 import Category from './categories.model';
 import Order from './order.model';
 import OrderItem from './orderItem.model';
+import ProductImage from './product_image.model';
 
 // 1. User <-> Vendor (One-to-One)
 User.hasOne(Vendor, { foreignKey: 'userId', as: 'vendor' });
@@ -29,4 +30,8 @@ OrderItem.belongsTo(Order, { foreignKey: 'orderId', as: 'order' });
 Product.hasMany(OrderItem, { foreignKey: 'productId', as: 'orderItems' });
 OrderItem.belongsTo(Product, { foreignKey: 'productId', as: 'product' });
 
-export { User, Vendor, Product, Category, Order, OrderItem };
+// 7. Product <-> ProductImage (One-to-Many)
+Product.hasMany(ProductImage, { foreignKey: 'productId', as: 'images' });
+ProductImage.belongsTo(Product, { foreignKey: 'productId', as: 'product' });
+
+export { User, Vendor, Product, Category, Order, OrderItem, ProductImage };

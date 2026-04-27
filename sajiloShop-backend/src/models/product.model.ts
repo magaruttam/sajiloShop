@@ -11,8 +11,6 @@ class Product extends Model<InferAttributes<Product>,InferCreationAttributes<Pro
     declare price: string;
     declare stock: number;
     declare status: ProductStatus;
-    declare image: string; // Keep for backward compatibility
-    declare images: string[]; // Array of image URLs stored as JSON
     declare description: string;
 }
 
@@ -52,14 +50,6 @@ Product.init({
     },
     status: {
         type: DataTypes.ENUM(...["pending", "approved", "rejected"] as const),
-        allowNull: false,
-    },
-    image: {
-        type: DataTypes.STRING,
-        allowNull: true, // Make optional for backward compatibility
-    },
-    images: {
-        type: DataTypes.JSON,
         allowNull: false,
     },
     description: {
