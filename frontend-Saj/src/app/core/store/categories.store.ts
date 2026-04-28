@@ -40,11 +40,14 @@ export const CategoriesStore = signalStore(
             tap({
               next: (categories) =>
                 patchState(store, { categories, isLoading: false, error: null }),
-              error: (error) =>
+              error: (error) => {
+                // Extract the actual error message from the API response
+                const errorMessage = error.error?.message || error.message || 'Failed to load categories';
                 patchState(store, {
-                  error: error.message || 'Failed to load categories',
+                  error: errorMessage,
                   isLoading: false,
-                }),
+                });
+              },
             })
           )
         )
