@@ -28,7 +28,7 @@ export const ProductsStore = signalStore(
     loadProducts: rxMethod<void>(
       pipe(
         tap(() => patchState(store, { isLoading: true, error: null })),
-        switchMap(() =>
+        switchMap(() => 
           productService.getProducts().pipe(
             tap({
               next: (res) => patchState(store, { products: res.allProducts, isLoading: false }),

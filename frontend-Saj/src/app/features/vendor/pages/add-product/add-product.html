@@ -1,4 +1,4 @@
-<div class="p-8 max-w-7xl mx-auto space-y-6"> 
+<div class="p-4 md:p-6 lg:p-8 max-w-7xl mx-auto space-y-4 md:space-y-6"> 
 
   <!-- Breadcrumb -->
   <nav class="text-xs text-[#43474E] flex items-center gap-1.5">
@@ -9,32 +9,17 @@
 
   <!-- Page Title -->
   <div>
-    <h1 class="text-2xl font-extrabold text-[#1A365D]">Create New Entry</h1>
-    <p class="text-sm text-[#43474E] mt-1">Curate your storefront with detail. Every field contributes to the story of your craftsmanship.</p>
+    <h1 class="text-xl md:text-2xl font-extrabold text-[#1A365D]">Create New Entry</h1>
+    <p class="text-xs md:text-sm text-[#43474E] mt-1">Curate your storefront with detail. Every field contributes to the story of your craftsmanship.</p>
   </div>
    <form [formGroup]="profileForm">
   <!-- Core Information -->
-  <section class="bg-white rounded-xl border border-[#E5E9EB] p-6 space-y-4">
+  <section class="bg-white rounded-xl border border-[#E5E9EB] p-4 md:p-6 space-y-4">
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-2">
         <span class="material-symbols-outlined text-[#1A365D] text-lg">info</span>
         <h2 class="text-[#1A365D] font-bold text-sm">Core Information</h2>
       </div>
-      <!-- Active toggle -->
-      <!-- <div class="flex items-center gap-2">
-        <span class="text-[10px] font-bold tracking-widest text-[#43474E] uppercase">Active Status</span>
-        <button
-          type="button"
-          (click)="isActive.update(v => !v)"
-          class="relative inline-flex h-5 w-9 items-center rounded-full transition-colors"
-          [ngClass]="isActive() ? 'bg-[#13696A]' : 'bg-[#C4C6CF]'"
-        >
-          <span
-            class="inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow transition-transform"
-            [ngClass]="isActive() ? 'translate-x-4' : 'translate-x-1'"
-          ></span>
-        </button>
-      </div> -->  
     </div>
     
     <!-- Product Name -->
@@ -44,17 +29,17 @@
         formControlName="name"
         type="text"
         placeholder="e.g. Handcrafted Pashmina Scarf"
-        class="w-full border border-[#E5E9EB] rounded-lg px-4 py-2.5 text-sm text-[#1A365D] placeholder:text-[#C4C6CF] focus:outline-none focus:ring-2 focus:ring-[#13696A]"
+        class="w-full border border-[#E5E9EB] rounded-lg px-3 md:px-4 py-2.5 text-sm text-[#1A365D] placeholder:text-[#C4C6CF] focus:outline-none focus:ring-2 focus:ring-[#13696A]"
       />
     </div>
 
     <!-- Category + SKU -->
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div>
         <label class="block text-[10px] font-bold tracking-widest text-[#43474E] uppercase mb-1.5">Category</label>
         <select
           formControlName="category"
-          class="w-full border border-[#E5E9EB] rounded-lg px-4 py-2.5 text-sm text-[#43474E] focus:outline-none focus:ring-2 focus:ring-[#13696A] bg-white"
+          class="w-full border border-[#E5E9EB] rounded-lg px-3 md:px-4 py-2.5 text-sm text-[#43474E] focus:outline-none focus:ring-2 focus:ring-[#13696A] bg-white"
         >
           <option value="" disabled selected>Select a category</option>
           @if (categoriesStore.isLoading()) {
@@ -68,15 +53,6 @@
           <p class="text-xs text-red-500 mt-1">{{ categoriesStore.error() }}</p>
         }
       </div>
-      <!-- <div>
-        <label class="block text-[10px] font-bold tracking-widest text-[#43474E] uppercase mb-1.5">SKU / Product Code</label>
-        <input
-        formControlName=""
-          type="text"
-          placeholder="SKU-001-ABC"
-          class="w-full border border-[#E5E9EB] rounded-lg px-4 py-2.5 text-sm text-[#1A365D] placeholder:text-[#C4C6CF] focus:outline-none focus:ring-2 focus:ring-[#13696A]"
-        />
-      </div> -->
     </div>
 
     <!-- Description -->
@@ -93,19 +69,19 @@
           formControlName="description"
           rows="5"
           placeholder="Tell the story of your product..."
-          class="w-full px-4 py-3 text-sm text-[#1A365D] placeholder:text-[#C4C6CF] focus:outline-none resize-none"
+          class="w-full px-3 md:px-4 py-3 text-sm text-[#1A365D] placeholder:text-[#C4C6CF] focus:outline-none resize-none"
         ></textarea>
       </div>
     </div>
   </section>
 
   <!-- Financials -->
-  <section class="bg-white rounded-xl border border-[#E5E9EB] p-6 space-y-4">
+  <section class="bg-white rounded-xl border border-[#E5E9EB] p-4 md:p-6 space-y-4">
     <div class="flex items-center gap-2">
       <span class="material-symbols-outlined text-[#1A365D] text-lg">payments</span>
       <h2 class="text-[#1A365D] font-bold text-sm">Financials</h2>
     </div>
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div>
         <label class="block text-[10px] font-bold tracking-widest text-[#43474E] uppercase mb-1.5">Price (NPR)</label>
         <div class="flex items-center border border-[#E5E9EB] rounded-lg overflow-hidden">
@@ -127,28 +103,23 @@
             placeholder="Amount or %"
             class="flex-1 px-3 py-2.5 text-sm text-[#1A365D] focus:outline-none"
           />
-          <!-- <button
-            type="button"
-            (click)="toggleDiscount()"
-            class="px-3 py-2.5 text-sm font-bold text-[#43474E] bg-[#F7FAFC] border-l border-[#E5E9EB] hover:bg-[#E5E9EB] transition-colors"
-          >{{ discountType() }}</button> -->
         </div>
       </div>
     </div>
   </section>
 
   <!-- Visual Showcase -->
-  <section class="bg-white rounded-xl border border-[#E5E9EB] p-6 space-y-4">
+  <section class="bg-white rounded-xl border border-[#E5E9EB] p-4 md:p-6 space-y-4">
     <div class="flex items-center gap-2">
       <span class="material-symbols-outlined text-[#1A365D] text-lg">photo_library</span>
       <h2 class="text-[#1A365D] font-bold text-sm">Product Images</h2>
-      <span class="text-xs text-[#C4C6CF] ml-auto">{{ selectedImages().length }}/10 images</span>
+      <span class="text-xs text-[#C4C6CF] ml-auto">{{ selectedImages().length }}/10</span>
     </div>
     
     <!-- Image Upload Area -->
     <div class="space-y-4">
       <div 
-        class="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed rounded-xl cursor-pointer transition-all duration-200"
+        class="flex flex-col items-center justify-center w-full h-40 md:h-48 border-2 border-dashed rounded-xl cursor-pointer transition-all duration-200"
         [ngClass]="{
           'border-[#13696A] bg-[#F0FAFA]': dragOver(),
           'border-[#E5E9EB] bg-[#F7FAFC] hover:bg-[#EDF2F7]': !dragOver()
@@ -158,13 +129,13 @@
         (drop)="onDrop($event)"
         (click)="fileInput.click()"
       >
-        <div class="flex flex-col items-center justify-center text-center p-6">
-          <span class="material-symbols-outlined text-4xl mb-3 text-[#43474E]">cloud_upload</span>
-          <p class="mb-2 text-sm font-semibold text-[#1A365D]">
+        <div class="flex flex-col items-center justify-center text-center p-4 md:p-6">
+          <span class="material-symbols-outlined text-3xl md:text-4xl mb-2 md:mb-3 text-[#43474E]">cloud_upload</span>
+          <p class="mb-2 text-xs md:text-sm font-semibold text-[#1A365D]">
             <span class="text-[#13696A]">Click to upload</span> or drag and drop
           </p>
-          <p class="text-xs text-[#43474E]">PNG, JPG, JPEG, WebP (Max 5MB each)</p>
-          <p class="text-xs text-[#C4C6CF] mt-1">You can select multiple images at once (Max 10 images)</p>
+          <p class="text-xs text-[#43474E]">PNG, JPG, JPEG, WebP (Max 5MB)</p>
+          <p class="text-xs text-[#C4C6CF] mt-1 hidden md:block">You can select multiple images at once (Max 10 images)</p>
         </div>
         <input 
           #fileInput
@@ -178,9 +149,9 @@
 
       <!-- Image Error Message -->
       @if (imageError()) {
-        <div class="bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-xl flex items-center gap-2">
-          <span class="material-symbols-outlined text-lg">error</span>
-          {{ imageError() }}
+        <div class="bg-red-50 border border-red-200 text-red-700 text-xs md:text-sm px-3 md:px-4 py-2 md:py-3 rounded-xl flex items-center gap-2">
+          <span class="material-symbols-outlined text-base md:text-lg">error</span>
+          <span class="flex-1">{{ imageError() }}</span>
         </div>
       }
 
@@ -188,18 +159,18 @@
       @if (selectedImages().length > 0) {
         <div class="space-y-3">
           <div class="flex items-center justify-between">
-            <h3 class="text-sm font-semibold text-[#1A365D]">Selected Images ({{ selectedImages().length }})</h3>
+            <h3 class="text-xs md:text-sm font-semibold text-[#1A365D]">Selected Images ({{ selectedImages().length }})</h3>
             <button 
               type="button"
               (click)="clearAllImages()"
               class="text-xs text-red-500 hover:text-red-700 font-medium flex items-center gap-1"
             >
               <span class="material-symbols-outlined text-sm">delete_sweep</span>
-              Clear All
+              <span class="hidden sm:inline">Clear All</span>
             </button>
           </div>
           
-          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 image-preview-container max-h-96 overflow-y-auto pr-2">
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4 image-preview-container max-h-96 overflow-y-auto pr-2">
             @for (image of selectedImages(); track $index) {
               <div class="relative group image-preview-enter">
                 <div class="aspect-square rounded-lg overflow-hidden border border-[#E5E9EB] bg-gray-50 shadow-sm">
@@ -215,7 +186,7 @@
                   <button 
                     type="button"
                     (click)="removeImage($index)"
-                    class="opacity-0 group-hover:opacity-100 bg-red-500 hover:bg-red-600 text-white rounded-full p-2 transition-all duration-200 shadow-lg"
+                    class="opacity-0 group-hover:opacity-100 bg-red-500 hover:bg-red-600 text-white rounded-full p-1.5 md:p-2 transition-all duration-200 shadow-lg"
                     title="Remove image"
                   >
                     <span class="material-symbols-outlined text-sm">delete</span>
@@ -224,15 +195,15 @@
                 
                 <!-- Primary image indicator -->
                 @if ($index === 0) {
-                  <div class="absolute top-2 left-2 bg-[#13696A] text-white text-xs font-bold px-2 py-1 rounded-full">
+                  <div class="absolute top-1 md:top-2 left-1 md:left-2 bg-[#13696A] text-white text-[10px] md:text-xs font-bold px-1.5 md:px-2 py-0.5 md:py-1 rounded-full">
                     Primary
                   </div>
                 }
                 
                 <!-- Image info -->
-                <div class="mt-2">
-                  <p class="text-xs text-[#43474E] truncate" [title]="image.name">{{ image.name }}</p>
-                  <p class="text-xs text-[#C4C6CF]">{{ (image.size / 1024 / 1024).toFixed(2) }} MB</p>
+                <div class="mt-1 md:mt-2">
+                  <p class="text-[10px] md:text-xs text-[#43474E] truncate" [title]="image.name">{{ image.name }}</p>
+                  <p class="text-[10px] md:text-xs text-[#C4C6CF]">{{ (image.size / 1024 / 1024).toFixed(2) }} MB</p>
                 </div>
               </div>
             }
@@ -243,24 +214,24 @@
             <button 
               type="button"
               (click)="fileInput.click()"
-              class="w-full py-3 border-2 border-dashed border-[#E5E9EB] rounded-lg text-sm font-medium text-[#43474E] hover:border-[#13696A] hover:text-[#13696A] transition-colors flex items-center justify-center gap-2"
+              class="w-full py-2.5 md:py-3 border-2 border-dashed border-[#E5E9EB] rounded-lg text-xs md:text-sm font-medium text-[#43474E] hover:border-[#13696A] hover:text-[#13696A] transition-colors flex items-center justify-center gap-2"
             >
-              <span class="material-symbols-outlined text-lg">add_photo_alternate</span>
-              Add More Images ({{ 10 - selectedImages().length }} remaining)
+              <span class="material-symbols-outlined text-base md:text-lg">add_photo_alternate</span>
+              Add More ({{ 10 - selectedImages().length }} left)
             </button>
           }
           
           <!-- Image upload tips -->
-          <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <h4 class="text-sm font-semibold text-blue-800 mb-2 flex items-center gap-2">
-              <span class="material-symbols-outlined text-lg">lightbulb</span>
+          <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 md:p-4">
+            <h4 class="text-xs md:text-sm font-semibold text-blue-800 mb-2 flex items-center gap-2">
+              <span class="material-symbols-outlined text-base md:text-lg">lightbulb</span>
               Image Tips
             </h4>
-            <ul class="text-xs text-blue-700 space-y-1">
-              <li>• The first image will be used as the primary product image</li>
+            <ul class="text-[10px] md:text-xs text-blue-700 space-y-1">
+              <li>• First image will be the primary product image</li>
               <li>• Use high-quality images with good lighting</li>
-              <li>• Show different angles and details of your product</li>
-              <li>• Square images (1:1 ratio) work best for product listings</li>
+              <li class="hidden md:list-item">• Show different angles and details of your product</li>
+              <li class="hidden md:list-item">• Square images (1:1 ratio) work best for product listings</li>
             </ul>
           </div>
         </div>
@@ -269,7 +240,7 @@
   </section>
 
   <!-- Inventory & Variants -->
-  <section class="bg-white rounded-xl border border-[#E5E9EB] p-6 space-y-4">
+  <section class="bg-white rounded-xl border border-[#E5E9EB] p-4 md:p-6 space-y-4">
     <div class="flex items-center gap-2">
       <span class="material-symbols-outlined text-[#1A365D] text-lg">inventory</span>
       <h2 class="text-[#1A365D] font-bold text-sm">Inventory &amp; Variants</h2>
@@ -281,7 +252,7 @@
         formControlName="stockQty"
         type="number"
         min="0"
-        class="w-40 border border-[#E5E9EB] rounded-lg px-4 py-2.5 text-sm text-[#1A365D] focus:outline-none focus:ring-2 focus:ring-[#13696A]"
+        class="w-full md:w-40 border border-[#E5E9EB] rounded-lg px-3 md:px-4 py-2.5 text-sm text-[#1A365D] focus:outline-none focus:ring-2 focus:ring-[#13696A]"
       />
     </div>
 
@@ -290,15 +261,16 @@
         <label class="text-[10px] font-bold tracking-widest text-[#43474E] uppercase">Product Variants</label>
         <button type="button" (click)="addVariant()" class="flex items-center gap-1 text-xs font-bold text-[#13696A] hover:underline">
           <span class="material-symbols-outlined text-sm">add_circle</span>
-          Add Variant Type
+          <span class="hidden sm:inline">Add Variant Type</span>
+          <span class="sm:hidden">Add</span>
         </button>
       </div>
       <div class="space-y-2">
         @for (variant of variants(); track $index) {
-          <div class="flex items-center gap-3">
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
             <select
               formControlName="variant.type"
-              class="w-32 border border-[#E5E9EB] rounded-lg px-3 py-2 text-sm text-[#43474E] bg-white focus:outline-none focus:ring-2 focus:ring-[#13696A]"
+              class="w-full sm:w-32 border border-[#E5E9EB] rounded-lg px-3 py-2 text-sm text-[#43474E] bg-white focus:outline-none focus:ring-2 focus:ring-[#13696A]"
             >
               <option>Size</option>
               <option>Color</option>
@@ -311,7 +283,7 @@
               placeholder="Small, Medium, Large"
               class="flex-1 border border-[#E5E9EB] rounded-lg px-3 py-2 text-sm text-[#1A365D] placeholder:text-[#C4C6CF] focus:outline-none focus:ring-2 focus:ring-[#13696A]"
             />
-            <button type="button" (click)="removeVariant($index)" class="text-red-400 hover:text-red-600">
+            <button type="button" (click)="removeVariant($index)" class="self-end sm:self-auto text-red-400 hover:text-red-600 p-2 sm:p-0">
               <span class="material-symbols-outlined text-lg">delete</span>
             </button>
           </div>
@@ -321,10 +293,10 @@
   </section>
 
   <!-- Logistics + Discovery -->
-  <div class="grid grid-cols-2 gap-4">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
 
     <!-- Logistics -->
-    <section class="bg-white rounded-xl border border-[#E5E9EB] p-6 space-y-3">
+    <section class="bg-white rounded-xl border border-[#E5E9EB] p-4 md:p-6 space-y-3">
       <div class="flex items-center gap-2 mb-1">
         <span class="material-symbols-outlined text-[#1A365D] text-lg">local_shipping</span>
         <h2 class="text-[#1A365D] font-bold text-sm">Logistics</h2>
@@ -344,58 +316,34 @@
             }
           </div>
           <div>
-            <p class="text-sm font-semibold text-[#1A365D]">{{ opt.label }}</p>
+            <p class="text-xs md:text-sm font-semibold text-[#1A365D]">{{ opt.label }}</p>
             <p class="text-[10px] text-[#43474E]">{{ opt.sub }}</p>
           </div>
         </div>
       }
     </section>
-
-    <!-- Discovery / Tags -->
-    <!-- <section class="bg-white rounded-xl border border-[#E5E9EB] p-6 space-y-3">
-      <div class="flex items-center gap-2 mb-1">
-        <span class="material-symbols-outlined text-[#1A365D] text-lg">tag</span>
-        <h2 class="text-[#1A365D] font-bold text-sm">Discovery</h2>
-      </div>
-      <div class="flex flex-wrap gap-2">
-        @for (tag of tags(); track tag) {
-          <span class="flex items-center gap-1 text-xs font-semibold bg-[#EBF4FF] text-[#1A365D] px-2.5 py-1 rounded-full">
-            {{ tag }}
-            <button type="button" (click)="removeTag(tag)" class="text-[#1A365D] hover:text-red-500 leading-none">×</button>
-          </span>
-        }
-      </div>
-      <input
-        formControlName="tagInput"
-        (keydown)="addTag($event)"
-        type="text"
-        placeholder="Add more tags..."
-        class="w-full border-0 border-b border-[#E5E9EB] py-1.5 text-sm text-[#1A365D] placeholder:text-[#C4C6CF] focus:outline-none focus:border-[#13696A]"
-      />
-      <p class="text-[10px] text-[#C4C6CF]">Press enter to add a tag.</p>
-    </section> -->
   </div>
 
   <!-- Actions -->
-  <div class="flex flex-col gap-3 pb-8">
+  <div class="flex flex-col gap-3 pb-4 md:pb-8">
     @if (errorMessage()) {
-      <div class="bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-xl">
+      <div class="bg-red-50 border border-red-200 text-red-700 text-xs md:text-sm px-3 md:px-4 py-2 md:py-3 rounded-xl">
         {{ errorMessage() }}
       </div>
     }
-    <div class="flex items-center gap-3">
+    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
     <button
       type="button"
       (click)="onSubmit()"
       [disabled]="submitting()"
-      class="flex-1 flex items-center justify-center gap-2 bg-[#1A365D] text-white font-bold py-3.5 rounded-xl hover:bg-[#162d4f] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+      class="flex-1 flex items-center justify-center gap-2 bg-[#1A365D] text-white font-bold py-3 md:py-3.5 rounded-xl hover:bg-[#162d4f] transition-colors disabled:opacity-60 disabled:cursor-not-allowed text-sm md:text-base"
     >
       {{ submitting() ? 'Publishing...' : 'Publish Product' }}
       <span class="material-symbols-outlined text-lg">publish</span>
     </button>
     <button
       type="button"
-      class="px-6 py-3.5 border border-[#E5E9EB] rounded-xl text-sm font-bold text-[#43474E] hover:bg-[#F7FAFC] transition-colors"
+      class="px-6 py-3 md:py-3.5 border border-[#E5E9EB] rounded-xl text-sm font-bold text-[#43474E] hover:bg-[#F7FAFC] transition-colors"
     >
       Save as Draft
     </button>

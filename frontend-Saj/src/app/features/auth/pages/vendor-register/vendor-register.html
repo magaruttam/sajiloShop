@@ -35,9 +35,8 @@
             placeholder="e.g. Himalayan Crafts"
             class="flex-1 bg-transparent py-2 text-sm text-[#1A365D] placeholder:text-[#C4C6CF] focus:outline-none"
           />
-          <span class="material-symbols-outlined text-[#C4C6CF] text-lg">storefront</span>
         </div>
-        @if (form.get('shopName')?.invalid && form.get('shopName')?.touched) {
+        @if (form.get('shopName')?.invalid && (form.get('shopName')?.touched || form.get('shopName')?.dirty)) {
           <p class="text-xs text-red-500 mt-1">Shop name is required</p>
         }
       </div>
@@ -52,9 +51,8 @@
             placeholder="vendor@example.com"
             class="flex-1 bg-transparent py-2 text-sm text-[#1A365D] placeholder:text-[#C4C6CF] focus:outline-none"
           />
-          <span class="material-symbols-outlined text-[#C4C6CF] text-lg">alternate_email</span>
         </div>
-        @if (form.get('email')?.invalid && form.get('email')?.touched) {
+        @if (form.get('email')?.invalid && (form.get('email')?.touched || form.get('email')?.dirty)) {
           <p class="text-xs text-red-500 mt-1">
             @if (form.get('email')?.hasError('required')) { Email is required }
             @else if (form.get('email')?.hasError('email')) { Please enter a valid email }
@@ -65,18 +63,22 @@
       <!-- Password -->
       <div>
         <label class="block text-sm text-[#1A365D] mb-1">Password</label>
-        <div class="flex items-center border-b border-[#C4C6CF] focus-within:border-[#1A365D]">
+        <div class="relative border-b border-[#C4C6CF] focus-within:border-[#1A365D]">
           <input
             formControlName="password"
             [type]="showPassword() ? 'text' : 'password'"
             placeholder="••••••••"
-            class="flex-1 bg-transparent py-2 text-sm text-[#1A365D] placeholder:text-[#C4C6CF] focus:outline-none"
+            class="w-full bg-transparent py-2 pr-10 text-sm text-[#1A365D] placeholder:text-[#C4C6CF] focus:outline-none"
           />
-          <button type="button" (click)="showPassword.update(v => !v)" class="text-[#C4C6CF] hover:text-[#1A365D]">
+          <button 
+            type="button" 
+            (click)="showPassword.update(v => !v)" 
+            class="absolute right-2 top-1/2 -translate-y-1/2 text-[#C4C6CF] hover:text-[#1A365D] transition-colors"
+          >
             <span class="material-symbols-outlined text-lg">{{ showPassword() ? 'visibility_off' : 'visibility' }}</span>
           </button>
         </div>
-        @if (form.get('password')?.invalid && form.get('password')?.touched) {
+        @if (form.get('password')?.invalid && (form.get('password')?.touched || form.get('password')?.dirty)) {
           <p class="text-xs text-red-500 mt-1">
             @if (form.get('password')?.hasError('required')) { Password is required }
             @else if (form.get('password')?.hasError('minlength')) { Minimum 6 characters }

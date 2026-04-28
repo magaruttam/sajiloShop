@@ -8,13 +8,6 @@
     </div>
   }
   
-  <!-- Error State
-  @if (categoriesStore.error()) {
-    <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-base mb-4">
-      <p>{{ categoriesStore.error() }}</p>
-    </div>
-  } -->
-  
   <!-- Categories Items -->
   @if (!categoriesStore.isLoading() && categoriesStore.hasCategories()) {
     <div class="bg-[#FFFFFF] grid grid-cols-4 md:grid-cols-4 lg:grid-cols-8 gap-0">
@@ -31,11 +24,11 @@
     </div>
   } 
   
-  <!-- Empty State -->
+  <!-- Empty State (shown for both empty state and error) -->
   @if (!categoriesStore.isLoading() && !categoriesStore.hasCategories()) {
     <div class="flex flex-col items-center justify-center py-16 text-gray-400 gap-3">
-      <!-- <span class="material-symbols-outlined text-5xl">category</span>  -->
-      <p class="text-base font-medium">No categories available</p>
+      <span class="material-symbols-outlined text-5xl">category</span>  
+      <p class="text-base font-medium">No categories found</p>
     </div>
   }
 </div>

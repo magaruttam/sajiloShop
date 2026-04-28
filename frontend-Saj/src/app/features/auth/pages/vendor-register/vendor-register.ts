@@ -18,6 +18,7 @@ export class VendorRegister {
   showPassword = signal(false);
   loading = signal(false);
   errorMessage = signal('');
+   
 
   form = new FormGroup({
     shopName: new FormControl('', Validators.required),
@@ -46,7 +47,22 @@ export class VendorRegister {
         },
         error: (err) => {
           this.loading.set(false);
-          this.errorMessage.set(err.error?.message ?? 'Registration failed. Please try again.');
+          
+          let errorMessage = 'Registration failed. Please try again.';
+          
+          if (err.status === 0) {
+            errorMessage = 'Cannot connect to server. Please check if the backend is running on http://localhost:3000';
+          } else if (err.error?.message) {
+            errorMessage = err.error.message;
+            
+            // If there are specific validation errors, show them
+            if (err.error.errors && Array.isArray(err.error.errors)) {
+              const validationErrors = err.error.errors.map((error: any) => error.message || error).join(', ');
+              errorMessage = `${err.error.message}: ${validationErrors}`;
+            }
+          }
+          
+          this.errorMessage.set(errorMessage);
         },
       });
   }

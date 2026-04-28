@@ -13,12 +13,19 @@ import { VendorHeader } from '../vendor-header/vendor-header';
 export class VendorLayout {
   private router = inject(Router);
   showHeader = signal(true);
+  sidenavOpen = signal(false);
 
   constructor() {
     this.router.events.pipe(filter((e) => e instanceof NavigationEnd)).subscribe((e) => {
       this.showHeader.set(!(e as NavigationEnd).urlAfterRedirects.includes('/vendor/catalog/new'));
+      // Close sidenav on navigation (mobile)
+      this.sidenavOpen.set(false);
     });
     // set initial value
     this.showHeader.set(!this.router.url.includes('/vendor/catalog/new'));
+  }
+
+  toggleSidenav() {
+    this.sidenavOpen.update(v => !v);
   }
 }

@@ -1,6 +1,6 @@
-import { Component, inject, AfterViewInit, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, inject, signal } from '@angular/core';
+import { RouterLink, RouterLinkActive, Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs';
 
 interface children {
   label: string;
@@ -20,15 +20,11 @@ interface NavItem {
   templateUrl: './vendor-sidenav.html',
   styleUrl: './vendor-sidenav.scss',
 })
-export class VendorSidenav implements AfterViewInit {
-  private platformId = inject(PLATFORM_ID);
-
-  async ngAfterViewInit() {
-    if (isPlatformBrowser(this.platformId)) {
-      const { initFlowbite } = await import('flowbite');
-      initFlowbite();
-    }
-  }
+export class VendorSidenav {
+  private router = inject(Router);
+  
+  // Track which dropdowns are open
+  openDropdowns = signal<Set<string>>(new Set());
 
   readonly navItems: NavItem[] = [
     { label: 'Overview', icon: 'grid_view', route: '/vendor/overview' },
@@ -42,4 +38,52 @@ export class VendorSidenav implements AfterViewInit {
       ],
     },
   ];
+
+  constructor() {
+    // Auto-expand dropdown if current route matches any child
+    this.router.events
+      .pipe(filter((e) => e instanceof NavigationEnd))
+      .subscribe(() => {
+        this.updateOpenDropdowns();
+      });
+    
+    // Set initial state
+    this.updateOpenDropdowns();
+  }
+
+  private updateOpenDropdowns() {
+    const currentUrl = this.router.url;
+    const newOpenDropdowns = new Set<string>();
+    
+    this.navItems.forEach((item) => {
+      if (item.children?.length) {
+        // Check if any child route matches current URL
+        const hasActiveChild = item.children.some((child) => 
+          currentUrl.startsWith(child.route)
+        );
+        if (hasActiveChild) {
+          newOpenDropdowns.add(item.label);
+        }
+      }
+    });
+    
+    this.openDropdowns.set(newOpenDropdowns);
+  }
+
+  toggleDropdown(itemLabel: string) {
+    const current = this.openDropdowns();
+    const newSet = new Set(current);
+    
+    if (newSet.has(itemLabel)) {
+      newSet.delete(itemLabel);
+    } else {
+      newSet.add(itemLabel);
+    }
+    
+    this.openDropdowns.set(newSet);
+  }
+
+  isDropdownOpen(itemLabel: string): boolean {
+    return this.openDropdowns().has(itemLabel);
+  }
 }

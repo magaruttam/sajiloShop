@@ -1,5 +1,31 @@
 <div class="flex h-screen bg-[#F7FAFC] overflow-hidden">
-  <app-vendor-sidenav />
+  <!-- Mobile Menu Button -->
+  <button 
+    (click)="toggleSidenav()"
+    class="lg:hidden fixed top-4 left-4 z-50 bg-[#1A365D] text-white p-2 rounded-lg shadow-lg"
+    type="button"
+  >
+    <span class="material-symbols-outlined text-xl">{{ sidenavOpen() ? 'close' : 'menu' }}</span>
+  </button>
+
+  <!-- Overlay for mobile -->
+  @if (sidenavOpen()) {
+    <div 
+      class="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-30"
+      (click)="toggleSidenav()"
+    ></div>
+  }
+
+  <!-- Sidenav -->
+  <div 
+    class="fixed lg:static inset-y-0 left-0 z-40 transform lg:transform-none transition-transform duration-300 ease-in-out"
+    [class.-translate-x-full]="!sidenavOpen()"
+    [class.translate-x-0]="sidenavOpen()"
+    [class.lg:translate-x-0]="true"
+  >
+    <app-vendor-sidenav />
+  </div>
+
   <main class="flex-1 overflow-y-auto flex flex-col">
     @if (showHeader()) {
       <app-vendor-header />
