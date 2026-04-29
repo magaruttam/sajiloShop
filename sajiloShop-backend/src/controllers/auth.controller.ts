@@ -8,11 +8,10 @@ import Vendor from "../models/vendor.model";
 
 const registerUser = async (req: Request, res: Response) => {
   try {
-    const {name, email, password, role, shopName } = req.body;
+    const { name, email, password, role, shopName } = req.body;
 
     const existingUser = await User.findOne({
-      where:
-        { email: email },
+      where: { email: email },
     });
 
     if (existingUser) {
@@ -28,8 +27,13 @@ const registerUser = async (req: Request, res: Response) => {
       role: role as UserRole,
       password: hashPassword,
     });
-    if (newUser.role === 'vendor') {
-      const vendor = await Vendor.create({ userId: newUser.id, shopName: shopName, status: "approved", commission_rate: "10", })
+    if (newUser.role === "vendor") {
+      const vendor = await Vendor.create({
+        userId: newUser.id,
+        shopName: shopName,
+        status: "approved",
+        commission_rate: "10",
+      });
       if (!process.env.JWT_SECRET) {
         return res.status(500).json({ message: "JWT secret is not defined" });
       }
@@ -43,19 +47,20 @@ const registerUser = async (req: Request, res: Response) => {
       expiresIn: "2d",
     });
     res.cookie("token", token);
-    return res
-      .status(201)
-      .json({ message: "User is created successfully", newUser: {
+    return res.status(201).json({
+      message: "User is created successfully",
+      newUser: {
         email: email,
-        role: role
-      } });
- } catch (error: unknown) {
-    if (error instanceof Error){
-       console.error("Error",error.message);
-    }else{
-      console.error("Unknown Error",error)
+        role: role,
+      },
+    });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error("Error", error.message);
+    } else {
+      console.error("Unknown Error", error);
     }
-    return res.status(500).json({ message: "Internal Server Error"});
+    return res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
@@ -65,9 +70,9 @@ const loginUser = async (req: Request, res: Response) => {
 
     const user = await User.findOne({
       where: {
-        email: email
-      }
-    })
+        email: email,
+      },
+    });
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -84,17 +89,24 @@ const loginUser = async (req: Request, res: Response) => {
       return res.status(403).json({ message: "Access denied" });
     }
 
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, { expiresIn: "2d" });
-    res.cookie("token", token);
-    return res.status(200).json({ message: "Login successful", user: { name: user.name, email: user.email, role: user.role } });
-
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, {
+      expiresIn: "2d",
+    });
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+    });
+    return res.status(200).json({
+      message: "Login successful",
+      user: { name: user.name, email: user.email, role: user.role },
+    });
   } catch (error: unknown) {
-    if (error instanceof Error){
-       console.error("Error",error.message);
-    }else{
-      console.error("Unknown Error",error)
+    if (error instanceof Error) {
+      console.error("Error", error.message);
+    } else {
+      console.error("Unknown Error", error);
     }
-    return res.status(500).json({ message: "Internal Server Error"});
+    return res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
@@ -107,18 +119,24 @@ const loginVendor = async (req: Request, res: Response) => {
     if (!user) return res.status(404).json({ message: "User not found" });
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) return res.status(401).json({ message: "Invalid password" });
+    if (!isPasswordValid)
+      return res.status(401).json({ message: "Invalid password" });
 
     if (user.role !== "vendor") {
       return res.status(403).json({ message: "Access denied" });
     }
 
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, { expiresIn: "2d" });
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, {
+      expiresIn: "2d",
+    });
     res.cookie("token", token);
 
     const vendor = await Vendor.findOne({ where: { userId: user.id } });
-    return res.status(200).json({ message: "Login successful", user: { name: user.name, email: user.email, role: user.role }, vendor });
-
+    return res.status(200).json({
+      message: "Login successful",
+      user: { name: user.name, email: user.email, role: user.role },
+      vendor,
+    });
   } catch (error: unknown) {
     if (error instanceof Error) {
       console.error("Error", error.message);
