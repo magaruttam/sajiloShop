@@ -1,0 +1,59 @@
+:host { display: block; }
+
+// Products List Page Styles
+
+// Responsive container adjustments
+.products-container {
+  @media (max-width: 640px) {
+    padding: 1rem;
+  }
+}
+
+// Responsive toolbar
+.toolbar {
+  @media (max-width: 640px) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+}
+
+// Tab buttons responsive behavior
+.tab-group {
+  @media (max-width: 640px) {
+    width: 100%;
+    
+    button {
+      flex: 1;
+      text-align: center;
+    }
+  }
+}
+
+// Action buttons responsive behavior
+.action-buttons {
+  @media (max-width: 640px) {
+    width: 100%;
+    
+    button {
+      flex: 1;
+      justify-content: center;
+    }
+  }
+}
+
+// Pagination responsive adjustments
+.pagination {
+  @media (max-width: 640px) {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+}
+
+// Ensure proper spacing on mobile
+@media (max-width: 640px) {
+  .space-y-6 > * + * {
+    margin-top: 1.5rem;
+  }
+}

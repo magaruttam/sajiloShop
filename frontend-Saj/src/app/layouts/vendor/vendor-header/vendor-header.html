@@ -1,18 +1,31 @@
-<div class="flex items-center justify-between px-8 py-4 bg-white border-b border-[#E5E9EB] sticky top-0 z-10">
-  <div class="flex-1 max-w-md">
+<div class="flex items-center justify-between px-4 py-3 pl-14 lg:px-8 lg:py-4 lg:pl-8 bg-white border-b border-[#E5E9EB] sticky top-0 z-10">
+  <!-- Search Box - Hidden on mobile, visible on tablet and up -->
+  <div class="hidden md:flex flex-1 max-w-md">
     <app-search-box />
   </div>
-  <div class="flex items-center gap-4">
-    <button class="relative">
-      <span class="material-symbols-outlined text-[#43474E] text-xl">notifications</span>
-      <span class="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+  
+  <!-- Right side actions -->
+  <div class="flex items-center gap-2 sm:gap-3 lg:gap-4 ml-auto">
+    <!-- Search button for mobile -->
+    <button class="md:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors" type="button">
+      <span class="material-symbols-outlined text-[#43474E] text-xl">search</span>
     </button>
-    <button>
+    
+    <!-- Notifications -->
+    <button class="relative p-2 hover:bg-gray-100 rounded-lg transition-colors" type="button">
+      <span class="material-symbols-outlined text-[#43474E] text-xl">notifications</span>
+      <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+    </button>
+    
+    <!-- Settings - Hidden on very small screens -->
+    <button class="hidden sm:block p-2 hover:bg-gray-100 rounded-lg transition-colors" type="button">
       <span class="material-symbols-outlined text-[#43474E] text-xl">settings</span>
     </button>
-    <div class="flex items-center gap-2">
+    
+    <!-- Profile -->
+    <div class="flex items-center gap-2 pl-2 sm:pl-0">
       <div class="w-8 h-8 rounded-full bg-[#1A365D] flex items-center justify-center text-white text-xs font-bold">VA</div>
-      <span class="text-sm font-semibold text-[#1A365D]">Vendor Admin</span>
+      <span class="hidden sm:block text-sm font-semibold text-[#1A365D]">Vendor Admin</span>
     </div>
   </div>
 </div>

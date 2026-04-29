@@ -1,5 +1,6 @@
-import { Component, input, output, model } from '@angular/core';
+import { Component, input, output, model, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-card',
@@ -8,6 +9,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './product-card.scss',
 })
 export class ProductCard {
+  private router = inject(Router);
+  
   image = input('/images/clothes.webp');
   name = input('Product Name');
   subtitle = input('');
@@ -15,6 +18,7 @@ export class ProductCard {
   badge = input('');
   badgeColor = input('bg-[#13696A]');
   discount = input('');
+  productId = input<number | undefined>();
   isFavorite = model(false);
 
   favoriteToggled = output<void>();
@@ -23,5 +27,11 @@ export class ProductCard {
     event.stopPropagation();
     this.isFavorite.set(!this.isFavorite());
     this.favoriteToggled.emit();
+  }
+
+  navigateToProduct(event: MouseEvent) {
+    if (this.productId()) {
+      this.router.navigate(['/product', this.productId()]);
+    }
   }
 }

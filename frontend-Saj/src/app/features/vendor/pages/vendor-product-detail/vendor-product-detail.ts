@@ -20,7 +20,15 @@ export class VendorProductDetail {
 
   activeImage = signal(0);
 
-  readonly images = signal(['/images/product-image.png', '/images/bottle.webp', '/images/clothes.webp', '/images/tea.webp']);
+  // Use product images from the product data
+  readonly images = computed(() => {
+    const prod = this.product();
+    if (prod && prod.images && prod.images.length > 0) {
+      return prod.images.map(img => img.url);
+    }
+    // Fallback to placeholder if no images
+    return ['/images/product-image.png'];
+  });
 
   stockStatus(stock: number): 'in-stock' | 'low-stock' | 'out-of-stock' {
     if (stock === 0) return 'out-of-stock';

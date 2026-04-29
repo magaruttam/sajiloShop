@@ -1,1 +1,60 @@
 // Overview page styles
+
+// Responsive container adjustments
+:host {
+  display: block;
+}
+
+// Ensure proper spacing on mobile
+@media (max-width: 640px) {
+  .space-y-6 > * + * {
+    margin-top: 1.5rem;
+  }
+}
+
+// Responsive chart bars
+.chart-container {
+  @media (max-width: 640px) {
+    // Reduce gap between bars on mobile
+    gap: 0.25rem;
+  }
+}
+
+// Profile completion toast responsive positioning
+.profile-toast {
+  @media (max-width: 640px) {
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+    width: auto;
+  }
+}
+
+// Ensure cards don't overflow on small screens
+.stat-card,
+.chart-card,
+.alert-card,
+.orders-card {
+  @media (max-width: 640px) {
+    overflow-x: hidden;
+  }
+}
+
+// Mobile table scroll container
+.table-container {
+  @media (max-width: 768px) {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+// Responsive typography
+@media (max-width: 640px) {
+  h2 {
+    font-size: 1rem;
+  }
+  
+  .text-2xl {
+    font-size: 1.25rem;
+  }
+}

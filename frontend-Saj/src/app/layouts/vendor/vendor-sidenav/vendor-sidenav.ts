@@ -31,10 +31,10 @@ export class VendorSidenav {
     {
       label: 'Products',
       icon: 'inventory_2',
-      route: '/vendor/catalog',
+      route: '/vendor/products-list',
       children: [
-        { label: 'All Products', route: '/vendor/catalog' },
-        { label: 'Add Product', route: '/vendor/catalog/new' },
+        { label: 'All Products', route: '/vendor/products-list' },
+        { label: 'Add Product', route: '/vendor/products-list/new' },
       ],
     },
   ];

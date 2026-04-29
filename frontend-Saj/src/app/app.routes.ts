@@ -12,7 +12,7 @@ import { VendorLayout } from './layouts/vendor/vendor-layout/vendor-layout';
 import { VendorOverview } from './features/vendor/pages/overview/overview';
 import { VendorSales } from './features/vendor/pages/sales/sales';
 import { AddProduct } from './features/vendor/pages/add-product/add-product';
-import { VendorCatalog } from './features/vendor/pages/catalog/catalog';
+import { VendorProductsList } from './features/vendor/pages/products-list/products-list';
 import { VendorProductDetail } from './features/vendor/pages/vendor-product-detail/vendor-product-detail';
 import { Login } from './features/auth/pages/login/login';
 import { Register } from './features/auth/pages/register/register';
@@ -29,7 +29,7 @@ export const routes: Routes = [
     component: Base,
     children: [
       { path: '', component: Home },
-      { path: 'product-detail', component: ProductDetail },
+      { path: 'product/:id', component: ProductDetail },
       { path: 'search', component: SearchResults },
       { path: 'become-a-seller', component: BecomeASeller },
       { path: 'cart', component: Cart },
@@ -45,9 +45,13 @@ export const routes: Routes = [
       { path: '', redirectTo: 'overview', pathMatch: 'full' },
       { path: 'overview', component: VendorOverview },
       { path: 'sales', component: VendorSales },
-      { path: 'catalog', component: VendorCatalog },
-      { path: 'catalog/new', component: AddProduct },
-      { path: 'catalog/:id', component: VendorProductDetail },
+      { path: 'products-list', component: VendorProductsList },
+      { path: 'products-list/new', component: AddProduct },
+      { path: 'products-list/:id', component: VendorProductDetail },
+      // Backward compatibility routes
+      { path: 'catalog', redirectTo: 'products-list', pathMatch: 'full' },
+      { path: 'catalog/new', redirectTo: 'products-list/new', pathMatch: 'full' },
+      { path: 'catalog/:id', redirectTo: 'products-list/:id', pathMatch: 'full' },
     ],
   },
 ];

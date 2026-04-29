@@ -16,7 +16,7 @@
           [image]="product.images[0].url"
           [name]="product.name"
           [price]="'NPR ' + product.price"
-          [routerLink]="['/product-detail', product.id]"
+          [productId]="product.id"
         />
       }
     </div>

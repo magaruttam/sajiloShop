@@ -1,5 +1,5 @@
 @if (product(); as prod) {
-<div class="p-8 space-y-8 max-w-5xl mx-auto">
+<div class="p-4 sm:p-6 lg:p-8 space-y-6 lg:space-y-8 max-w-7xl mx-auto">
 
   <!-- Breadcrumb + Title -->
   <div>
@@ -8,28 +8,30 @@
       <span>/</span>
       <a routerLink="/vendor/catalog" class="hover:underline">Products</a>
     </nav>
-    <div class="flex items-start justify-between">
-      <h1 class="text-2xl font-extrabold text-[#1A365D]">{{ prod.name }}</h1>
+    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+      <h1 class="text-xl sm:text-2xl font-extrabold text-[#1A365D]">{{ prod.name }}</h1>
       <div class="flex items-center gap-2 shrink-0">
         <a
           routerLink="/vendor/catalog/new"
-          class="border border-[#E5E9EB] rounded-lg px-4 py-2 text-sm font-semibold text-[#43474E] hover:bg-[#F7FAFC] transition-colors"
+          class="border border-[#E5E9EB] rounded-lg px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold text-[#43474E] hover:bg-[#F7FAFC] transition-colors"
         >Edit Product</a>
-        <button class="bg-[#1A365D] text-white rounded-lg px-5 py-2 text-sm font-bold hover:bg-[#162d4f] transition-colors">
+        <button class="bg-[#1A365D] text-white rounded-lg px-4 sm:px-5 py-2 text-xs sm:text-sm font-bold hover:bg-[#162d4f] transition-colors">
           Publish
         </button>
       </div>
     </div>
   </div>
 
-  <!-- Main 2-col grid -->
-  <div class="grid grid-cols-3 gap-6 items-start">
+  <!-- Main grid - Mobile: 1 col, Tablet: 1 col, Desktop: 3 cols -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
 
-    <!-- LEFT: 2×2 image grid -->
-    <div class="col-span-2 space-y-5">
+    <!-- LEFT: Image grid + Product info -->
+    <div class="lg:col-span-2 space-y-5 lg:space-y-6">
+
+      <!-- Visual Showcase -->
       <div>
         <h2 class="text-base font-bold text-[#1A365D] mb-3">Visual Showcase</h2>
-        <div class="grid grid-cols-2 gap-3">
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 gap-3">
           @for (img of images(); track $index) {
             <div
               class="rounded-xl overflow-hidden bg-[#F7FAFC] aspect-[4/3] cursor-pointer border-2 transition-colors"
@@ -45,8 +47,8 @@
       <!-- Product Information -->
       <div>
         <h2 class="text-base font-bold text-[#1A365D] mb-3">Product Information</h2>
-        <div class="bg-white rounded-xl border border-[#E5E9EB] p-5 space-y-4">
-          <div class="grid grid-cols-2 gap-x-8 gap-y-4">
+        <div class="bg-white rounded-xl border border-[#E5E9EB] p-4 sm:p-5 space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <p class="text-xs text-[#43474E] mb-0.5">Product Name</p>
               <p class="text-sm font-semibold text-[#1A365D]">{{ prod.name }}</p>
@@ -76,10 +78,10 @@
       <!-- Inventory & Variants -->
       <div>
         <h2 class="text-base font-bold text-[#1A365D] mb-3">Inventory &amp; Variants</h2>
-        <div class="bg-white rounded-xl border border-[#E5E9EB] p-5 space-y-5">
+        <div class="bg-white rounded-xl border border-[#E5E9EB] p-4 sm:p-5 space-y-5">
           <div>
             <p class="text-xs text-[#43474E] mb-1">Stock Quantity</p>
-            <p class="text-3xl font-extrabold text-[#1A365D]">
+            <p class="text-2xl sm:text-3xl font-extrabold text-[#1A365D]">
               {{ prod.stock }} <span class="text-base font-normal text-[#43474E]">units</span>
             </p>
           </div>
@@ -110,8 +112,8 @@
       <!-- Logistics -->
       <div>
         <h2 class="text-base font-bold text-[#1A365D] mb-3">Logistics</h2>
-        <div class="bg-white rounded-xl border border-[#E5E9EB] p-5">
-          <div class="grid grid-cols-2 gap-6">
+        <div class="bg-white rounded-xl border border-[#E5E9EB] p-4 sm:p-5">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
             <div class="space-y-1">
               <p class="text-xs text-[#43474E]">Product Delivery</p>
               <div class="flex items-center gap-2">
@@ -130,7 +132,7 @@
                 <span class="text-sm font-semibold text-[#43474E]">No</span>
               </div>
             </div>
-            <div>
+            <div class="sm:col-span-2">
               <p class="text-xs text-[#43474E] mb-0.5">Shipping Method</p>
               <p class="text-sm font-semibold text-[#1A365D]">Express Shipping</p>
             </div>
@@ -141,21 +143,21 @@
       <!-- Performance -->
       <div>
         <h2 class="text-base font-bold text-[#1A365D] mb-3">Performance</h2>
-        <div class="bg-white rounded-xl border border-[#E5E9EB] p-5">
-          <div class="grid grid-cols-2 gap-4">
+        <div class="bg-white rounded-xl border border-[#E5E9EB] p-4 sm:p-5">
+          <div class="grid grid-cols-2 gap-3 sm:gap-4">
             @for (stat of [
               { label: 'Total Sales', value: '124 units', icon: 'shopping_bag' },
               { label: 'Revenue', value: 'NPR 1,05,400', icon: 'payments' },
               { label: 'Views', value: '3,842', icon: 'visibility' },
               { label: 'Conversion', value: '3.2%', icon: 'trending_up' }
             ]; track stat.label) {
-              <div class="flex items-center gap-3 p-3 rounded-lg bg-[#F7FAFC]">
-                <div class="w-9 h-9 rounded-lg bg-white border border-[#E5E9EB] flex items-center justify-center shrink-0">
-                  <span class="material-symbols-outlined text-[#1A365D] text-base">{{ stat.icon }}</span>
+              <div class="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg bg-[#F7FAFC]">
+                <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-white border border-[#E5E9EB] flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-[#1A365D] text-sm sm:text-base">{{ stat.icon }}</span>
                 </div>
                 <div>
                   <p class="text-[10px] text-[#43474E]">{{ stat.label }}</p>
-                  <p class="text-sm font-bold text-[#1A365D]">{{ stat.value }}</p>
+                  <p class="text-xs sm:text-sm font-bold text-[#1A365D]">{{ stat.value }}</p>
                 </div>
               </div>
             }
@@ -166,8 +168,8 @@
       <!-- Recent Orders -->
       <div>
         <h2 class="text-base font-bold text-[#1A365D] mb-3">Recent Orders for this Product</h2>
-        <div class="bg-white rounded-xl border border-[#E5E9EB] p-5">
-          <table class="w-full text-sm">
+        <div class="bg-white rounded-xl border border-[#E5E9EB] p-4 sm:p-5 overflow-x-auto">
+          <table class="w-full text-sm min-w-[500px]">
             <thead>
               <tr class="border-b border-[#E5E9EB]">
                 <th class="text-left text-[10px] font-bold tracking-widest text-[#43474E] uppercase pb-3">Order ID</th>
@@ -200,14 +202,14 @@
     </div>
 
     <!-- RIGHT sidebar -->
-    <div class="space-y-4">
+    <div class="space-y-4 lg:space-y-5">
 
       <!-- Financials -->
       <div>
         <h2 class="text-base font-bold text-[#1A365D] mb-3">Financials</h2>
-        <div class="bg-white rounded-xl border border-[#E5E9EB] p-5">
+        <div class="bg-white rounded-xl border border-[#E5E9EB] p-4 sm:p-5">
           <p class="text-xs text-[#43474E] mb-1">Price</p>
-          <p class="text-3xl font-extrabold text-[#1A365D]">NPR {{ prod.price | number }}</p>
+          <p class="text-2xl sm:text-3xl font-extrabold text-[#1A365D]">NPR {{ prod.price | number }}</p>
           <p class="text-xs text-[#43474E] mt-0.5">NPR</p>
         </div>
       </div>
@@ -215,7 +217,7 @@
       <!-- Status Overview -->
       <div>
         <h2 class="text-base font-bold text-[#1A365D] mb-3">Status Overview</h2>
-        <div class="bg-white rounded-xl border border-[#E5E9EB] p-5 space-y-3">
+        <div class="bg-white rounded-xl border border-[#E5E9EB] p-4 sm:p-5 space-y-3">
           <div class="flex items-center justify-between">
             <span class="text-xs text-[#43474E]">Product Status</span>
             <span class="text-xs font-bold px-2.5 py-1 rounded-md bg-yellow-100 text-yellow-700">{{ prod.status }}</span>

@@ -1,20 +1,19 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { NgClass, DecimalPipe } from '@angular/common';
 import { Router } from '@angular/router';
-import { ProductsStore } from '../../../../core/store/products.store';
+import { Product } from '../../../../../../core/models/product.model';
 
 @Component({
-  selector: 'app-vendor-catalog',
+  selector: 'app-product-list',
   imports: [NgClass, DecimalPipe],
-  templateUrl: './catalog.html',
-  styleUrl: './catalog.scss',
+  templateUrl: './product-list.html',
+  styleUrl: './product-list.scss',
 })
-export class VendorCatalog {
+export class ProductList {
   private router = inject(Router);
-  readonly productsStore = inject(ProductsStore);
 
-  activeTab = signal<'all' | 'drafts' | 'archived'>('all');
-  currentPage = signal(1);
+  products = input.required<Product[]>();
+  isLoading = input<boolean>(false);
 
   stockStatus(stock: number): 'in-stock' | 'low-stock' | 'out-of-stock' {
     if (stock === 0) return 'out-of-stock';
@@ -41,6 +40,12 @@ export class VendorCatalog {
   };
 
   goToDetail(id: number) {
-    this.router.navigate(['/vendor/catalog', id]);
+    this.router.navigate(['/vendor/products-list', id]);
+  }
+
+  onDeleteProduct(event: Event, productId: number) {
+    event.stopPropagation();
+    // TODO: Implement delete functionality
+    console.log('Delete product:', productId);
   }
 }

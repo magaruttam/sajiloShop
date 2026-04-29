@@ -152,7 +152,7 @@ export class AddProduct {
     this.productService.addNewProduct(formData).subscribe({
       next: () => {
         this.submitting.set(false);
-        this.router.navigate(['/vendor/catalog']);
+        this.router.navigate(['/vendor/products-list']);
       },
       error: (err) => {
         this.errorMessage.set(err.error?.message ?? 'Failed to add product. Please try again.');

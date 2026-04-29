@@ -1,17 +1,22 @@
-import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, inject, computed } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
+import { Router, ActivatedRoute } from '@angular/router';
 import { StarRating } from '../../components/star-rating/star-rating';
 import { ReviewCard, Review } from '../../components/review-card/review-card';
 import { ProductCard } from '../../../../shared/components/product-card/product-card';
+import { ProductsStore } from '../../../../core/store/products.store';
 
 @Component({
   selector: 'app-product-detail',
-  imports: [StarRating, ReviewCard, ProductCard],
+  imports: [DecimalPipe, StarRating, ReviewCard, ProductCard],
   templateUrl: './product-detail.html',
   styleUrl: './product-detail.scss',
 })
 export class ProductDetail {
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
+  private productsStore = inject(ProductsStore);
+
   quantity = 1;
   showMagnifier = false;
   lensX = 0;
@@ -22,8 +27,22 @@ export class ProductDetail {
   readonly LENS_SIZE = 120;
   readonly ZOOM = 2.5;
 
-  thumbnails = ['/images/clothes.webp', '/images/clothes.webp', '/images/clothes.webp'];
-  selectedImage = '/images/clothes.webp';
+  // Get the specific product based on route parameter
+  readonly product = computed(() => {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    return this.productsStore.products().find((p) => p.id === id);
+  });
+
+  // Get product images
+  readonly thumbnails = computed(() => {
+    const prod = this.product();
+    if (prod && prod.images && prod.images.length > 0) {
+      return prod.images.map(img => img.url);
+    }
+    return ['/images/product-image.png'];
+  });
+
+  selectedImage = '/images/product-image.png';
 
   specs = [
     { label: 'MATERIAL', value: 'Natural Clay / Matte Glaze' },
@@ -85,6 +104,14 @@ export class ProductDetail {
     verified: true,
   };
 
+  ngOnInit() {
+    // Set the first image as selected when product loads
+    const thumbs = this.thumbnails();
+    if (thumbs.length > 0) {
+      this.selectedImage = thumbs[0];
+    }
+  }
+
   increment() {
     this.quantity++;
   }
@@ -96,16 +123,19 @@ export class ProductDetail {
   }
 
   buyNow() {
+    const prod = this.product();
+    if (!prod) return;
+
     this.router.navigate(['/checkout'], {
       state: {
         items: [
           {
             image: this.selectedImage,
-            name: 'Nordic Clay Vase',
+            name: prod.name,
             size: 'Standard',
-            color: 'Bone White',
+            color: 'Default',
             quantity: this.quantity,
-            unitPrice: 4500,
+            unitPrice: parseFloat(prod.price),
           },
         ],
       },

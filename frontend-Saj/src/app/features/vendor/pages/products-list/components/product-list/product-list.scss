@@ -1,0 +1,43 @@
+// Product List Component Styles
+
+// Ensure proper image aspect ratio and object fit
+.product-image {
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+// Mobile card hover effects
+@media (max-width: 1023px) {
+  .product-card {
+    &:hover {
+      transform: translateY(-1px);
+    }
+  }
+}
+
+// Responsive text truncation
+.product-name {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// Custom scrollbar for mobile horizontal scroll if needed
+.mobile-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #E5E9EB transparent;
+  
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background-color: #E5E9EB;
+    border-radius: 2px;
+  }
+}
