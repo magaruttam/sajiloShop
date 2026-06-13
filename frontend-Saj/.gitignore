@@ -44,3 +44,5 @@ Thumbs.db
 
 # Kiro - track specs and steering, but not sensitive settings
 .kiro/settings/
+# env file
+.env

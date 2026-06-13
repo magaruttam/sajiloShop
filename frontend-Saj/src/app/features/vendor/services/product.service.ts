@@ -1,10 +1,11 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 import { Product } from '../models/product.model';
 import { ProductsResponse } from '../../../core/models/product.model';
 
-const API_URL = 'http://localhost:3000/api';
+const API_URL = environment.productApiUrl;
 
 @Injectable({
   providedIn: 'root',

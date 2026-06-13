@@ -29,6 +29,7 @@ export class Register {
     ]),
   });
 
+  
   onSubmit() {
     console.log('Form submitted');
     console.log('Form valid:', this.form.valid);
@@ -76,7 +77,7 @@ export class Register {
           let errorMessage = 'Registration failed. Please try again.';
           
           if (err.status === 0) {
-            errorMessage = 'Cannot connect to server. Please check if the backend is running on http://localhost:3000';
+            errorMessage = 'Cannot connect to server. Please check if the backend is running on http://localhost:8000';
           } else if (err.error?.message) {
             errorMessage = err.error.message;
             
