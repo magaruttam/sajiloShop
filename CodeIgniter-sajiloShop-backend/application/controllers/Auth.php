@@ -11,7 +11,7 @@ class Auth extends RestController
         $this->load->model("user_model");
         $this->load->library('form_validation');
         $this->load->library('jwt');
-        $this->load->database();
+        $this->load->database(); 
     }
 
     /**
@@ -45,11 +45,14 @@ class Auth extends RestController
      */
     public function register_post()
     {
+        $role = $this->post('role') ? $this->post('role') : 'user';
+        $shopName = $this->post('shopName');
+
         $data = [
             'name' => $this->post('name'),
             'email' => $this->post('email'),
             'password' => $this->post('password'),
-            'role' => $this->post('role')
+            'role' => $role
         ];
 
         if (empty($data['email']) || empty($data['password'])) {
@@ -59,7 +62,14 @@ class Auth extends RestController
             ], RestController::HTTP_BAD_REQUEST);
         }
 
-        // Validate email format
+        if ($role === 'vendor' && empty($shopName)) {
+            $this->response([
+                'status' => false,
+                'message' => 'Shop name is required for vendor registration'
+            ], RestController::HTTP_BAD_REQUEST);
+        }
+
+        // Validate email format, password, role
         $this->form_validation->set_data($data);
         if (!$this->form_validation->run('register')) {
             $this->response([
@@ -79,17 +89,64 @@ class Auth extends RestController
 
         $hashed_password = password_hash($data['password'], PASSWORD_BCRYPT);
         $data['password'] = $hashed_password;
-        $insert_id = $this->user_model->insert_user($data);
 
-        $this->response([
+        // Start database transaction
+        $this->db->trans_start();
+
+        // 1. Insert user
+        $userId = $this->user_model->insert_user($data);
+
+        // 2. Insert vendor profile if role is vendor
+        $vendorId = null;
+        if ($role === 'vendor') {
+            $vendorData = [
+                'userId' => $userId,
+                'status' => 'approved',
+                'commission_rate' => 10.00,
+                'balance' => 0.00,
+                'shopName' => $shopName
+            ];
+            $vendorId = $this->user_model->insert_vendor($vendorData);
+        }
+
+        $this->db->trans_complete();
+
+        if ($this->db->trans_status() === FALSE) {
+            $this->response([
+                'status' => false,
+                'message' => 'Registration failed'
+            ], RestController::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
+        // Generate JWT token
+        $token_data = [
+            'id' => $userId,
+            'email' => $data['email'],
+            'role' => $role
+        ];
+        $token = $this->jwt->generate_token($token_data);
+
+        $responseData = [ 
             'status' => true,
-            'message' => 'User registered successfully',
-            'data' => [
-                'id' => $insert_id,
+            'message' => ($role === 'vendor') ? 'Vendor registered successfully' : 'User registered successfully',
+            'token' => $token,
+            'user' => [
+                'id' => $userId,
                 'email' => $data['email'],
-                'role' => $data['role']
+                'role' => $role
             ]
-        ], RestController::HTTP_CREATED);
+        ];
+
+        if ($role === 'vendor') {
+            $responseData['vendor'] = [
+                'id' => $vendorId,
+                'shopName' => $shopName,
+                'status' => 'approved',
+                'commission_rate' => '10'
+            ];
+        }
+
+        $this->response($responseData, RestController::HTTP_CREATED);
     }
 
     /**
@@ -142,6 +199,59 @@ class Auth extends RestController
             ], RestController::HTTP_NOT_FOUND);
         }
     }
+
+    /**
+     * POST /auth/vendor_login
+     * Authenticates vendor and returns JWT
+     */
+    public function vendor_login_post()
+    {
+        $email = $this->post('email');
+        $password = $this->post('password');
+
+        if (empty($email) || empty($password)) {
+            $this->response([
+                'status' => false,
+                'message' => 'Email and password are required'
+            ], RestController::HTTP_BAD_REQUEST);
+        }
+
+        $user = $this->user_model->get_user($email);
+
+        if ($user && $user->role === 'vendor') {
+            if (password_verify($password, $user->password)) {
+                // Generate JWT token
+                $token_data = [
+                    'id' => isset($user->id) ? $user->id : null,
+                    'email' => $user->email,
+                    'role' => $user->role
+                ];
+                $token = $this->jwt->generate_token($token_data);
+
+                $this->response([
+                    'status' => true,
+                    'message' => 'Vendor Login Successful',
+                    'token' => $token,
+                    'user' => [
+                        'email' => $user->email,
+                        'role' => $user->role
+                    ]
+                ], RestController::HTTP_OK);
+            } else {
+                $this->response([
+                    'status' => false,
+                    'message' => 'Invalid Password'
+                ], RestController::HTTP_UNAUTHORIZED);
+            }
+        } else {
+            $this->response([
+                'status' => false,
+                'message' => 'Vendor not found'
+            ], RestController::HTTP_NOT_FOUND);
+        }
+    }
+
+
 
     /**
      * PUT /auth/user

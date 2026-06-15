@@ -33,4 +33,23 @@ if ($error['code'] != 0) {
     
     return $result->result_array();
   }
+
+  public function insert_vendor($data){
+    $query = 'insert into vendors (userId, status, commission_rate, balance, shopName, createdAt, updatedAt)
+              values(?, ?, ?, ?, ?, NOW(), NOW())';
+    $this->db->query($query, [
+        $data['userId'],
+        $data['status'],
+        $data['commission_rate'],
+        $data['balance'],
+        $data['shopName']
+    ]);
+    return $this->db->insert_id();
+  }
+
+  public function get_vendor_by_user_id($userId){
+    $query = 'select * from vendors where userId = ?';
+    $result = $this->db->query($query, [$userId]);
+    return $result->row();
+  }
 }

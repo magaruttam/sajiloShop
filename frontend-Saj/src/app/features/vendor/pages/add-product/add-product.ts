@@ -137,11 +137,10 @@ export class AddProduct {
     const formData = new FormData();
     formData.append('vendorId', String(vendorId));
     formData.append('name', v.name!);
-    formData.append('categoryId', v.category!);
+    formData.append('category', v.category!);
     formData.append('description', v.description ?? '');
     formData.append('price', String(v.price));
-    formData.append('stock', String(v.stockQty));
-    formData.append('status', 'approved');
+    formData.append('stockQty', String(v.stockQty));
     
     // Append all selected images
     this.selectedImages().forEach((image, index) => {
