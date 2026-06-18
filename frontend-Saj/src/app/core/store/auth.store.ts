@@ -48,12 +48,12 @@ export const AuthStore = signalStore(
     login(name: string, email: string) {
       const state: AuthState = { isLoggedIn: true, name, email, role: 'user', vendor: null };
       patchState(store, state);
-      // saveToStorage(state);
+      saveToStorage(state);
     },
     vendorLogin(name: string, email: string, vendor: VendorInfo) {
       const state: AuthState = { isLoggedIn: true, name, email, role: 'vendor', vendor };
       patchState(store, state);
-      // saveToStorage(state);
+      saveToStorage(state);
     },
     logout() {
       patchState(store, defaultState);

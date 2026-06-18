@@ -16,6 +16,6 @@ export class ProductService {
   }
 
   getProducts(): Observable<ProductsResponse> {
-    return this.http.get<ProductsResponse>(`${environment.apiUrl}/products`);
+    return this.http.get<ProductsResponse>(`${environment.apiUrl}/products/products`);
   }
 }

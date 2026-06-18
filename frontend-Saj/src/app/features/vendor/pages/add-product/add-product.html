@@ -269,7 +269,8 @@
         @for (variant of variants(); track $index) {
           <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
             <select
-              formControlName="variant.type"
+              [value]="variant.type"
+              (change)="updateVariantType($index, $event)"
               class="w-full sm:w-32 border border-[#E5E9EB] rounded-lg px-3 py-2 text-sm text-[#43474E] bg-white focus:outline-none focus:ring-2 focus:ring-[#13696A]"
             >
               <option>Size</option>
@@ -278,7 +279,8 @@
               <option>Weight</option>
             </select>
             <input
-              formControlName="variant.options"
+              [value]="variant.options"
+              (input)="updateVariantOptions($index, $event)"
               type="text"
               placeholder="Small, Medium, Large"
               class="flex-1 border border-[#E5E9EB] rounded-lg px-3 py-2 text-sm text-[#1A365D] placeholder:text-[#C4C6CF] focus:outline-none focus:ring-2 focus:ring-[#13696A]"

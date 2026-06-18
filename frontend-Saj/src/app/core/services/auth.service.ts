@@ -20,7 +20,7 @@ export class AuthService {
   }
 
   vendorLogin(data: Pick<LoginRequest, 'email' | 'password'>): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${environment.apiUrl}/auth/vendor/login`, data, {
+    return this.http.post<LoginResponse>(`${environment.apiUrl}/auth/login`, data, {
       withCredentials: true,
     });
   }

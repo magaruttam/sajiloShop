@@ -177,15 +177,35 @@ class Auth extends RestController
                 ];
                 $token = $this->jwt->generate_token($token_data);
 
-                $this->response([
+                $response = [
                     'status' => true,
                     'message' => 'Login Successful',
                     'token' => $token,
                     'user' => [
+                        'name' => $user->name,
                         'email' => $user->email,
                         'role' => $user->role
                     ]
-                ], RestController::HTTP_OK);
+                ];
+
+                // Include vendor data if user is a vendor
+                if ($user->role === 'vendor') {
+                    $vendor = $this->user_model->get_vendor_by_user_id($user->id);
+                    if ($vendor) {
+                        $response['vendor'] = [
+                            'id' => (int) $vendor->id,
+                            'userId' => (int) $vendor->userId,
+                            'status' => $vendor->status,
+                            'shopName' => $vendor->shopName,
+                            'balance' => $vendor->balance,
+                            'commission_rate' => $vendor->commission_rate,
+                            'createdAt' => $vendor->createdAt,
+                            'updatedAt' => $vendor->updatedAt
+                        ];
+                    }
+                }
+
+                $this->response($response, RestController::HTTP_OK);
             } else {
                 $this->response([
                     'status' => false,
@@ -228,15 +248,33 @@ class Auth extends RestController
                 ];
                 $token = $this->jwt->generate_token($token_data);
 
-                $this->response([
+                $vendor = $this->user_model->get_vendor_by_user_id($user->id);
+
+                $response = [
                     'status' => true,
                     'message' => 'Vendor Login Successful',
                     'token' => $token,
                     'user' => [
+                        'name' => $user->name,
                         'email' => $user->email,
                         'role' => $user->role
                     ]
-                ], RestController::HTTP_OK);
+                ];
+
+                if ($vendor) {
+                    $response['vendor'] = [
+                        'id' => (int) $vendor->id,
+                        'userId' => (int) $vendor->userId,
+                        'status' => $vendor->status,
+                        'shopName' => $vendor->shopName,
+                        'balance' => $vendor->balance,
+                        'commission_rate' => $vendor->commission_rate,
+                        'createdAt' => $vendor->createdAt,
+                        'updatedAt' => $vendor->updatedAt
+                    ];
+                }
+
+                $this->response($response, RestController::HTTP_OK);
             } else {
                 $this->response([
                     'status' => false,

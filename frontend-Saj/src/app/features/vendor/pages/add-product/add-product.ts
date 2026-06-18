@@ -33,6 +33,7 @@ export class AddProduct {
   private readonly MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
   private readonly MAX_IMAGES = 10;
   private readonly ALLOWED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+  private imagePreviewCache = new Map<File, string>();
 
   onImagesSelected(event: Event) {
     const files = (event.target as HTMLInputElement).files;
@@ -94,15 +95,28 @@ export class AddProduct {
   }
 
   removeImage(index: number) {
+    const file = this.selectedImages()[index];
+    if (file) {
+      const url = this.imagePreviewCache.get(file);
+      if (url) {
+        URL.revokeObjectURL(url);
+        this.imagePreviewCache.delete(file);
+      }
+    }
     this.selectedImages.update(current => current.filter((_, i) => i !== index));
-    this.imageError.set(''); // Clear any previous errors
+    this.imageError.set('');
   }
 
   getImagePreview(file: File): string {
-    return URL.createObjectURL(file);
+    if (!this.imagePreviewCache.has(file)) {
+      this.imagePreviewCache.set(file, URL.createObjectURL(file));
+    }
+    return this.imagePreviewCache.get(file)!;
   }
 
   clearAllImages() {
+    this.imagePreviewCache.forEach(url => URL.revokeObjectURL(url));
+    this.imagePreviewCache.clear();
     this.selectedImages.set([]);
     this.imageError.set('');
   }
@@ -168,10 +182,20 @@ export class AddProduct {
   variants = signal<Variant[]>([{ type: 'Size', options: 'Small, Medium, Large' }]);
 
   addVariant() {
-    this.variants.update((v) => [...v, { type: '', options: '' }]);
+    this.variants.update((v) => [...v, { type: 'Size', options: '' }]);
   }
 
   removeVariant(index: number) {
     this.variants.update((v) => v.filter((_, i) => i !== index));
+  }
+
+  updateVariantType(index: number, event: Event) {
+    const value = (event.target as HTMLSelectElement).value;
+    this.variants.update(v => v.map((item, i) => i === index ? { ...item, type: value } : item));
+  }
+
+  updateVariantOptions(index: number, event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+    this.variants.update(v => v.map((item, i) => i === index ? { ...item, options: value } : item));
   }
 }
