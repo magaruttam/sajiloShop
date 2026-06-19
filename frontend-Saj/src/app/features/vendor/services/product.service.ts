@@ -18,4 +18,8 @@ export class ProductService {
   getProducts(): Observable<ProductsResponse> {
     return this.http.get<ProductsResponse>(`${environment.apiUrl}/products/products`);
   }
+   
+  getProduct(id: number): Observable<Product> {
+    return this.http.get<Product>(`${environment.apiUrl}/products/product/${id}`);
+  }
 }

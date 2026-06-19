@@ -1,10 +1,12 @@
 import { Component, inject, computed } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { DecimalPipe } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
+import { map, switchMap } from 'rxjs';
 import { StarRating } from '../../components/star-rating/star-rating';
 import { ReviewCard, Review } from '../../components/review-card/review-card';
 import { ProductCard } from '../../../../shared/components/product-card/product-card';
-import { ProductsStore } from '../../../../core/store/products.store';
+import { ProductService } from '../../../vendor/services/product.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -15,7 +17,7 @@ import { ProductsStore } from '../../../../core/store/products.store';
 export class ProductDetail {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
-  private productsStore = inject(ProductsStore);
+  private productService = inject(ProductService);
 
   quantity = 1;
   showMagnifier = false;
@@ -27,17 +29,17 @@ export class ProductDetail {
   readonly LENS_SIZE = 120;
   readonly ZOOM = 2.5;
 
-  // Get the specific product based on route parameter
-  readonly product = computed(() => {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    return this.productsStore.products().find((p) => p.id === id);
-  });
+  readonly product = toSignal(
+    this.route.paramMap.pipe(
+      map(params => Number(params.get('id'))),
+      switchMap(id => this.productService.getProduct(id))
+    )
+  );
 
-  // Get product images
   readonly thumbnails = computed(() => {
     const prod = this.product();
-    if (prod && prod.images && prod.images.length > 0) {
-      return prod.images.map(img => img.url);
+    if (prod && prod.image) {
+      return [prod.image];
     }
     return ['/images/product-image.png'];
   });
@@ -135,7 +137,7 @@ export class ProductDetail {
             size: 'Standard',
             color: 'Default',
             quantity: this.quantity,
-            unitPrice: parseFloat(prod.price),
+            unitPrice: prod.price,
           },
         ],
       },
