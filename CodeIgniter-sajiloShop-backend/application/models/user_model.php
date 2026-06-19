@@ -52,4 +52,10 @@ if ($error['code'] != 0) {
     $result = $this->db->query($query, [$userId]);
     return $result->row();
   }
+
+  public function get_vendor($vendorId){
+    $query = 'select * from vendors where id = ?';
+    $result = $this->db->query($query, [$vendorId]);
+    return $result->row();
+  }
 }
