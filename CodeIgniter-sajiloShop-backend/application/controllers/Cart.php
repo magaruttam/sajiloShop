@@ -11,26 +11,34 @@ class Cart extends RestController{
     $this->load->model('Product_model');
   }
 
-  public function addToCard_post()
+  public function addToCart_post()
 {
-    $user_id = $this->post('userId');
-    $vendor_id = $this->post('vendorId');
-    $product_id = $this->post('productId');
+    $userId = $this->post('userId');
+    $vendorId = $this->post('vendorId');
+    $productId = $this->post('productId');
     $quantity = $this->post('quantity');
+    $price = $this->post('price');
 
-    $vendor = $this->User_model->get_vendor($vendor_id);
+    $vendor = $this->User_model->get_vendor($vendorId);
     if (!$vendor) {
       $this->response(['status' => false, 'message' => 'Vendor not found'], 404);
       return;
     }
 
-    $product = $this->Product_model->get_product($product_id);
+    $product = $this->Product_model->get_product($productId);
     if (!$product) {
       $this->response(['status' => false, 'message' => 'Product not found'], 404);
       return;
     }
-
-    $data = $this->cart_model->get_data($vendor_id,$product_id);
+     $cartItem = [
+      'userId' => $userId,
+      'vendorId' => $vendorId,
+      'productId' => $productId,
+      'quantity' => $quantity,
+      'priceSnapshot' => $price
+     ];
+    
+    $this->cart_model->addCartItem($cartItem);
 }
 
 }

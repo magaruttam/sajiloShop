@@ -8,13 +8,11 @@ class Cart_model extends CI_Model{
         parent::__construct();
     }
 
-    public function get_data($vendorId,$productId){
+    public function addCartItem($cartItem){
             $query = '
-              select 
-              vendors.shopName,
-              products.name,
-              products.price,
+              insert into cart_items (userId,productId,quantity,priceSnapshot,vendorId)
+              values (?,?,?,?,?)
             ';
+            $this->db->query($query,[$cartItem['userId'],$cartItem['productId'],$cartItem['quantity'],$cartItem['priceSnapshot'],$cartItem['vendorId']]);
     }
-
 }
