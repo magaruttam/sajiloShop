@@ -1,4 +1,4 @@
-import { Component, inject, computed } from '@angular/core';
+import { Component, inject, computed, effect } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { DecimalPipe } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -38,13 +38,22 @@ export class ProductDetail {
 
   readonly thumbnails = computed(() => {
     const prod = this.product();
-    if (prod && prod.image) {
-      return [prod.image];
+    if (prod && prod.images && prod.images.length > 0) {
+      return prod.images.map(img => img.url ? img.url.replace(/\\/g, '') : '');
     }
     return ['/images/product-image.png'];
   });
 
   selectedImage = '/images/product-image.png';
+
+  constructor() {
+    effect(() => {
+      const thumbs = this.thumbnails();
+      if (thumbs.length > 0) {
+        this.selectedImage = thumbs[0];
+      }
+    });
+  }
 
   specs = [
     { label: 'MATERIAL', value: 'Natural Clay / Matte Glaze' },
@@ -107,11 +116,7 @@ export class ProductDetail {
   };
 
   ngOnInit() {
-    // Set the first image as selected when product loads
-    const thumbs = this.thumbnails();
-    if (thumbs.length > 0) {
-      this.selectedImage = thumbs[0];
-    }
+    // Left empty since selectedImage is updated via effect when product loads
   }
 
   increment() {

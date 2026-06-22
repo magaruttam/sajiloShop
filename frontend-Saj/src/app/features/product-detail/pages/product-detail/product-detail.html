@@ -14,51 +14,30 @@
       <!-- Thumbnails -->
       <div class="flex md:flex-col gap-2 md:max-h-[380px] md:overflow-y-auto">
         @for (img of thumbnails(); track $index) {
-          <img
-            [src]="img"
-            alt="thumbnail"
-            class="w-14 h-14 object-cover rounded-lg cursor-pointer border-2 flex-shrink-0"
-            [class.border-[#1A365D]]="selectedImage === img"
-            [class.border-transparent]="selectedImage !== img"
-            (click)="selectImage(img)"
-          />
+        <img [src]="img" alt="thumbnail" class="w-14 h-14 object-cover rounded-lg cursor-pointer border-2 flex-shrink-0"
+          [class.border-[#1A365D]]="selectedImage === img" [class.border-transparent]="selectedImage !== img"
+          (click)="selectImage(img)" />
         }
       </div>
 
       <!-- Main Image with Magnifier -->
-      <div
-        class="relative magnifier-container"
-        #imageContainer
-        (mousemove)="onMouseMove($event, imageContainer)"
-        (mouseleave)="onMouseLeave()"
-      >
-        <img
-          [src]="selectedImage"
-          [alt]="prod.name"
-          class="w-full md:w-[380px] rounded-md object-cover block"
-        />
+      <div class="relative magnifier-container" #imageContainer (mousemove)="onMouseMove($event, imageContainer)"
+        (mouseleave)="onMouseLeave()">
+        <img [src]="selectedImage" [alt]="prod.name" class="w-full md:w-[380px] rounded-md object-cover block" />
 
         <!-- Magnifier Lens -->
         @if (showMagnifier) {
-          <div
-            class="magnifier-lens"
-            [style.left.px]="lensX"
-            [style.top.px]="lensY"
-            [style.background-image]="'url(' + selectedImage + ')'"
-            [style.background-size]="bgSize"
-            [style.background-position]="bgPosition"
-          ></div>
+        <div class="magnifier-lens" [style.left.px]="lensX" [style.top.px]="lensY"
+          [style.background-image]="'url(' + selectedImage + ')'" [style.background-size]="bgSize"
+          [style.background-position]="bgPosition"></div>
         }
 
         <button
-          class="absolute top-3 right-3 bg-white rounded-full w-8 h-8 flex items-center justify-center shadow z-10"
-        >
+          class="absolute top-3 right-3 bg-white rounded-full w-8 h-8 flex items-center justify-center shadow z-10">
           <span class="material-symbols-outlined text-[#43474E] text-lg">favorite</span>
         </button>
-        <span
-          class="absolute top-3 left-3 bg-[#13696A] text-white text-xs px-2 py-1 rounded md:hidden z-10"
-          >{{ prod.status }}</span
-        >
+        <span class="absolute top-3 left-3 bg-[#13696A] text-white text-xs px-2 py-1 rounded md:hidden z-10">{{
+          prod.status }}</span>
       </div>
     </div>
 
@@ -108,40 +87,28 @@
         <button class="py-3 px-12 bg-[#1A365D] text-white font-bold text-sm rounded">
           ADD TO BAG
         </button>
-        <button
-          class="py-3 px-12 bg-[#A2EDED] text-[#1A6D6E] font-bold text-sm rounded"
-          (click)="buyNow()"
-        >
+        <button class="py-3 px-12 bg-[#A2EDED] text-[#1A6D6E] font-bold text-sm rounded" (click)="buyNow()">
           BUY NOW
         </button>
       </div>
 
       <!-- Store Info -->
       <div class="border border-[#E5E9EB] rounded-lg p-4 flex items-center gap-4 bg-[#F7FAFC]">
-        <img
-          [src]="store.avatar"
-          [alt]="store.name"
-          class="w-12 h-12 rounded-full object-cover shrink-0 border-2 border-[#E5E9EB]"
-        />
+        <img [src]="store.avatar" [alt]="store.name"
+          class="w-12 h-12 rounded-full object-cover shrink-0 border-2 border-[#E5E9EB]" />
         <div class="flex-1 min-w-0">
           <p class="text-[9px] font-bold tracking-widest text-[#43474E] uppercase">Sold by</p>
           <p class="text-[#1A365D] font-bold text-sm">{{ store.name }}</p>
           <div class="flex items-center gap-1 mt-0.5">
             <span class="text-[#F59E0B] text-xs">★</span>
-            <span class="text-xs text-[#43474E]"
-              >{{ store.rating }} · {{ store.totalSales }} sales</span
-            >
+            <span class="text-xs text-[#43474E]">{{ store.rating }} · {{ store.totalSales }} sales</span>
             @if (store.verified) {
-              <span
-                class="ml-1 bg-[#E6F4F4] text-[#13696A] text-[9px] font-bold px-1.5 py-0.5 rounded-full"
-                >✓ Verified</span
-              >
+            <span class="ml-1 bg-[#E6F4F4] text-[#13696A] text-[9px] font-bold px-1.5 py-0.5 rounded-full">✓
+              Verified</span>
             }
           </div>
         </div>
-        <a href="#" class="text-[#13696A] text-xs font-semibold hover:underline shrink-0"
-          >Visit Store →</a
-        >
+        <a href="#" class="text-[#13696A] text-xs font-semibold hover:underline shrink-0">Visit Store →</a>
       </div>
 
       <!-- Feature Icons (desktop) -->
@@ -176,12 +143,12 @@
   <h2 class="text-[#1A365D] font-bold text-xl">Specifications</h2>
   <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
     @for (spec of specs; track spec.label) {
-      <div class="space-y-1">
-        <p class="text-[10px] font-semibold text-[#43474E] uppercase tracking-widest">
-          {{ spec.label }}
-        </p>
-        <p class="text-sm font-medium text-[#1A365D]">{{ spec.value }}</p>
-      </div>
+    <div class="space-y-1">
+      <p class="text-[10px] font-semibold text-[#43474E] uppercase tracking-widest">
+        {{ spec.label }}
+      </p>
+      <p class="text-sm font-medium text-[#1A365D]">{{ spec.value }}</p>
+    </div>
     }
   </div>
 </div>
@@ -205,13 +172,13 @@
       </div>
       <div class="space-y-1">
         @for (row of ratingBreakdown; track row.stars) {
-          <div class="flex items-center gap-2 text-xs text-[#43474E]">
-            <span class="w-3">{{ row.stars }}</span>
-            <div class="flex-1 bg-[#E5E9EB] rounded-full h-1.5">
-              <div class="bg-[#13696A] h-1.5 rounded-full" [style.width.%]="row.percent"></div>
-            </div>
-            <span class="w-6 text-right">{{ row.percent }}%</span>
+        <div class="flex items-center gap-2 text-xs text-[#43474E]">
+          <span class="w-3">{{ row.stars }}</span>
+          <div class="flex-1 bg-[#E5E9EB] rounded-full h-1.5">
+            <div class="bg-[#13696A] h-1.5 rounded-full" [style.width.%]="row.percent"></div>
           </div>
+          <span class="w-6 text-right">{{ row.percent }}%</span>
+        </div>
         }
       </div>
     </div>
@@ -219,7 +186,7 @@
     <!-- Review Cards -->
     <div class="flex-1 space-y-4">
       @for (review of reviews; track review.name) {
-        <app-review-card [review]="review" />
+      <app-review-card [review]="review" />
       }
       <div class="text-center pt-2">
         <button class="text-sm text-[#1A365D] font-semibold underline">View All 128 Reviews</button>
@@ -233,29 +200,19 @@
   <p class="text-left text-xs tracking-widest text-[#43474E] uppercase mb-6">YOU MAY ALSO LIKE</p>
   <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
     @for (item of pairings; track item.name) {
-      <app-product-card
-        [image]="item.image"
-        [name]="item.name"
-        [subtitle]="item.subtitle"
-        [price]="item.price"
-      />
+    <app-product-card [image]="item.image" [name]="item.name" [subtitle]="item.subtitle" [price]="item.price" />
     }
   </div>
 </div>
 
 <!-- Mobile Sticky Footer -->
-<div
-  class="fixed bottom-0 left-0 right-0 flex gap-3 p-4 bg-white border-t border-[#E5E9EB] md:hidden z-50"
->
+<div class="fixed bottom-0 left-0 right-0 flex gap-3 p-4 bg-white border-t border-[#E5E9EB] md:hidden z-50">
   <button
-    class="flex-1 py-3 border border-[#1A365D] text-[#1A365D] font-bold text-sm rounded flex items-center justify-center gap-2"
-  >
+    class="flex-1 py-3 border border-[#1A365D] text-[#1A365D] font-bold text-sm rounded flex items-center justify-center gap-2">
     <span class="material-symbols-outlined text-base">shopping_bag</span> ADD TO BAG
   </button>
-  <button
-    (click)="buyNow()"
-    class="flex-1 py-3 bg-[#1A365D] text-white font-bold text-sm rounded flex items-center justify-center gap-2"
-  >
+  <button (click)="buyNow()"
+    class="flex-1 py-3 bg-[#1A365D] text-white font-bold text-sm rounded flex items-center justify-center gap-2">
     <span class="material-symbols-outlined text-base">bolt</span> BUY NOW
   </button>
 </div>

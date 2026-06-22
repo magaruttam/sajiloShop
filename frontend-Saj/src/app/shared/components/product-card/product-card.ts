@@ -1,4 +1,4 @@
-import { Component, input, output, model, inject } from '@angular/core';
+import { Component, input, output, model, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -20,6 +20,12 @@ export class ProductCard {
   discount = input('');
   productId = input<number | undefined>();
   isFavorite = model(false);
+
+  // Sanitized image URL for display
+  displayImage = computed(() => {
+    const url = this.image();
+    return url ? url.replace(/\\/g, '') : '/images/product-image.png';
+  });
 
   favoriteToggled = output<void>();
 
